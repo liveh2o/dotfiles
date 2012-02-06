@@ -1,6 +1,9 @@
 export EDITOR=vim
 export ARCHFLAGS="-arch x86_64"
 
+source colors
+source completions
+
 # Prompt setup
 function parse_git_branch {
   echo `__git_ps1`

@@ -6,7 +6,7 @@ inspired by Ryan Bates' Dot Files (http://github.com/ryanb/dotfiles)
 
 == Installation
 
-  git clone git://github.com/ryanb/dotfiles ~/.dotfiles
+  git clone git://github.com/liveh2o/dotfiles ~/.dotfiles
   cd ~/.dotfiles
   rake install
 
@@ -29,3 +29,7 @@ most cases, but you can simply remove the files to flush the cache.
 
 If you're using git, you'll notice the current branch name shows up in
 the prompt while in a git repository.
+
+If there are some shell configuration settings which you want secure or specific to one system, place it into a ~/.localrc file. This will be loaded automatically if it exists.
+
+If you're using RVM, it's automatically loaded as well.

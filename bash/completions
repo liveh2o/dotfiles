@@ -1,0 +1,3 @@
+complete -C ~/.bash/completion_scripts/rake_completion -o default rake
+source ~/.bash/completion_scripts/git_completion
+source `brew --prefix`/Library/Contributions/brew_bash_completion.sh

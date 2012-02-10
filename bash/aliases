@@ -1,3 +1,6 @@
+# changing directory to code project
+function c { cd ~/Code/$1; }
+
 # general aliases
 alias cd..="cd .."
 alias l="ls -al"
@@ -14,3 +17,6 @@ alias bo="EDITOR=mate b open"
 alias bu="b update"
 alias bx="b exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
+
+# misc
+alias reload='. ~/.bash_profile'

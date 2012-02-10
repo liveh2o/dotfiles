@@ -1,3 +1,4 @@
+--ignore-dir=coverage
 --type-add=objc=.pch
 --type-add=ruby=.haml
 --type-set=xcode=.pbxproj,.pbxuser,.perspectivev3

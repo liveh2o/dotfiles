@@ -19,4 +19,5 @@ alias bx="b exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
 # misc
+alias path='echo $PATH'
 alias reload='. ~/.bash_profile'

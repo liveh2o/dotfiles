@@ -1,10 +1,13 @@
+--ignore-dir=cache
 --ignore-dir=coverage
+--ignore-dir=ruby
 --type-add=objc=.pch
 --type-add=ruby=.haml
 --type-set=xcode=.pbxproj,.pbxuser,.perspectivev3
 --type-set=ragel=.rl
 --type-set=nib=.xib
 --type-set=plist=.plist
+--type-set=bin=.pdf
 --type-set=tmstuff=.tmproj,.tm_build_errors
 --nonib
 --notmstuff

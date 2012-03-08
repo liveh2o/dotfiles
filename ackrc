@@ -1,6 +1,4 @@
---ignore-dir=cache
---ignore-dir=coverage
---ignore-dir=ruby
+--ignore-dir=cache,coverage,downloads,ruby
 --type-add=objc=.pch
 --type-add=ruby=.haml
 --type-set=xcode=.pbxproj,.pbxuser,.perspectivev3

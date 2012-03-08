@@ -1,0 +1,4 @@
+# Prompt setup
+function parse_git_branch {
+  echo `__git_ps1`
+}

@@ -3,10 +3,6 @@ export ARCHFLAGS="-arch x86_64"
 
 source ~/.bash/colors
 source ~/.bash/completions
-
-# Prompt setup
-function parse_git_branch {
-  echo `__git_ps1`
-}
+source ~/.bash/functions
 
 PS1="\h $CYAN \w$BRIGHT_VIOLET \$(parse_git_branch) $BRIGHT_WHITE\$ "

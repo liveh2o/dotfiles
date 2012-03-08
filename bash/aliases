@@ -18,6 +18,12 @@ alias bu="b update"
 alias bx="b exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
+# git aliases
+alias g="git"
+alias gs="g status"
+alias pop="g stash pop"
+alias stash="g stash"
+
 # misc
 alias path='echo $PATH'
 alias reload='. ~/.bash_profile'

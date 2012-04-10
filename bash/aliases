@@ -21,8 +21,11 @@ alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 # git aliases
 alias g="git"
 alias gs="g status"
+alias master="g checkout master"
 alias pop="g stash pop"
 alias stash="g stash"
+
+alias recompile="bx thor proto:clean --force; bx thor proto:compile"
 
 # misc
 alias path='echo $PATH'

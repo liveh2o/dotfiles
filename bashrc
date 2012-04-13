@@ -1,6 +1,11 @@
 source ~/.bash/aliases
 source ~/.bash/config
 
+# Add ~/.bin to the path
+if [ -d ${HOME}/.bin ]; then
+  PATH=$HOME/.bin:$PATH
+fi
+
 # Use .localrc for settings specific to one system
 if [ -f ~/.localrc ]; then
   source ~/.localrc

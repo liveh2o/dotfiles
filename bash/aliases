@@ -1,6 +1,3 @@
-# changing directory to code project
-function c { cd ~/Code/$1; }
-
 # general aliases
 alias cd..="cd .."
 alias l="ls -al"
@@ -12,18 +9,29 @@ alias kp="ps auxwww"
 
 # bundler aliases
 alias b="bundle"
-alias bi="b install --path vendor"
+alias bc="b console"
+alias bi="b install"
+alias biv="bi --path vendor && echo 'vendor/ruby' >> .gitignore"
+alias bivp="biv && bp"
+alias bl="b list"
 alias bo="EDITOR=mate b open"
+alias bout="b outdated"
+alias bp="b package"
 alias bu="b update"
 alias bx="b exec"
-alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
 # git aliases
 alias g="git"
+alias gb="g branch"
+alias gba="g branch -a"
+alias gc="g checkout"
 alias gs="g status"
-alias master="g checkout master"
 alias pop="g stash pop"
 alias stash="g stash"
+
+# textmate aliases
+alias m="mate -w ."
+alias m2="mate2 -w ."
 
 alias recompile="bx thor proto:clean --force; bx thor proto:compile"
 

@@ -1,8 +1,17 @@
+# Export some environment variables
 export EDITOR=vim
 export ARCHFLAGS="-arch x86_64"
 
+# Load the rest of the configuration
 source ~/.bash/colors
 source ~/.bash/completions
 source ~/.bash/functions
 
+# Map keys for better navigation
+bind '"\e\e[D": backward-word'
+bind '"\e\e[C": forward-word'
+bind '"\e[1;2H": beginning-of-line'
+bind '"\e[1;2F": end-of-line'
+
+# Setup the prompt
 PS1="\h $CYAN \w$BRIGHT_VIOLET \$(parse_git_branch) $BRIGHT_WHITE\$ "

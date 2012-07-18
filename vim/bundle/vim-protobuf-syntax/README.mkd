@@ -1,0 +1,4 @@
+# Google Protocol Buffer Syntax for Vim
+
+This is a [Vundle](https://github.com/gmarik/vundle)/[Pathogen](https://github.com/tpope/vim-pathogen) ready mirror of the *Google Protocol Buffer syntax* file for Vim that the [protobuf project](http://code.google.com/p/protobuf) itself makes available [somewhere in their SVN repository](http://code.google.com/p/protobuf/source/browse/trunk/editors/proto.vim).
+

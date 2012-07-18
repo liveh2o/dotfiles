@@ -1,0 +1,11 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2220
+
+This color scheme is based upon the evening color scheme with only slight modifications.
+So most (99%) of the credit for this color scheme belongs to the maintainer
+of the original work, Bram Moolenaar.
+
+The main differences are: It does not use a black background for some keywords but uses a darker global background even for the cursor line. In gvim it also uses more bold fonts, and the statusline of inactive windows has a different background color than in the original scheme.
+
+The name was inspired by a colleague of mine, who preferes dark themes for his desktop and likes to work in dark rooms... no, he does not crumble to dust in sunlight, but he is close to it... ;-)
+
+I have only tested it with Vim 7.1.

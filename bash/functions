@@ -3,3 +3,27 @@ function c { cd ~/Code/$1; }
 
 # Prompt setup
 function parse_git_branch { echo `__git_ps1`; }
+
+# Downstream out-of-date branch check
+function downstream {
+  echo 'Downstream out-of-date branch check';
+  echo '[qa > master]';
+  git cherry -v master qa;
+  echo '[stage > qa]';
+  git cherry -v qa stage;
+  echo '[stable > stage]';
+  git cherry -v stage stable;
+  echo '[stable > master]';
+  git cherry -v master stable;
+}
+
+# Upstream branch check
+function upstream {
+  echo 'Upstream branch check';
+  echo '[master > qa]';
+  git cherry -v master qa;
+  echo '[qa > stage]';
+  git cherry -v stage qa;
+  echo '[stage > stable]';
+  git cherry -v stable stage;
+}

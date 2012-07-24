@@ -4,6 +4,33 @@ function c { cd ~/Code/$1; }
 # Prompt setup
 function parse_git_branch { echo `__git_ps1`; }
 
+# Pull all changes from origin
+function gsync {
+  echo 'Fetching origin...';
+  git fetch origin;
+  echo;
+  echo '[origin/master]';
+  echo '================================================================================';
+  git checkout master;
+  git merge origin/master;
+  echo;
+  echo '[origin/qa]';
+  echo '================================================================================';
+  git checkout qa
+  git merge origin/qa;
+  echo;
+  echo '[origin/stage]';
+  echo '================================================================================';
+  git checkout stage;
+  git merge origin/stage;
+  echo;
+  echo '[origin/stable]';
+  echo '================================================================================';
+  git checkout stable;
+  git merge origin/stable;
+  git checkout master;
+}
+
 # Downstream out-of-date branch check
 function downstream {
   echo 'Downstream out-of-date branch check';
@@ -21,7 +48,7 @@ function downstream {
 function upstream {
   echo 'Upstream branch check';
   echo '[master > qa]';
-  git cherry -v master qa;
+  git cherry -v qa master;
   echo '[qa > stage]';
   git cherry -v stage qa;
   echo '[stage > stable]';

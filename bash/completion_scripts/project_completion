@@ -4,19 +4,19 @@ class ProjectCompletion
   def initialize(command)
     @command = command
   end
-  
+
   def matches
     projects.select do |task|
       task[0, typed.length] == typed
     end
   end
-  
+
   def typed
     @command[/\s(.+?)$/, 1] || ''
   end
-  
+
   def projects
-    `ls ~/Code/`.split
+    `ls #{ENV['PROJECT_PATH']}/`.split
   end
 end
 

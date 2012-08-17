@@ -1,5 +1,5 @@
 # Changing directory to code project
-function c { cd ~/Code/$1; }
+function c { cd $PROJECT_PATH/$1; }
 
 # Prompt setup
 function parse_git_branch { echo `__git_ps1`; }

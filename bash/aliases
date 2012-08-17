@@ -22,6 +22,8 @@ alias bx="b exec"
 
 # git aliases
 alias g="git"
+alias ga="g add ."
+alias gaa="g add -A"
 alias gb="g branch"
 alias gba="g branch -a"
 alias gc="g checkout"

@@ -1,7 +1,7 @@
 # Export some environment variables
 export EDITOR=vim
 export ARCHFLAGS="-arch x86_64"
-export PROJECT_PATH="~/Code"
+export PROJECT_PATH=$HOME/Code
 
 # Load the rest of the configuration
 source ~/.bash/colors

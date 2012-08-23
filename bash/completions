@@ -9,7 +9,9 @@ else
   echo "Hmmm... git doesn't seem to be installed."
 fi
 
+source ~/.bash/completion_scripts/ssh_completion
+
 complete -C ~/.bash/completion_scripts/capistrano_completion -o default cap
 complete -C ~/.bash/completion_scripts/project_completion -o default c
 complete -C ~/.bash/completion_scripts/rake_completion -o default rake
-complete -C ~/.bash/completion_scripts/ssh_completion -o default -F _ssh ssh
+complete -o default -F _ssh ssh

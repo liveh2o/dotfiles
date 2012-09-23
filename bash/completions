@@ -4,7 +4,11 @@ fi
 
 if which git &> /dev/null; then
   source ~/.bash/completion_scripts/git_completion
+  complete -o default -F _git_add ga
+  complete -o default -F _git_branch gb
   complete -o default -F _git_checkout gc
+  complete -o default -F _git_fetch gf
+  complete -o default -F _git_stash stash
 else
   echo "Hmmm... git doesn't seem to be installed."
 fi

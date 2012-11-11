@@ -20,9 +20,6 @@ filetype plugin indent on
 set nu
 set showmatch
 
-" Set syntax highlighting
-syntax on
-
 " Set highlight search
 set hls
 
@@ -53,8 +50,10 @@ autocmd VimLeave * if filereadable($HOME."/.vim/.netrwhist") | call delete($HOME
 " For Ack.vim
 let g:ackprg="ack-grep -H --nocolor --nogroup --nosql --column --ignore-dir=doc"
 
-" Default colorscheme
-colorscheme darkmate
+" Solarized
+syntax enable
+set background=dark
+colorscheme solarized
 
 " Change autocomplete PINK background
 highlight Pmenu ctermbg=238 gui=bold

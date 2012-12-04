@@ -2,7 +2,7 @@
 function c { cd $PROJECT_PATH/$1; }
 
 # Search through the whole codebase
-function hunt { find $PROJECT_PATH -type f -name "$1" -not -path "*vendor*" | xargs ack -Q $2; }
+function hunt { find $PROJECT_PATH -type f -name "$1" -not -path "*vendor*" -print0 | xargs -0 ack -Q $2; }
 
 # Prompt setup
 function parse_git_branch { echo `__git_ps1`; }

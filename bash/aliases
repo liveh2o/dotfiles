@@ -34,9 +34,6 @@ alias stash="g stash"
 
 # textmate aliases
 alias m="mate -w ."
-alias m2="mate2 -w ."
-
-alias recompile="bx thor proto:clean --force; bx thor proto:compile"
 
 # misc
 alias path='echo $PATH'

@@ -2,6 +2,7 @@
 export EDITOR=vim
 export ARCHFLAGS="-arch x86_64"
 export PROJECT_PATH=$HOME/Code
+export JRUBY_OPTS="-Xcext.enabled=true"
 
 # Load the rest of the configuration
 source ~/.bash/colors

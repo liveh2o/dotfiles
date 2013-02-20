@@ -36,5 +36,6 @@ alias stash="g stash"
 alias m="mate -w ."
 
 # misc
+alias derp='PB_IGNORE_DEPRECATIONS=1'
 alias path='echo $PATH'
 alias reload='. ~/.bash_profile'

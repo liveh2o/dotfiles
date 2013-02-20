@@ -31,6 +31,8 @@ function gsync {
   echo '================================================================================';
   git checkout stable;
   git merge origin/stable;
+  echo 'Pruning old remote branches...'
+  git remote prune origin
   git checkout master;
 }
 

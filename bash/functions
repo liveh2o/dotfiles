@@ -9,31 +9,37 @@ function parse_git_branch { echo `__git_ps1`; }
 
 # Pull all changes from origin
 function gsync {
-  echo 'Fetching origin...';
-  git fetch origin;
-  echo;
-  echo '[origin/master]';
-  echo '================================================================================';
-  git checkout master;
-  git merge origin/master;
-  echo;
-  echo '[origin/qa]';
-  echo '================================================================================';
-  git checkout qa
-  git merge origin/qa;
-  echo;
-  echo '[origin/stage]';
-  echo '================================================================================';
-  git checkout stage;
-  git merge origin/stage;
-  echo;
-  echo '[origin/stable]';
-  echo '================================================================================';
-  git checkout stable;
-  git merge origin/stable;
-  echo 'Pruning old remote branches...'
+  git status
+  git diff-index --quiet HEAD --
+  [ $? -ne 0 ] && echo "You have local changes that haven't been committed!" && return
   git remote prune origin
-  git checkout master;
+  git fetch origin
+
+  failedbranches=()
+  startbranch=$(git branch | grep '*' | sed -e 's/* //')
+  for branch in $(git branch | sed -e 's|* ||g' -e 's|^[ ]*||')
+  do
+    git rev-parse origin/$branch &> /dev/null
+    if [[ $? -eq 0 ]]
+    then
+      currev=$(git rev-parse $branch)
+      syncrev=$(git rev-parse origin/$branch)
+      if [[ $currev != $syncrev ]]
+      then
+        echo " > Synchronizing branch $branch"
+        git checkout $branch
+        git merge origin/$branch
+      fi
+    else
+      echo " ! Branch $branch doesn't have an origin"
+      failedbranches+=$branch
+    fi
+  done
+  [ "${#failedbranches}" -gt 0 ] && echo " ! Failed syncing branches $failedbranches"
+
+  curbranch=$(git branch | grep '*' | sed -e 's/* //')
+  [ startbranch != curbranch ] && git checkout $startbranch
+  echo "Local branches are in sync."
 }
 
 # Downstream out-of-date branch check
@@ -43,8 +49,12 @@ function downstream {
   git cherry -v master qa;
   echo '[stage > qa]';
   git cherry -v qa stage;
+  echo '[int > stage]';
+  git cherry -v stage int;
   echo '[stable > stage]';
   git cherry -v stage stable;
+  echo '[stable > int]';
+  git cherry -v int stable;
   echo '[stable > master]';
   git cherry -v master stable;
 }
@@ -56,6 +66,8 @@ function upstream {
   git cherry -v qa master;
   echo '[qa > stage]';
   git cherry -v stage qa;
+  echo '[stage > int]';
+  git cherry -v int stage;
   echo '[stage > stable]';
   git cherry -v stable stage;
 }

@@ -71,3 +71,6 @@ function upstream {
   echo '[stage > stable]';
   git cherry -v stable stage;
 }
+
+# Switch to Ruby 2 with a gemset of the current directory
+function rb { rvm use ruby-2.0.0-p0@${PWD##*/} }

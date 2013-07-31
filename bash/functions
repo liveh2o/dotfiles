@@ -72,7 +72,12 @@ function upstream {
   git cherry -v stable stage;
 }
 
+# Switch to JRuby 1.7.3 with a gemset of the current directory
+function jrb {
+  rvm use jruby-1.7.3@${PWD##*/} --create
+}
+
 # Switch to Ruby 2 with a gemset of the current directory
 function rb {
-  rvm use ruby-2.0.0-p0@${PWD##*/}
+  rvm use ruby-2.0.0-p195@${PWD##*/} --create
 }

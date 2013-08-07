@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby-2.0.0-p195
+#!/usr/bin/env ruby-2.0.0-p247
 
 class ProjectCompletion
   def initialize(command)

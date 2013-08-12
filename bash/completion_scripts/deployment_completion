@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby-2.0.0-p247
+
+class DeploymentCompletion
+  def initialize(command)
+    @command = command
+  end
+
+  def matches
+    projects.select do |task|
+      task[0, typed.length] == typed
+    end
+  end
+
+  def typed
+    @command[/\s(.+?)$/, 1] || ''
+  end
+
+  def projects
+    `ls #{ENV['PROJECT_PATH']}/deploys`.split
+  end
+end
+
+puts DeploymentCompletion.new(ENV["COMP_LINE"]).matches
+exit 0

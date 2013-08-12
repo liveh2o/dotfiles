@@ -40,3 +40,8 @@ alias m="mate -w ."
 alias derp='PB_IGNORE_DEPRECATIONS=1'
 alias path='echo $PATH'
 alias reload='. ~/.bash_profile'
+alias zmq='PB_CLIENT_TYPE=zmq PB_SERVER_TYPE=zmq'
+
+if [ `uname` == 'Darwin' ]; then
+  alias ls="ls -G"
+fi

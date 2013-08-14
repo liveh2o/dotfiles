@@ -58,8 +58,6 @@ function downstream {
   git cherry -v stage stable;
   echo '[stable > int]';
   git cherry -v int stable;
-  echo '[stable > master]';
-  git cherry -v master stable;
 }
 
 # Upstream branch check

@@ -38,8 +38,11 @@ alias m="mate -w ."
 
 # misc
 alias derp='PB_IGNORE_DEPRECATIONS=1'
+alias jitless='JRUBY_OPTS="$JRUBY_OPTS -J-Djruby.compile.mode=OFF"'
+alias nojit='jitless'
 alias path='echo $PATH'
 alias reload='. ~/.bash_profile'
+alias turbo='jitless derp'
 alias zmq='PB_CLIENT_TYPE=zmq PB_SERVER_TYPE=zmq'
 
 if [ `uname` == 'Darwin' ]; then

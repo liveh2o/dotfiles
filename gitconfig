@@ -1,0 +1,7 @@
+[user]
+	name = Adam Hutchison
+	email = liveh2o@gmail.com
+[push]
+	default = simple
+[color]
+	ui = true

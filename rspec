@@ -1,0 +1,4 @@
+--backtrace
+--color
+--order rand
+--format RSpec::Pride

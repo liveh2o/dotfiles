@@ -5,3 +5,5 @@
 	default = simple
 [color]
 	ui = true
+[core]
+	excludesfile = /Users/adam/.gitignore_global

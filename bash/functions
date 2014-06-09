@@ -52,12 +52,8 @@ function downstream {
   git cherry -v master qa;
   echo '[stage > qa]';
   git cherry -v qa stage;
-  echo '[int > stage]';
-  git cherry -v stage int;
   echo '[stable > stage]';
   git cherry -v stage stable;
-  echo '[stable > int]';
-  git cherry -v int stable;
 }
 
 # Upstream branch check
@@ -67,8 +63,6 @@ function upstream {
   git cherry -v qa master;
   echo '[qa > stage]';
   git cherry -v stage qa;
-  echo '[stage > int]';
-  git cherry -v int stage;
   echo '[stage > stable]';
   git cherry -v stable stage;
 }

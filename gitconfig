@@ -6,4 +6,7 @@
 [color]
 	ui = true
 [core]
-	excludesfile = /Users/adam/.gitignore_global
+	excludesfile = /Users/ah/.gitignore_global
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f

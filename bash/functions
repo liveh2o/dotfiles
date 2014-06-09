@@ -78,7 +78,7 @@ function jrb {
   rvm use jruby@${PWD##*/} --create
 }
 
-# Switch to Ruby 2 with a gemset of the current directory
+# Switch to Ruby 2.1 with a gemset of the current directory
 function rb {
-  rvm use 2.0.0@${PWD##*/} --create
+  rvm use 2.1.1@${PWD##*/} --create
 }

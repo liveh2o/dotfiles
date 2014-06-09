@@ -14,7 +14,7 @@ alias bi="b install"
 alias biv="bi --path vendor && echo 'vendor/ruby' >> .gitignore"
 alias bivp="biv && bp"
 alias bl="b list"
-alias bo="EDITOR=mate b open"
+alias bo="EDITOR=atom b open"
 alias bout="b outdated"
 alias bp="b package"
 alias bu="b update"
@@ -33,7 +33,8 @@ alias gs="g status"
 alias pop="g stash pop"
 alias stash="g stash"
 
-# textmate aliases
+# editor aliases
+alias a="atom ."
 alias m="mate -w ."
 
 # misc

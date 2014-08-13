@@ -20,5 +20,9 @@ complete -C ~/.bash/completion_scripts/project_completion -o default c
 complete -C ~/.bash/completion_scripts/deployment_completion -o default d
 complete -C ~/.bash/completion_scripts/rake_completion -o default rake
 complete -o default -F _ssh ssh
+complete -o default -F _ssh sshmux
+complete -o default -F _ssh ping
+complete -o default -F _ssh ns
+complete -o default -F _ssh nslookup
 
 [[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion

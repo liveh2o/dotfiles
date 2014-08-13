@@ -43,12 +43,12 @@ alias m="mate -w ."
 alias dotfiles='cd ~/.dotfiles'
 alias derp='PB_IGNORE_DEPRECATIONS=1'
 alias jitless='JRUBY_OPTS="$JRUBY_OPTS -J-Djruby.compile.mode=OFF"'
-alias nojit='jitless'
+alias jrbdev='JRUBY_OPTS="$JRUBY_OPTS --dev"'
 alias ns='nslookup'
 alias path='echo $PATH'
 alias redis='redis-server /usr/local/etc/redis.conf'
 alias reload='. ~/.bash_profile'
-alias turbo='jitless derp'
+alias turbo='jrbdev derp'
 alias zmq='PB_CLIENT_TYPE=zmq PB_SERVER_TYPE=zmq'
 
 if [ `uname` == 'Darwin' ]; then

@@ -1,3 +1,10 @@
 --color
 --order rand
---format RSpec::Pride
+--format <%=
+  begin
+    require 'rspec/pride'
+    RSpec::Pride
+  rescue LoadError => e
+    "progress"
+  end
+%>

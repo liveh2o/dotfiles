@@ -29,6 +29,8 @@ alias gba="g branch -a"
 alias gc="g checkout"
 alias gf="g fetch"
 alias gi="g commit"
+alias gl="g log"
+alias glo="gl --oneline"
 alias gs="g status"
 alias pop="g stash pop"
 alias stash="g stash"
@@ -42,6 +44,7 @@ alias dotfiles='cd ~/.dotfiles'
 alias derp='PB_IGNORE_DEPRECATIONS=1'
 alias jitless='JRUBY_OPTS="$JRUBY_OPTS -J-Djruby.compile.mode=OFF"'
 alias nojit='jitless'
+alias ns='nslookup'
 alias path='echo $PATH'
 alias redis='redis-server /usr/local/etc/redis.conf'
 alias reload='. ~/.bash_profile'

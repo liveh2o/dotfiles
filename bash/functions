@@ -76,3 +76,8 @@ function jrb {
 function rb {
   rvm use 2.1.2@${PWD##*/} --create
 }
+
+# Switch to Ruby version specified in the current directory
+function localrb {
+  rvm use .
+}

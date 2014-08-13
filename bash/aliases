@@ -42,6 +42,7 @@ alias m="mate -w ."
 # misc
 alias dotfiles='cd ~/.dotfiles'
 alias derp='PB_IGNORE_DEPRECATIONS=1'
+alias lrb='localrb'
 alias jitless='JRUBY_OPTS="$JRUBY_OPTS -J-Djruby.compile.mode=OFF"'
 alias jrbdev='JRUBY_OPTS="$JRUBY_OPTS --dev"'
 alias ns='nslookup'

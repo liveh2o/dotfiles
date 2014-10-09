@@ -10,11 +10,69 @@ function hunt { find $PROJECT_PATH -type f -name "$1" -not -path "*vendor*" -pri
 # Prompt setup
 function parse_git_branch { echo `__git_ps1`; }
 
+# Backport changes downstream
+function backport {
+  gsync
+  startbranch=$(git branch | grep '*' | sed -e 's/* //')
+  echo 'Backporting stable > stage';
+  git checkout stage
+  git merge stable
+  git push origin stage
+  echo  'Backporting stage > qa';
+  git checkout qa
+  git merge stage
+  git push origin qa
+  echo 'Backporting qa > master';
+  git checkout master
+  git merge qa
+  git push origin master
+
+  curbranch=$(git branch | grep '*' | sed -e 's/* //')
+  [ startbranch != curbranch ] && git checkout $startbranch
+  echo "All branches have been backported."
+}
+
+# Hard-reset branches back to origin
+function hardreset {
+  git status
+  git diff-index --quiet HEAD --
+  [ $? -ne 0 ] && echo "You have local changes that haven't been committed!" && return
+
+  git fetch origin
+
+  failedbranches=()
+  startbranch=$(git branch | grep '*' | sed -e 's/* //')
+  for branch in $(git branch | sed -e 's|* ||g' -e 's|^[ ]*||')
+  do
+    git rev-parse origin/$branch &> /dev/null
+    if [[ $? -eq 0 ]]
+    then
+      currev=$(git rev-parse $branch)
+      syncrev=$(git rev-parse origin/$branch)
+      if [[ $currev != $syncrev ]]
+      then
+        echo " > Resetting branch $branch to origin/$branch"
+        git checkout $branch
+        git reset origin/$branch --hard
+      fi
+    else
+      echo " ! Branch $branch doesn't have an origin"
+      failedbranches+=$branch
+    fi
+  done
+  [ "${#failedbranches}" -gt 0 ] && echo " ! Failed resetting branches $failedbranches"
+
+  curbranch=$(git branch | grep '*' | sed -e 's/* //')
+  [ startbranch != curbranch ] && git checkout $startbranch
+  echo "Local branches have been reset."
+}
+
 # Pull all changes from origin
 function gsync {
   git status
   git diff-index --quiet HEAD --
   [ $? -ne 0 ] && echo "You have local changes that haven't been committed!" && return
+
   git remote prune origin
   git fetch origin
 

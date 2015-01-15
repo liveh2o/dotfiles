@@ -133,6 +133,9 @@ function jrb {
   rvm use jruby@${PWD##*/} --create
 }
 
+# Link a given Ruby into the RVM bin so it can be executed directly
+function linkrb {
+  ln -s $rvm_path/rubies/$1/bin/ruby $rvm_bin_path/$1
 }
 
 # Switch to Ruby version specified in the current directory

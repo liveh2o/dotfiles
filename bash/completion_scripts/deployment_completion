@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby-2.1.3
+#!/usr/bin/env default_ruby
 
 class DeploymentCompletion
   def initialize(command)

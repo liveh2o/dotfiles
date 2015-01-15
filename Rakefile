@@ -30,6 +30,9 @@ task :install do
       link_file(file)
     end
   end
+
+  puts "linking default ruby"
+  system %Q{ln -s -i "$rvm_path/rubies/default/bin/ruby" "$rvm_bin_path/default_ruby"}
 end
 
 def replace_file(file)

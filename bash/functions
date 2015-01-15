@@ -4,6 +4,9 @@ function c { cd $PROJECT_PATH/$1; }
 # Changing directory to code project
 function d { cd $PROJECT_PATH/deploys/$1; }
 
+# Interactively rebase the current git branch
+function rebase { git rebase -i HEAD~$1; }
+
 # Search through the whole codebase
 function hunt { find $PROJECT_PATH -type f -name "$1" -not -path "*vendor*" -print0 | xargs -0 ack -Q $2; }
 

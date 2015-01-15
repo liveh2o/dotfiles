@@ -133,12 +133,14 @@ function jrb {
   rvm use jruby@${PWD##*/} --create
 }
 
-# Switch to Ruby 2.1 with a gemset of the current directory
-function rb {
-  rvm use 2.1.2@${PWD##*/} --create
 }
 
 # Switch to Ruby version specified in the current directory
 function localrb {
   rvm use .
+}
+
+# Switch to latest Ruby with a gemset of the current directory
+function rb {
+  rvm use ruby@${PWD##*/} --create
 }

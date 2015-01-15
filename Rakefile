@@ -46,9 +46,9 @@ def link_file(file)
 
     if file =~ /gitconfig/
       print "  git user.name: "
-      ENV['GIT_USER_NAME'] = STDIN.gets.chomp
+      ENV['GIT_USER_NAME'] = $stdin.gets.chomp
       print "  git user.email: "
-      ENV['GIT_USER_EMAIL'] = STDIN.gets.chomp
+      ENV['GIT_USER_EMAIL'] = $stdin.gets.chomp
     end
 
     File.open(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"), 'w') do |new_file|

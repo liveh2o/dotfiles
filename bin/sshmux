@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# SSHMUX
+# ------
+#
+# SSH multiplexing made easy
+#
+# EXAMPLES:
+#  sshmux app1.example.com app2.example.com"
+#  sshmux app{1..2}.example.com"
+#  sshmux app.{site1,site2}.com"
+_sshmux () {
+  local hosts=($*)
+  local ssh="ssh -o StrictHostKeyChecking=no -o ConnectTimeout=1"
+  local tty=$(tty)
+  local session="sshmux-$RANDOM"
+
+  if [ -z "$hosts" ]; then
+    echo "usage: sshmux host1 host2 host3"
+    echo
+    echo "examples"
+    echo "  sshmux app1.example.com app2.example.com"
+    echo "  sshmux app{1..2}.example.com"
+    echo "  sshmux app.{site1,site2}.com"
+    exit 1
+  fi
+
+  for host in "${hosts[@]}"; do
+    local cmd="$ssh $host || echo 'Could not connect to $host' > $tty"
+
+    if tmux has-session -t $session 2>/dev/null; then
+      tmux split-window -v "$cmd"
+      tmux select-layout tiled > /dev/null
+    else
+     tmux new-session -d -s $session "$cmd"
+    fi
+  done
+
+  tmux setw synchronize-panes on > /dev/null
+
+  if [ "$TERM_PROGRAM" == "iTerm.app" ]; then
+    tmux -CC attach -t $session
+  else
+    tmux attach -t $session
+  fi
+}
+
+_sshmux $*

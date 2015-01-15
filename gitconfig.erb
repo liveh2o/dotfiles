@@ -1,12 +1,12 @@
 [user]
-	name = Adam Hutchison
-	email = liveh2o@gmail.com
+	name = <%= ENV['GIT_USER_NAME'] %>
+	email = <%= ENV['GIT_USER_EMAIL'] %>
 [push]
 	default = simple
 [color]
 	ui = true
 [core]
-	excludesfile = /Users/ah/.gitignore_global
+	excludesfile = <%=ENV['HOME'] %>/.gitignore_global
 [filter "media"]
 	required = true
 	clean = git media clean %f

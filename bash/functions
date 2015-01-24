@@ -38,6 +38,26 @@ function backport {
   echo "All branches have been backported."
 }
 
+# List all releases matching a specific tag (e.g. prod-2015)
+# Also accepts an optional directory
+function releases {
+  local current_directory=$PWD
+  local total_releases=0
+  local directory=${2:-'.'}
+
+  for repo in $(ls $directory)
+  do
+    cd $current_directory/$repo
+    local releases=$(git tag | grep $1 | wc -l | tr -d ' ')
+    total_releases=$((releases + total_releases))
+    echo "$repo: $releases"
+  done
+
+  echo "total: $total_releases"
+
+  cd $current_directory
+}
+
 # Hard-reset branches back to origin
 function hardreset {
   git status

@@ -1,3 +1,5 @@
+#!bash
+#
 # Changing directory to code project
 function c { cd $PROJECT_PATH/$1; }
 

@@ -69,8 +69,8 @@ function hardreset {
 
   git fetch origin
 
-  failedbranches=()
   startbranch=$(git branch | grep '*' | sed -e 's/* //')
+
   for branch in $(git branch | sed -e 's|* ||g' -e 's|^[ ]*||')
   do
     git rev-parse origin/$branch &> /dev/null
@@ -86,10 +86,8 @@ function hardreset {
       fi
     else
       echo " ! Branch $branch doesn't have an origin"
-      failedbranches+=$branch
     fi
   done
-  [ "${#failedbranches}" -gt 0 ] && echo " ! Failed resetting branches $failedbranches"
 
   curbranch=$(git branch | grep '*' | sed -e 's/* //')
   [ startbranch != curbranch ] && git checkout $startbranch
@@ -133,7 +131,6 @@ function __git_sync_remote_branches {
   git remote prune origin
   git fetch origin
 
-  local failedbranches=()
   local startbranch=$(git branch | grep '*' | sed -e 's/* //')
 
   for branch in $(git branch | sed -e 's|* ||g' -e 's|^[ ]*||')
@@ -153,11 +150,8 @@ function __git_sync_remote_branches {
       fi
     else
       echo " ! Branch $branch doesn't have an origin"
-      local failedbranches+=$branch
     fi
   done
-
-  [ "${#failedbranches}" -gt 0 ] && echo " ! Failed syncing branches $failedbranches"
 
   local curbranch=$(git branch | grep '*' | sed -e 's/* //')
   [ startbranch != curbranch ] && git checkout $startbranch

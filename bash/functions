@@ -12,6 +12,15 @@ function rebase {
   git rebase -i HEAD~$1
 }
 
+function cherry {
+  __git_repo_check
+
+  local upstream=${1:-'master'}
+  local head=${2:-'HEAD'}
+
+  git cherry -v $upstream $head
+}
+
 # Search through the whole codebase
 function hunt { find $PROJECT_PATH -type f -name "$1" -not -path "*vendor*" -print0 | xargs -0 ack -Q $2; }
 

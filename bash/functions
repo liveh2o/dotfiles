@@ -31,22 +31,26 @@ function parse_git_branch { echo `__git_ps1`; }
 function backport {
   __git_sync_remote_branches
 
-  startbranch=$(git branch | grep '*' | sed -e 's/* //')
+  local startbranch=$(git branch | grep '*' | sed -e 's/* //')
+
   echo 'Backporting stable > stage';
   git checkout stage
   git merge stable
   git push origin stage
+
   echo  'Backporting stage > qa';
   git checkout qa
   git merge stage
   git push origin qa
+
   echo 'Backporting qa > master';
   git checkout master
   git merge qa
   git push origin master
 
-  curbranch=$(git branch | grep '*' | sed -e 's/* //')
+  local curbranch=$(git branch | grep '*' | sed -e 's/* //')
   [ startbranch != curbranch ] && git checkout $startbranch
+
   echo "All branches have been backported."
 }
 
@@ -78,7 +82,7 @@ function hardreset {
 
   git fetch origin
 
-  startbranch=$(git branch | grep '*' | sed -e 's/* //')
+  local startbranch=$(git branch | grep '*' | sed -e 's/* //')
 
   for branch in $(git branch | sed -e 's|* ||g' -e 's|^[ ]*||')
   do
@@ -98,8 +102,9 @@ function hardreset {
     fi
   done
 
-  curbranch=$(git branch | grep '*' | sed -e 's/* //')
+  local curbranch=$(git branch | grep '*' | sed -e 's/* //')
   [ startbranch != curbranch ] && git checkout $startbranch
+
   echo "Local branches have been reset."
 }
 

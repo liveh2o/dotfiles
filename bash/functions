@@ -31,7 +31,7 @@ function parse_git_branch { echo `__git_ps1`; }
 function backport {
   __git_sync_remote_branches
 
-  local startbranch=$(git branch | grep '*' | sed -e 's/* //')
+  local startbranch=$(__git_current_branch)
 
   echo 'Backporting stable > stage';
   git checkout stage
@@ -48,8 +48,7 @@ function backport {
   git merge qa
   git push origin master
 
-  local curbranch=$(git branch | grep '*' | sed -e 's/* //')
-  [ startbranch != curbranch ] && git checkout $startbranch
+  __git_checkout_unless_current $startbranch
 
   echo "All branches have been backported."
 }
@@ -82,9 +81,9 @@ function hardreset {
 
   git fetch origin
 
-  local startbranch=$(git branch | grep '*' | sed -e 's/* //')
+  local startbranch=$(__git_current_branch)
 
-  for branch in $(git branch | sed -e 's|* ||g' -e 's|^[ ]*||')
+  for branch in $(__git_branches)
   do
     git rev-parse origin/$branch &> /dev/null
     if [[ $? -eq 0 ]]
@@ -102,8 +101,7 @@ function hardreset {
     fi
   done
 
-  local curbranch=$(git branch | grep '*' | sed -e 's/* //')
-  [ startbranch != curbranch ] && git checkout $startbranch
+  __git_checkout_unless_current $startbranch
 
   echo "Local branches have been reset."
 }
@@ -123,6 +121,20 @@ function gsync {
     *)
       __git_sync_remote_branches;;
   esac
+}
+
+function __git_branches {
+  git branch | sed -e 's|* ||g' -e 's|^[ ]*||'
+}
+
+function __git_checkout_unless_current {
+  [ $1 ] && [ $1 != $(__git_current_branch) ] && git checkout $1
+}
+
+function __git_current_branch {
+  __git_repo_check
+
+  git branch | grep '*' | sed -e 's/* //'
 }
 
 function __git_repo_check {
@@ -145,9 +157,9 @@ function __git_sync_remote_branches {
   git remote prune origin
   git fetch origin
 
-  local startbranch=$(git branch | grep '*' | sed -e 's/* //')
+  local startbranch=$(__git_current_branch)
 
-  for branch in $(git branch | sed -e 's|* ||g' -e 's|^[ ]*||')
+  for branch in $(__git_branches)
   do
     git rev-parse origin/$branch &> /dev/null
 
@@ -167,8 +179,7 @@ function __git_sync_remote_branches {
     fi
   done
 
-  local curbranch=$(git branch | grep '*' | sed -e 's/* //')
-  [ startbranch != curbranch ] && git checkout $startbranch
+  __git_checkout_unless_current $startbranch
 
   echo "Local branches are in sync."
 }

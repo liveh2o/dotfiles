@@ -21,7 +21,10 @@ git_bundles = [
 
 vim_org_scripts = [
   ["IndentAnything", "10228", "syntax"],
+  ["vibrantink", "10117", "colors"]
 ]
+
+get_requests = []
 
 require 'fileutils'
 require 'open-uri'

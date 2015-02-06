@@ -186,24 +186,30 @@ function __git_sync_remote_branches {
 
 # Downstream out-of-date branch check
 function downstream {
-  echo 'Downstream out-of-date branch check';
-  echo '[qa > master]';
-  git cherry -v master qa;
-  echo '[stage > qa]';
-  git cherry -v qa stage;
-  echo '[stable > stage]';
-  git cherry -v stage stable;
+  echo 'Downstream out-of-date branch check'
+
+  echo '[qa > master]'
+  cherry master qa
+
+  echo '[stage > qa]'
+  cherry qa stage
+
+  echo '[stable > stage]'
+  cherry stage stable
 }
 
 # Upstream branch check
 function upstream {
-  echo 'Upstream branch check';
-  echo '[master > qa]';
-  git cherry -v qa master;
-  echo '[qa > stage]';
-  git cherry -v stage qa;
-  echo '[stage > stable]';
-  git cherry -v stable stage;
+  echo 'Upstream branch check'
+
+  echo '[master > qa]'
+  cherry qa master
+
+  echo '[qa > stage]'
+  cherry stage qa
+
+  echo '[stage > stable]'
+  cherry stable stage
 }
 
 # Switch to latest JRuby with a gemset of the current directory

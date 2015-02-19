@@ -49,6 +49,7 @@ alias ns='nslookup'
 alias path='echo $PATH'
 alias redis='redis-server /usr/local/etc/redis.conf'
 alias reload='. ~/.bash_profile'
+alias tbx='turbo bx'
 alias turbo='jrbdev derp'
 alias zmq='PB_CLIENT_TYPE=zmq PB_SERVER_TYPE=zmq'
 

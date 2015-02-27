@@ -33,14 +33,9 @@ function backport {
 
   local startbranch=$(__git_current_branch)
 
-  echo 'Backporting stable > stage';
-  git checkout stage
-  git merge stable
-  git push origin stage
-
-  echo  'Backporting stage > qa';
+  echo 'Backporting stable > qa';
   git checkout qa
-  git merge stage
+  git merge stable
   git push origin qa
 
   echo 'Backporting qa > master';
@@ -188,28 +183,22 @@ function __git_sync_remote_branches {
 function downstream {
   echo 'Downstream out-of-date branch check'
 
+  echo '[stable > qa]'
+  cherry qa stable
+
   echo '[qa > master]'
   cherry master qa
-
-  echo '[stage > qa]'
-  cherry qa stage
-
-  echo '[stable > stage]'
-  cherry stage stable
 }
 
 # Upstream branch check
 function upstream {
   echo 'Upstream branch check'
 
+  echo '[qa > stable]'
+  cherry stable qa
+
   echo '[master > qa]'
   cherry qa master
-
-  echo '[qa > stage]'
-  cherry stage qa
-
-  echo '[stage > stable]'
-  cherry stable stage
 }
 
 # Switch to latest JRuby with a gemset of the current directory

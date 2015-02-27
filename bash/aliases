@@ -39,6 +39,11 @@ alias stash="g stash"
 alias a="atom ."
 alias m="mate -w ."
 
+# trebuchet aliases
+alias prod="tbx treb prod"
+alias qa="tbx treb qa"
+alias sand="tbx treb sand"
+
 # misc
 alias dotfiles='cd ~/.dotfiles'
 alias derp='PB_IGNORE_DEPRECATIONS=1'

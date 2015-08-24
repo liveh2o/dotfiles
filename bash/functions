@@ -48,6 +48,28 @@ function backport {
   echo "All branches have been backported."
 }
 
+# List all commits matching a specific tag (e.g. prod-2015)
+# Also accepts an optional directory
+function commits {
+  __git_repo_check
+
+  local current_directory=$PWD
+  local total_commits=0
+  local directory=${2:-'.'}
+
+  for repo in $(ls $directory)
+  do
+    cd $current_directory/$repo
+    local commits=$(git rev-list HEAD --count)
+    total_commits=$((commits + total_commits))
+    echo "$repo: $commits"
+  done
+
+  echo "total: $total_commits"
+
+  cd $current_directory
+}
+
 # List all releases matching a specific tag (e.g. prod-2015)
 # Also accepts an optional directory
 function releases {

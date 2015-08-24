@@ -28,6 +28,7 @@ alias gb="g branch"
 alias gba="g branch -a"
 alias gc="g checkout"
 alias gf="g fetch"
+alias gh="g rev-parse HEAD"
 alias gi="g commit"
 alias gl="g log"
 alias glo="gl --oneline"
@@ -41,6 +42,7 @@ alias m="mate -w ."
 
 # trebuchet aliases
 alias prod="tbx treb prod"
+alias int="tbx treb int"
 alias qa="tbx treb qa"
 alias sand="tbx treb sand"
 

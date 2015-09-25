@@ -85,7 +85,7 @@ task :convert_osx_keychain_to_certfile do
     end
   end
 
-  puts <<MESSAGE
+  puts <<-MESSAGE
   You need to ensure that you export the SSL_CERT_FILE environment variable.
 
   In sh/zsh/bash use:

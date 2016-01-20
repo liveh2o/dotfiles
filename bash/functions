@@ -50,7 +50,26 @@ function backport {
 
 # List all commits matching a specific tag (e.g. prod-2015)
 # Also accepts an optional directory
-function commits {
+function commit-log {
+  __git_repo_check
+
+  local current_directory=$PWD
+  local total_commits=0
+  local directory=${2:-'.'}
+
+  for repo in $(ls $directory)
+  do
+    cd $current_directory/$repo
+    $(git log --after="2014-10-01" --before="2015-10-01" --format="%H,%ai,%an <%ae>,\"%B\"" > $current_directory/$repo-commits.csv)
+    $(git log --after="2014-10-01" --before="2015-10-01" > $current_directory/$repo-commits.log)
+  done
+
+  cd $current_directory
+}
+
+# List all commits matching a specific tag (e.g. prod-2015)
+# Also accepts an optional directory
+function commit-count {
   __git_repo_check
 
   local current_directory=$PWD

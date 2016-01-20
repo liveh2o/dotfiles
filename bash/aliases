@@ -48,7 +48,7 @@ alias sand="tbx treb sand"
 
 # misc
 alias dotfiles='cd ~/.dotfiles'
-alias derp='PB_IGNORE_DEPRECATIONS=1'
+alias derp='PB_IGNORE_DEPRECATIONS=1 RUBYOPT="-W0"'
 alias http='python -m SimpleHTTPServer'
 alias jitless='JRUBY_OPTS="$JRUBY_OPTS -J-Djruby.compile.mode=OFF"'
 alias jrbdev='JRUBY_OPTS="$JRUBY_OPTS --dev"'

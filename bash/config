@@ -3,6 +3,7 @@ PATH=$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
 
 # Export some environment variables
 export ARCHFLAGS="-arch x86_64"
+export DEPLOYMENT_PATH=$HOME/Deployment
 export EDITOR=vim
 export FIREBOLT_SKIP_WARMING="1"
 export GIT_PS1_SHOWDIRTYSTATE="1"

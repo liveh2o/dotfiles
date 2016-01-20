@@ -4,7 +4,7 @@
 function c { cd $PROJECT_PATH/$1; }
 
 # Changing directory to code project
-function d { cd $PROJECT_PATH/deploys/$1; }
+function d { cd $DEPLOYMENT_PATH/$1; }
 
 # Interactively rebase the current git branch
 function rebase {

@@ -16,7 +16,7 @@ class DeploymentCompletion
   end
 
   def projects
-    `ls #{ENV['PROJECT_PATH']}/deploys`.split
+    `ls #{ENV['DEPLOYMENT_PATH']}`.split
   end
 end
 

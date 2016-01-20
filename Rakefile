@@ -34,10 +34,12 @@ task :install do
   link_default_ruby
 end
 
+desc "link default ruby"
 task :link_default_ruby do
   link_default_ruby
 end
 
+desc "convert OSX keychain to certfile to fix OpenSSL issues"
 task :convert_osx_keychain_to_certfile do
   # https://gist.github.com/docwhat/24f0add92c2f43d8ec9e#file-keychain2certfile-rb-L30
   require 'fileutils'

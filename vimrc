@@ -64,3 +64,5 @@ set wildignore+=*.o,*.obj,.git,doc/**,*.sql,*.log
 " Load Command P on launch
 "autocmd VimEnter * wincmd p
 
+" Add spell check to git commits
+autocmd FileType gitcommit setlocal spell

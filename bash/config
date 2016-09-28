@@ -8,6 +8,7 @@ export EDITOR=vim
 export FIREBOLT_SKIP_WARMING="1"
 export GITHUB_ENTERPRISE="git.moneydesktop.com"
 export GIT_PS1_SHOWDIRTYSTATE="1"
+export JRUBY_OPTS="-J-Xmx2048m"
 export PROJECT_PATH=$HOME/Code
 export SSL_CERT_FILE="/usr/local/etc/openssl/cert.pem"
 

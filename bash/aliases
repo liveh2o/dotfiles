@@ -45,6 +45,7 @@ alias prod="tbx treb prod"
 alias int="tbx treb int"
 alias qa="tbx treb qa"
 alias sand="tbx treb sand"
+alias corp="tbx treb corp"
 
 # misc
 alias dotfiles='cd ~/.dotfiles'

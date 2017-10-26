@@ -552,11 +552,11 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>1236 480 606 456 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
-	<string>-948 453 616 174 -1280 0 1280 778 </string>
+	<string>1612 1474 616 174 0 0 3840 2138 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>447 278 606 469 0 0 3840 2138 </string>
+	<string>446 297 606 469 0 0 3840 2138 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1691 1122 918 452 0 0 3840 2138 </string>
+	<string>269 221 796 473 0 0 1280 778 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>230 834 592 584 0 0 2560 1418 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
@@ -2886,7 +2886,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-09-24T23:53:49Z</date>
+	<date>2017-10-24T00:47:49Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>

@@ -12,8 +12,7 @@ function! snipmate#legacy#process_snippet(snip) abort
 	else
 		let visual = ''
 	endif
-	let snippet = substitute(snippet, '\n\(\t\+\).\{-\}\zs{VISUAL}',
-				\ substitute(escape(visual, '%\'), "\n", "\n\\\\1", 'g'), 'g')
+        let snippet = s:substitute_visual(snippet, visual)
 
 	" Evaluate eval (`...`) expressions.
 	" Backquotes prefixed with a backslash "\" are ignored.
@@ -25,7 +24,8 @@ function! snipmate#legacy#process_snippet(snip) abort
 		let isexp = 0
 		for i in snip
 			if isexp
-				call add(new, substitute(eval(i), "\n\\%$", '', ''))
+				call add(new, substitute(snipmate#util#eval(i),
+                                            \ "\n\\%$", '', ''))
 			else
 				call add(new, i)
 			endif
@@ -60,7 +60,7 @@ function! snipmate#legacy#process_snippet(snip) abort
 	endw
 
 	if &et " Expand tabs to spaces if 'expandtab' is set.
-		return substitute(snippet, '\t', repeat(' ', (&sts > 0) ? &sts : &sw), 'g')
+		return substitute(snippet, '\t', repeat(' ', snipmate#util#tabwidth()), 'g')
 	endif
 	return snippet
 endfunction
@@ -86,9 +86,9 @@ function! snipmate#legacy#build_stops(snip, lnum, col, indent) abort
 
 		let stops[i] = {}
 		let stops[i].line = a:lnum + s:count(beforeTabStop, "\n")
-		let stops[i].col = a:indent + len(matchstr(withoutOthers, '.*\(\n\|^\)\zs.*\ze'.s:sigil .'{'.i.'\D'))
-                let stops[i].placeholder = 0
-                let stops[i].mirrors = []
+		let stops[i].col = a:indent + len(matchstr(withoutOthers, '[^\n]\{-}\ze'.s:sigil .'{'.i.'\D'))
+		let stops[i].placeholder = 0
+		let stops[i].mirrors = []
 		if stops[i].line == a:lnum
 			let stops[i].col += a:col
 		endif
@@ -115,6 +115,16 @@ function! snipmate#legacy#build_stops(snip, lnum, col, indent) abort
 	endw
 	let stops[i] = stops[0]
 	return [stops, i + 1]
+endfunction
+
+function! s:substitute_visual(snippet, visual) abort
+    let lines = []
+    for line in split(a:snippet, "\n")
+        let indent = matchstr(line, '^\t\+')
+        call add(lines, substitute(line, '{VISUAL}',
+                    \ substitute(escape(a:visual, '%\'), "\n", "\n" . indent, 'g'), 'g'))
+    endfor
+    return join(lines, "\n")
 endfunction
 
 " Counts occurences of haystack in needle

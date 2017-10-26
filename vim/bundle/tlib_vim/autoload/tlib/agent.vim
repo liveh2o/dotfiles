@@ -1,24 +1,29 @@
-" agent.vim
 " @Author:      Tom Link (micathom AT gmail com?subject=[vim])
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
-" @Created:     2007-06-24.
-" @Last Change: 2010-11-20.
-" @Revision:    0.1.185
+" @Revision:    329
 
 
 " :filedoc:
 " Various agents for use as key handlers in tlib#input#List()
 
+" Number of items to move when pressing <c-up/down> in the input list window.
+TLet g:tlib_scroll_lines = 10
+
 
 " General {{{1
 
 function! tlib#agent#Exit(world, selected) "{{{3
-    call a:world.CloseScratch()
-    let a:world.state = 'exit empty escape'
-    let a:world.list = []
-    " let a:world.base = []
-    call a:world.ResetSelected()
+    if a:world.key_mode == 'default'
+        call a:world.CloseScratch()
+        let a:world.state = 'exit empty escape'
+        let a:world.list = []
+        " let a:world.base = []
+        call a:world.ResetSelected()
+    else
+        let a:world.key_mode = 'default'
+        let a:world.state = 'redisplay'
+    endif
     return a:world
 endf
 
@@ -43,6 +48,20 @@ endf
 function! tlib#agent#PageDown(world, selected) "{{{3
     let a:world.offset += (winheight(0) / 2)
     let a:world.state = 'scroll'
+    return a:world
+endf
+
+
+function! tlib#agent#Home(world, selected) "{{{3
+    let a:world.prefidx = 1
+    let a:world.state = 'redisplay'
+    return a:world
+endf
+
+
+function! tlib#agent#End(world, selected) "{{{3
+    let a:world.prefidx = len(a:world.list)
+    let a:world.state = 'redisplay'
     return a:world
 endf
 
@@ -106,6 +125,36 @@ function! tlib#agent#Reset(world, selected) "{{{3
 endf
 
 
+function! tlib#agent#ToggleRestrictView(world, selected) "{{{3
+    if empty(a:world.filtered_items)
+        return tlib#agent#RestrictView(a:world, a:selected)
+    else
+        return tlib#agent#UnrestrictView(a:world, a:selected)
+    endif
+endf
+
+
+function! tlib#agent#RestrictView(world, selected) "{{{3
+    " TLogVAR a:selected
+    let filtered_items = map(copy(a:selected), 'index(a:world.base, v:val) + 1')
+    " TLogVAR 1, filtered_items
+    let filtered_items = filter(filtered_items, 'v:val > 0')
+    " TLogVAR 2, filtered_items
+    if !empty(filtered_items)
+        let a:world.filtered_items = filtered_items
+    endif
+    let a:world.state = 'display'
+    return a:world
+endf
+
+
+function! tlib#agent#UnrestrictView(world, selected) "{{{3
+    let a:world.filtered_items = []
+    let a:world.state = 'display'
+    return a:world
+endf
+
+
 function! tlib#agent#Input(world, selected) "{{{3
     let flt0 = a:world.CleanFilter(a:world.filter[0][0])
     let flt1 = input('Filter: ', flt0)
@@ -156,17 +205,14 @@ function! tlib#agent#Suspend(world, selected) "{{{3
         " TLogDBG bufnr('%')
         let br = tlib#buffer#Set(a:world.scratch)
         " TLogVAR br, a:world.bufnr, a:world.scratch
-        " TLogDBG bufnr('%')
+        if bufnr('%') != a:world.scratch
+            echohl WarningMsg
+            echom "tlib#agent#Suspend: Internal error: Not a scratch buffer:" bufname('%')
+            echohl NONE
+        endif
+        " TLogVAR bufnr('%'), bufname('%'), a:world.scratch
         call tlib#autocmdgroup#Init()
-        autocmd TLib InsertEnter,InsertChange <buffer> call tlib#input#Resume("world", 0)
-        let b:tlib_suspend = {
-                    \ '<m-z>': 0, '<c-z>': 0, '<space>': 0, 
-                    \ '<cr>': 1, 
-                    \ '<LeftMouse>': 1, '<MiddleMouse>': 0, '<RightMouse>': 0, '<c-LeftMouse>': 0,
-                    \ '<': 2}
-        for [m, pick] in items(b:tlib_suspend)
-            exec 'noremap <buffer> '. m .' :call tlib#input#Resume("world", '. pick .')<cr>'
-        endfor
+        exec 'autocmd TLib BufEnter <buffer='. a:world.scratch .'> call tlib#input#Resume("world", 0, '. a:world.scratch .')'
         let b:tlib_world = a:world
         exec br
         let a:world.state = 'exit suspend'
@@ -365,14 +411,18 @@ function! tlib#agent#ViewFile(world, selected) "{{{3
     if !empty(a:selected)
         let back = a:world.SwitchWindow('win')
         " TLogVAR back
-        if !&hidden && &l:modified
-            let cmd0 = 'split'
-            let cmd1 = 'sbuffer'
-        else
-            let cmd0 = 'edit'
-            let cmd1 = 'buffer'
-        endif
-        call tlib#file#With(cmd0, cmd1, a:selected, a:world)
+        for filename in a:selected
+            call tlib#file#Edit(filename)
+        endfor
+        " if !&hidden && &l:modified
+        "     let cmd0 = 'split'
+        "     let cmd1 = 'sbuffer'
+        " else
+        "     let cmd0 = 'edit'
+        "     let cmd1 = 'buffer'
+        " endif
+        " call tlib#file#With(cmd0, cmd1, a:selected, a:world)
+        " TLogVAR &filetype
         exec back
         let a:world.state = 'display'
     endif
@@ -398,12 +448,17 @@ function! tlib#agent#EditFileInVSplit(world, selected) "{{{3
     call a:world.CloseScratch()
     " call tlib#file#With('edit', 'buffer', a:selected[0:0], a:world)
     " call tlib#file#With('vertical split', 'vertical sbuffer', a:selected[1:-1], a:world)
+    let winpos = tlib#fixes#Winpos()
     call tlib#file#With('vertical split', 'vertical sbuffer', a:selected, a:world)
+    if !empty(winpos)
+        exec winpos
+    endif
     return tlib#agent#Exit(a:world, a:selected)
 endf
 
 
 function! tlib#agent#EditFileInTab(world, selected) "{{{3
+    " TLogVAR a:selected
     call a:world.CloseScratch()
     call tlib#file#With('tabedit', 'tab sbuffer', a:selected, a:world)
     return tlib#agent#Exit(a:world, a:selected)
@@ -416,19 +471,18 @@ function! tlib#agent#ToggleScrollbind(world, selected) "{{{3
     return a:world
 endf
 
+
 function! tlib#agent#ShowInfo(world, selected)
+    let lines = []
     for f in a:selected
         if filereadable(f)
             let desc = [getfperm(f), strftime('%c', getftime(f)),  getfsize(f) .' bytes', getftype(f)]
-            echo fnamemodify(f, ':t') .':'
-            echo '  '. join(desc, '; ')
+            call add(lines, fnamemodify(f, ':p'))
+            call add(lines, '  '. join(desc, '; '))
         endif
     endfor
-    echohl MoreMsg
-    echo 'Press any key to continue'
-    echohl NONE
-    call getchar()
-    let a:world.state = 'redisplay'
+    let a:world.temp_lines = lines
+    let a:world.state = 'printlines'
     return a:world
 endf
 
@@ -510,5 +564,102 @@ function! tlib#agent#Wildcard(world, selected) "{{{3
     endif
     let a:world.state = 'redisplay'
     return a:world
+endf
+
+
+function! tlib#agent#Null(world, selected) "{{{3
+    let a:world.state = 'redisplay'
+    return a:world
+endf
+
+
+function! tlib#agent#ExecAgentByName(world, selected) "{{{3
+    let s:agent_names_world = a:world
+    let agent_names = {'Help': 'tlib#agent#Help'}
+    for def in values(a:world.key_map[a:world.key_mode])
+        if has_key(def, 'help') && !empty(def.help) && has_key(def, 'agent') && !empty(def.agent)
+            let agent_names[def.help] = def.agent
+        endif
+    endfor
+    let s:agent_names = sort(keys(agent_names))
+    let command = input('Command: ', '', 'customlist,tlib#agent#CompleteAgentNames')
+    " TLogVAR command
+    if !has_key(agent_names, command)
+        " TLogVAR command
+        silent! let matches = filter(keys(agent_names), 'v:val =~ command')
+        " TLogVAR matches
+        if len(matches) == 1
+            let command = matches[0]
+        endif
+    endif
+    if has_key(agent_names, command)
+        let agent = agent_names[command]
+        return call(agent, [a:world, a:selected])
+    else
+        if !empty(command)
+            echohl WarningMsg
+            echom "Unknown command:" command
+            echohl NONE
+            sleep 1
+        endif
+        let a:world.state = 'display'
+        return a:world
+    endif
+endf
+
+
+function! tlib#agent#CompleteAgentNames(ArgLead, CmdLine, CursorPos)
+    let arglead = tolower(a:Arglead)
+    return filter(copy(s:agent_names), 'stridx(tolower(v:val), arglead) != -1')
+endf
+
+
+function! tlib#agent#Complete(world, selected) abort "{{{3
+    let rxprefix = a:world.matcher.FilterRxPrefix()
+    let flt = a:world.filter[0][0]
+    " TLogVAR flt
+    let fltrx = rxprefix . flt . '\m[^[:space:][:cntrl:][:punct:]<>*+?&~{}()\[\]\\/]\+'
+    let fltrx0 = '\m^' . fltrx
+    " TLogVAR fltrx, fltrx0
+    let words = {}
+    for item in a:world.list
+        let parts = split(item, '\ze'. fltrx)
+        " TLogVAR item, parts
+        for part in parts
+            let word = matchstr(part, fltrx0)
+            " TLogVAR part, word
+            if !empty(word)
+                let words[word] = 1
+            endif
+        endfor
+    endfor
+    " TLogVAR keys(words)
+    let completions = keys(words)
+    " let completions = filter(keys(words), 'matchstr(v:val, fltrx0)')
+    let completions = sort(completions, 's:SortCompletions')
+    let completions = tlib#list#Uniq(completions)
+    " TLogVAR 0, completions
+    while len(completions) > 1
+        let nchar = strwidth(completions[0]) - 1
+        let completions = map(completions, 'strpart(v:val, 0, nchar)')
+        " TLogVAR 'reduce', completions
+        let completions = tlib#list#Uniq(completions)
+        " TLogVAR 'unique', len(completions), completions
+    endwh
+    " TLogVAR 9, completions
+    if empty(completions)
+        let a:world.state = 'redisplay update'
+    else
+        let a:world.filter[0][0] = completions[0]
+        let a:world.state = 'display update'
+    endif
+    return a:world
+endf
+
+
+function! s:SortCompletions(a, b) abort "{{{3
+    let i1 = strwidth(a:a)
+    let i2 = strwidth(a:b)
+    return i2 - i1
 endf
 

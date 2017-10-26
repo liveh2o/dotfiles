@@ -1,15 +1,7 @@
-" char.vim
 " @Author:      Tom Link (micathom AT gmail com?subject=[vim])
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
-" @Created:     2007-06-30.
-" @Last Change: 2009-02-15.
-" @Revision:    0.0.30
-
-if &cp || exists("loaded_tlib_char_autoload")
-    finish
-endif
-let loaded_tlib_char_autoload = 1
+" @Revision:    38
 
 
 " :def: function! tlib#char#Get(?timeout=0)
@@ -19,13 +11,22 @@ let loaded_tlib_char_autoload = 1
 "   echo tlib#char#Get()
 "   echo tlib#char#Get(5)
 function! tlib#char#Get(...) "{{{3
-    TVarArg ['timeout', 0], ['resolution', 0]
+    TVarArg ['timeout', 0], ['resolution', 0], ['getmod', 0]
+    let char = -1
+    let mode = 0
     if timeout == 0 || !has('reltime')
-        return getchar()
+        let char = getchar()
     else
-        return tlib#char#GetWithTimeout(timeout, resolution)
+        let char = tlib#char#GetWithTimeout(timeout, resolution)
     endif
-    return -1
+    if getmod
+        if char != -1
+            let mode = getcharmod()
+        endif
+        return [char, mode]
+    else
+        return char
+    endif
 endf
 
 

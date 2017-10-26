@@ -8,3 +8,23 @@ function! snipmate#util#add_methods(sfile, namespace, methods) abort
 	endfor
 	return dict
 endfunction
+
+function! snipmate#util#eval(arg)
+    try
+        let ret = eval(a:arg)
+    catch
+        echohl ErrorMsg
+        echom 'SnipMate:Expression: ' . v:exception
+        echohl None
+        let ret = ''
+    endtry
+    return type(ret) == type('') ? ret : string(ret)
+endfunction
+
+function! snipmate#util#tabwidth()
+    if &sts > 0
+        return &sts
+    else
+        return exists('*shiftwidth') ? shiftwidth() : &sw
+    endif
+endfunction

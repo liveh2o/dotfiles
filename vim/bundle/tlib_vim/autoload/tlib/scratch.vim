@@ -1,15 +1,18 @@
-" scratch.vim
 " @Author:      Tom Link (micathom AT gmail com?subject=[vim])
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
-" @Created:     2007-07-18.
-" @Last Change: 2011-03-10.
-" @Revision:    0.0.166
+" @Revision:    255
 
-if &cp || exists("loaded_tlib_scratch_autoload")
-    finish
-endif
-let loaded_tlib_scratch_autoload = 1
+
+" Scratch window position. By default the list window is opened on the 
+" bottom. Set this variable to 'topleft' or '' to change this behaviour.
+" See |tlib#input#List()|.
+TLet g:tlib_scratch_pos = 'botright'
+
+" If you want the scratch buffer to be fully removed, you might want to 
+" set this variable to 'wipe'.
+" See also https://github.com/tomtom/tlib_vim/pull/16
+TLet g:tlib#scratch#hidden = 'hide'
 
 
 " :def: function! tlib#scratch#UseScratch(?keyargs={})
@@ -22,23 +25,21 @@ function! tlib#scratch#UseScratch(...) "{{{3
     exec tlib#arg#Let([['keyargs', {}]])
     " TLogDBG string(keys(keyargs))
     let id = get(keyargs, 'scratch', '__Scratch__')
-    " TLogVAR id
-    " TLogDBG winnr()
-    " TLogDBG bufnr(id)
-    " TLogDBG bufwinnr(id)
-    " TLogDBG bufnr('%')
-    if id =~ '^\d\+$' && bufwinnr(id) != -1
-        if bufnr('%') != id
-            exec 'buffer! '. id
-        endif
-        " let ft = &ft
-        let ft = '*'
+    " TLogVAR id, bufwinnr(id)
+    " TLogVAR bufnr(id), bufname(id)
+    " TLogVAR 1, winnr(), bufnr('%'), bufname("%")
+    if bufwinnr(id) != -1
+        " echom 'DBG noautocmd keepalt keepj' bufwinnr(id) 'wincmd w'
+        exec 'noautocmd keepalt keepj' bufwinnr(id) 'wincmd w'
+        " TLogVAR "reuse", bufnr("%"), bufname("%")
     else
+        let winpos = ''
         let bn = bufnr(id)
         let wpos = get(keyargs, 'scratch_pos', g:tlib_scratch_pos)
         " TLogVAR keyargs.scratch_vertical
         if get(keyargs, 'scratch_vertical')
             let wpos .= ' vertical'
+            let winpos = tlib#fixes#Winpos()
         endif
         " TLogVAR wpos
         let scratch_split = get(keyargs, 'scratch_split', 1)
@@ -47,46 +48,54 @@ function! tlib#scratch#UseScratch(...) "{{{3
             let wn = bufwinnr(bn)
             if wn != -1
                 " TLogVAR wn
-                exec wn .'wincmd w'
+                exec 'noautocmd keepalt keepj' (wn .'wincmd w')
             else
                 if scratch_split == 1
-                    let cmd = wpos.' sbuffer! '
+                    let cmd = wpos.' sbuffer!'
                 elseif scratch_split == -1
-                    let cmd = wpos.' tab sbuffer! '
+                    let cmd = wpos.' tab sbuffer!'
                 else
-                    let cmd = 'buffer! '
+                    let cmd = 'buffer!'
                 endif
-                " TLogVAR cmd
-                silent exec cmd . bn
+                " TLogVAR cmd, bn
+                silent exec 'noautocmd keepalt keepj' cmd bn
             endif
         else
             " TLogVAR id
             if scratch_split == 1
-                let cmd = wpos.' split '
+                let cmd = wpos.' split'
             elseif scratch_split == -1
-                let cmd = wpos.' tab split '
+                let cmd = wpos.' tab split'
             else
-                let cmd = 'edit '
+                let cmd = 'edit'
             endif
-            " TLogVAR cmd
-            silent exec cmd . escape(id, '%#\ ')
+            " TLogVAR cmd, id
+            silent exec 'noautocmd keepalt keepj' cmd escape(id, '%#\ ')
             " silent exec 'split '. id
         endif
         let ft = get(keyargs, 'scratch_filetype', '')
-        " TLogVAR ft
-    endif
-    setlocal buftype=nofile
-    setlocal bufhidden=hide
-    setlocal noswapfile
-    setlocal nobuflisted
-    setlocal foldmethod=manual
-    setlocal foldcolumn=0
-    setlocal modifiable
-    setlocal nospell
-    if &ft != '*'
-        let &ft = ft
+        " TLogVAR ft, winpos
+        if !empty(winpos)
+            exec winpos
+        endif
+        setlocal buftype=nofile
+        let &l:bufhidden = get(keyargs, 'scratch_hidden', g:tlib#scratch#hidden)
+        setlocal noswapfile
+        setlocal nobuflisted
+        setlocal foldmethod=manual
+        setlocal foldcolumn=0
+        setlocal nospell
+        setlocal modifiable
+        setlocal noreadonly
+        " TLogVAR &ft, ft
+        if !empty(ft)
+            let &l:ft = ft
+        endif
     endif
     let keyargs.scratch = bufnr('%')
+    let keyargs.scratch_tabpagenr = tabpagenr()
+    let keyargs.scratch_winnr = winnr()
+    " TLogVAR 2, winnr(), bufnr('%'), bufname("%"), keyargs.scratch
     return keyargs.scratch
 endf
 
@@ -106,7 +115,11 @@ function! tlib#scratch#CloseScratch(keyargs, ...) "{{{3
             if wn != -1
                 " TLogDBG winnr()
                 let wb = tlib#win#Set(wn)
+                let winpos = tlib#fixes#Winpos()
                 wincmd c
+                if get(a:keyargs, 'scratch_vertical') && !empty(winpos)
+                    exec winpos
+                endif
                 " exec wb 
                 " redraw
                 " TLogVAR winnr()

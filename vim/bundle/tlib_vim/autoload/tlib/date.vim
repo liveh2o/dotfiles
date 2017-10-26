@@ -3,14 +3,29 @@
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-03-25.
-" @Last Change: 2010-09-17.
-" @Revision:    0.0.34
+" @Last Change: 2016-06-06.
+" @Revision:    41.0.34
 
 
 if !exists('g:tlib#date#ShortDatePrefix') | let g:tlib#date#ShortDatePrefix = '20' | endif "{{{2
 if !exists('g:tlib#date#TimeZoneShift')   | let g:tlib#date#TimeZoneShift = 0      | endif "{{{2
 
 let g:tlib#date#dayshift = 60 * 60 * 24
+" let g:tlib#date#date_rx = '\<\(\d\{4}\)-\(\d\d\)-\(\d\d\)\%(\s\+\(\(\d\d\):\(\d\d\)\)\)\?\>'
+let g:tlib#date#date_rx = '\<\(\d\{4}\)-\(\d\d\)-\(\d\d\)\>'
+let g:tlib#date#date_format = '%Y-%m-%d'
+
+
+function! tlib#date#IsDate(text) abort "{{{3
+    return a:text =~# '^'. g:tlib#date#date_rx .'$' &&
+                \ !empty(tlib#date#Parse(a:text, 0, 1))
+endf
+
+
+function! tlib#date#Format(...) abort "{{{3
+    let secs1970 = a:0 >= 1 ? a:1 : localtime()
+    return strftime(g:tlib#date#date_format, secs1970)
+endf
 
 
 " :display: tlib#date#DiffInDays(date1, ?date2=localtime(), ?allow_zero=0)
@@ -24,9 +39,10 @@ function! tlib#date#DiffInDays(date, ...)
 endf
 
 
-" :display: tlib#date#Parse(date, ?allow_zero=0) "{{{3
+" :display: tlib#date#Parse(date, ?allow_zero=0, ?silent=0) "{{{3
 function! tlib#date#Parse(date, ...) "{{{3
     let min = a:0 >= 1 && a:1 ? 0 : 1
+    let silent = a:0 >= 2 ? a:2 : 0
     " TLogVAR a:date, min
     let m = matchlist(a:date, '^\(\d\{2}\|\d\{4}\)-\(\d\{1,2}\)-\(\d\{1,2}\)$')
     if !empty(m)
@@ -50,7 +66,9 @@ function! tlib#date#Parse(date, ...) "{{{3
     endif
     if empty(m) || year == '' || month == '' || days == '' || 
                 \ month < min || month > 12 || days < min || days > 31
-        echoerr 'TLib: Invalid date: '. a:date
+        if !silent
+            echoerr 'TLib: Invalid date: '. a:date
+        endif
         return []
     endif
     if strlen(year) == 2
@@ -116,5 +134,56 @@ function! tlib#date#SecondsSince1970(date, ...) "{{{3
     let seconds = seconds + strftime('%M') * 60
     let seconds = seconds + strftime('%S')
     return seconds
+endf
+
+
+function! tlib#date#Shift(date, shift) abort "{{{3
+    let n = str2nr(matchstr(a:shift, '\d\+'))
+    let ml = matchlist(a:date, g:tlib#date#date_rx)
+    " TLogVAR a:date, a:shift, n, ml
+    if a:shift =~ 'd$'
+        let date = tlib#date#AddDays(a:date, n)
+    elseif a:shift =~ 'b$'
+        let n1 = n
+        let secs = tlib#date#SecondsSince1970(a:date)
+        while n1 > 0
+            let n1 -= 1
+            let secs += g:tlib#date#dayshift
+            let uday = strftime('%u', secs)
+            if uday == 6
+                let secs += g:tlib#date#dayshift * 2
+            elseif uday == 7
+                let secs += g:tlib#date#dayshift
+            endif
+        endwh
+        let date = tlib#date#Format(secs)
+    elseif a:shift =~ 'w$'
+        let date = tlib#date#AddDays(a:date, n * 7)
+    elseif a:shift =~ 'm$'
+        let d = str2nr(ml[3])
+        let ms = str2nr(ml[2]) + n
+        let m = (ms - 1) % 12 + 1
+        let yr = str2nr(ml[1]) + (ms - 1) / 12
+        let date = printf('%04d-%02d-%02d', yr, m, d)
+        " TLogVAR d, ms, m, yr, date
+    elseif a:shift =~ 'y$'
+        let yr = str2nr(ml[1]) + n
+        let date = substitute(a:date, '^\d\{4}', yr, '')
+    else
+        throw 'tlib#date#Shift: Unsupported arguments: '. string(a:shift)
+    endif
+    " if !empty(ml[4]) && date !~ '\s'. ml[4] .'$'
+    "     let date .= ' '. ml[4]
+    " endif
+    " TLogVAR date
+    return date
+endf
+
+
+function! tlib#date#AddDays(date, n) abort "{{{3
+    let secs = tlib#date#SecondsSince1970(a:date) + g:tlib#date#dayshift * a:n
+    " TLogVAR secs
+    let date = tlib#date#Format(secs)
+    return date
 endf
 

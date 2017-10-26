@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/tlib_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-07-19.
-" @Last Change: 2010-10-24.
-" @Revision:    24
+" @Last Change: 2012-06-08.
+" @Revision:    37
 
 
 let s:restoreframecmd = ''
@@ -13,14 +13,22 @@ let s:fullscreen = 0
 if has('win16') || has('win32') || has('win64')
 
     if !exists('g:tlib#vim#simalt_maximize')
+        " The alt-key for maximizing the window.
+        " CAUTION: The value of this paramter depends on your locale and 
+        " maybe the windows version you are running.
         let g:tlib#vim#simalt_maximize = 'x'   "{{{2
     endif
 
     if !exists('g:tlib#vim#simalt_restore')
+        " The alt-key for restoring the window.
+        " CAUTION: The value of this paramter depends on your locale and 
+        " maybe the windows version you are running.
         let g:tlib#vim#simalt_restore = 'r'   "{{{2
     endif
 
     if !exists('g:tlib#vim#use_vimtweak')
+        " If true, use the vimtweak.dll for windows. This will enable 
+        " tlib to remove the caption for fullscreen windows.
         let g:tlib#vim#use_vimtweak = 0   "{{{2
     endif
 
@@ -54,6 +62,13 @@ if has('win16') || has('win32') || has('win64')
 else
 
     if !exists('g:tlib#vim#use_wmctrl')
+        " If true, use wmctrl for X windows to make a window 
+        " maximized/fullscreen.
+        "
+        " This is the preferred method for maximizing windows under X 
+        " windows. Some window managers have problem coping with the 
+        " default method of setting 'lines' and 'columns' to a large 
+        " value.
         let g:tlib#vim#use_wmctrl = executable('wmctrl')  "{{{2
     endif
 
@@ -103,5 +118,35 @@ function! s:RestoreFrameParams() "{{{3
         exec s:restoreframecmd
         let s:restoreframecmd = ''
     endif
+endf
+
+
+" :display: tlib#vim##CopyFunction(old, new, overwrite=0)
+function! tlib#vim#CopyFunction(old, new, ...) "{{{3
+    let overwrite = a:0 >= 1 ? a:1 : 0
+    redir => oldfn
+    exec 'silent function' a:old
+    redir END
+    if exists('*'. a:new)
+        if overwrite > 0
+            exec 'delfunction' a:new
+        elseif overwrite < 0
+            throw 'tlib#vim##CopyFunction: Function already exists: '. a:old .' -> '. a:new
+        else
+            return
+        endif
+    endif
+    let fn = split(oldfn, '\n')
+    let fn = map(fn, 'substitute(v:val, ''^\d\+'', "", "")')
+    let fn[0] = substitute(fn[0], '\V\^\s\*fu\%[nction]!\?\s\+\zs'. a:old, a:new, '')
+    let t = @t
+    try
+        let @t = join(fn, "\n")
+        redir => out
+        @t
+        redir END
+    finally
+        let @t = t
+    endtry
 endf
 

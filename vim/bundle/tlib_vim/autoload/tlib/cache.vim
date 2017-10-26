@@ -3,9 +3,15 @@
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2007-06-30.
-" @Last Change: 2011-03-10.
-" @Revision:    0.1.182
+" @Last Change: 2015-11-26.
+" @Revision:    35.1.243
 
+
+" The cache directory. If empty, use |tlib#dir#MyRuntime|.'/cache'.
+" You might want to delete old files from this directory from time to 
+" time with a command like: >
+"   find ~/vimfiles/cache/ -atime +31 -type f -print -delete
+TLet g:tlib_cache = ''
 
 " |tlib#cache#Purge()|: Remove cache files older than N days.
 TLet g:tlib#cache#purge_days = 31
@@ -24,10 +30,22 @@ TLet g:tlib#cache#script_encoding = &enc
 "    2 ... Yes
 TLet g:tlib#cache#run_script = 1
 
+" Verbosity level:
+"     0 ... Be quiet
+"     1 ... Display informative message
+"     2 ... Display detailed messages
+TLet g:tlib#cache#verbosity = 1
+
 " A list of regexps that are matched against partial filenames of the 
 " cached files. If a regexp matches, the file won't be removed by 
 " |tlib#cache#Purge()|.
 TLet g:tlib#cache#dont_purge = ['[\/]\.last_purge$']
+
+" If the cache filename is longer than N characters, use 
+" |pathshorten()|.
+TLet g:tlib#cache#max_filename = 200
+
+let s:cache = {}
 
 
 " :display: tlib#cache#Dir(?mode = 'bg')
@@ -42,10 +60,11 @@ function! tlib#cache#Dir(...) "{{{3
 endf
 
 
-" :def: function! tlib#cache#Filename(type, ?file=%, ?mkdir=0)
+" :def: function! tlib#cache#Filename(type, ?file=%, ?mkdir=0, ?dir='')
 function! tlib#cache#Filename(type, ...) "{{{3
     " TLogDBG 'bufname='. bufname('.')
-    let dir = tlib#cache#Dir()
+    let dir0 = a:0 >= 3 && !empty(a:3) ? a:3 : tlib#cache#Dir()
+    let dir = dir0
     if a:0 >= 1 && !empty(a:1)
         let file  = a:1
     else
@@ -69,88 +88,164 @@ function! tlib#cache#Filename(type, ...) "{{{3
     " TLogVAR dir
     let file  = fnamemodify(file, ':t')
     " TLogVAR file, dir, mkdir
-    if mkdir && !isdirectory(dir)
-        try
-            call mkdir(dir, 'p')
-        catch /^Vim\%((\a\+)\)\=:E739:/
-            if filereadable(dir) && !isdirectory(dir)
-                echoerr 'TLib: Cannot create directory for cache file because a file with the same name exists (please delete it):' dir
-                " call delete(dir)
-                " call mkdir(dir, 'p')
-            endif
-        endtry
-    endif
     let cache_file = tlib#file#Join([dir, file])
+    if len(cache_file) > g:tlib#cache#max_filename
+        if v:version >= 704
+            let shortfilename = pathshorten(file) .'_'. sha256(file)
+        else
+            let shortfilename = pathshorten(file) .'_'. tlib#hash#Adler32(file)
+        endif
+        let cache_file = tlib#cache#Filename(a:type, shortfilename, mkdir, dir0)
+    else
+        if mkdir && !isdirectory(dir)
+            try
+                call mkdir(dir, 'p')
+            catch /^Vim\%((\a\+)\)\=:E739:/
+                if filereadable(dir) && !isdirectory(dir)
+                    echoerr 'TLib: Cannot create directory for cache file because a file with the same name exists (please delete it):' dir
+                    " call delete(dir)
+                    " call mkdir(dir, 'p')
+                endif
+            endtry
+        endif
+    endif
     " TLogVAR cache_file
     return cache_file
 endf
 
 
-function! tlib#cache#Save(cfile, dictionary) "{{{3
-    if !empty(a:cfile)
+let s:timestamps = {}
+
+
+function! s:SetTimestamp(cfile, type) "{{{3
+    if !has_key(s:timestamps, a:cfile)
+        let s:timestamps[a:cfile] = {}
+    endif
+    let s:timestamps[a:cfile].atime = getftime(a:cfile)
+    let s:timestamps[a:cfile][a:type] = s:timestamps[a:cfile].atime
+endf
+
+
+function! tlib#cache#Save(cfile, dictionary, ...) "{{{3
+    TVarArg ['options', {}]
+    let in_memory = get(options, 'in_memory', 0)
+    if in_memory
+        " TLogVAR in_memory, a:cfile, localtime()
+        let s:cache[a:cfile] = {'mtime': localtime(), 'data': a:dictionary}
+    elseif !empty(a:cfile)
         " TLogVAR a:dictionary
         call writefile([string(a:dictionary)], a:cfile, 'b')
+        call s:SetTimestamp(a:cfile, 'write')
     endif
 endf
 
 
-function! tlib#cache#Get(cfile) "{{{3
-    call tlib#cache#MaybePurge()
-    if !empty(a:cfile) && filereadable(a:cfile)
-        let val = readfile(a:cfile, 'b')
-        return eval(join(val, "\n"))
+function! tlib#cache#MTime(cfile) "{{{3
+    let mtime = {'mtime': getftime(a:cfile)}
+    let mtime = extend(mtime, get(s:timestamps, a:cfile, {}))
+    return mtime
+endf
+
+
+function! tlib#cache#Get(cfile, ...) "{{{3
+    TVarArg ['default', {}], ['options', {}]
+    let in_memory = get(options, 'in_memory', 0)
+    if in_memory
+        " TLogVAR in_memory, a:cfile
+        return get(get(s:cache, a:cfile, {}), 'data', default)
     else
-        return {}
+        call tlib#cache#MaybePurge()
+        if !empty(a:cfile) && filereadable(a:cfile)
+            let val = readfile(a:cfile, 'b')
+            call s:SetTimestamp(a:cfile, 'read')
+            return eval(join(val, "\n"))
+        else
+            return default
+        endif
+    endif
+endf
+
+
+" :display: tlib#cache#Value(cfile, generator, ftime, ?generator_args=[], ?options={})
+" Get a cached value from cfile. If it is outdated (compared to ftime) 
+" or does not exist, create it calling a generator function.
+function! tlib#cache#Value(cfile, generator, ftime, ...) "{{{3
+    TVarArg ['args', []], ['options', {}]
+    let in_memory = get(options, 'in_memory', 0)
+    if in_memory
+        let not_found = !has_key(s:cache, a:cfile)
+        let cftime = not_found ? -1 : s:cache[a:cfile].mtime
+    else
+        let cftime = getftime(a:cfile)
+    endif
+    " TLogVAR in_memory, cftime
+    if cftime == -1 || (a:ftime != 0 && cftime < a:ftime)
+        " TLogVAR a:generator, args
+        let val = call(a:generator, args)
+        " TLogVAR val
+        let cval = {'val': val}
+        " TLogVAR cval
+        call tlib#cache#Save(a:cfile, cval, options)
+        return val
+    else
+        let val = tlib#cache#Get(a:cfile, {}, options)
+        if !has_key(val, 'val')
+            throw 'tlib#cache#Value: Internal error: '. a:cfile
+        else
+            return val.val
+        endif
     endif
 endf
 
 
 " Call |tlib#cache#Purge()| if the last purge was done before 
-    " |g:tlib#cache#purge_every_days|.
-    function! tlib#cache#MaybePurge() "{{{3
-        if g:tlib#cache#purge_every_days < 0
-            return
-        endif
-        let dir = tlib#cache#Dir('g')
-        let last_purge = tlib#file#Join([dir, '.last_purge'])
-        let last_purge_exists = filereadable(last_purge)
+" |g:tlib#cache#purge_every_days|.
+function! tlib#cache#MaybePurge() "{{{3
+    if g:tlib#cache#purge_every_days < 0
+        return
+    endif
+    let dir = tlib#cache#Dir('g')
+    let last_purge = tlib#file#Join([dir, '.last_purge'])
+    let last_purge_exists = filereadable(last_purge)
+    if last_purge_exists
+        let threshold = localtime() - g:tlib#cache#purge_every_days * g:tlib#date#dayshift
+        let should_purge = getftime(last_purge) < threshold
+    else
+        let should_purge = 0 " should ignore empty dirs, like the tmru one: !empty(glob(tlib#file#Join([dir, '**'])))
+    endif
+    if should_purge
         if last_purge_exists
-            let threshold = localtime() - g:tlib#cache#purge_every_days * g:tlib#date#dayshift
-            let should_purge = getftime(last_purge) < threshold
+            let yn = 'y'
         else
-            let should_purge = 0 " should ignore empty dirs, like the tmru one: !empty(glob(tlib#file#Join([dir, '**'])))
+            let txt = "TLib: The cache directory '". dir ."' should be purged of old files.\nDelete files older than ". g:tlib#cache#purge_days ." days now?"
+            let yn = tlib#input#Dialog(txt, ['yes', 'no'], 'no')
         endif
-        if should_purge
-            if last_purge_exists
-                let yn = 'y'
-            else
-                let txt = "TLib: The cache directory '". dir ."' should be purged of old files.\nDelete files older than ". g:tlib#cache#purge_days ." days now?"
-                let yn = tlib#input#Dialog(txt, ['yes', 'no'], 'no')
+        if yn =~ '^y\%[es]$'
+            call tlib#cache#Purge()
+        else
+            let g:tlib#cache#purge_every_days = -1
+            if !last_purge_exists
+                call s:PurgeTimestamp(dir)
             endif
-            if yn =~ '^y\%[es]$'
-                call tlib#cache#Purge()
-            else
-                let g:tlib#cache#purge_every_days = -1
-                if !last_purge_exists
-                    call s:PurgeTimestamp(dir)
-                endif
-                echohl WarningMsg
-                echom "TLib: Please run :call tlib#cache#Purge() to clean up ". dir
-                echohl NONE
-            endif
-        elseif !last_purge_exists
-            call s:PurgeTimestamp(dir)
+            echohl WarningMsg
+            echom "TLib: Please run :call tlib#cache#Purge() to clean up ". dir
+            echohl NONE
         endif
-    endf
+    elseif !last_purge_exists
+        call s:PurgeTimestamp(dir)
+    endif
+endf
 
 
 " Delete old files.
 function! tlib#cache#Purge() "{{{3
     let threshold = localtime() - g:tlib#cache#purge_days * g:tlib#date#dayshift
     let dir = tlib#cache#Dir('g')
-    echohl WarningMsg
-    echom "TLib: Delete files older than ". g:tlib#cache#purge_days ." days from ". dir
-    echohl NONE
+    if g:tlib#cache#verbosity >= 1
+        echohl WarningMsg
+        echom "TLib: Delete files older than ". g:tlib#cache#purge_days ." days from ". dir
+        echohl NONE
+    endif
     let files = tlib#cache#ListFilesInCache()
     let deldir = []
     let newer = []
@@ -167,9 +262,8 @@ function! tlib#cache#Purge() "{{{3
                 if getftime(file) < threshold
                     if delete(file)
                         call add(msg, "TLib: Could not delete cache file: ". file)
-                    else
+                    elseif g:tlib#cache#verbosity >= 2
                         call add(msg, "TLib: Delete cache file: ". file)
-                        " echo "TLib: Delete cache file: ". file
                     endif
                 else
                     call add(newer, file)
@@ -179,7 +273,7 @@ function! tlib#cache#Purge() "{{{3
     finally
         let &more = more
     endtry
-    if !empty(msg)
+    if !empty(msg) && g:tlib#cache#verbosity >= 1
         echo join(msg, "\n")
     endif
     if !empty(deldir)
@@ -205,16 +299,21 @@ function! tlib#cache#Purge() "{{{3
         call writefile(script, scriptfile)
         call inputsave()
         if g:tlib#cache#run_script == 0
-            echohl WarningMsg
-            echom "TLib: Please review and execute ". scriptfile
-            echohl NONE
+            if g:tlib#cache#verbosity >= 1
+                echohl WarningMsg
+                if g:tlib#cache#verbosity >= 2
+                    echom "TLib: Purged cache. Need to run script to delete directories"
+                endif
+                echom "TLib: Please review and execute: ". scriptfile
+                echohl NONE
+            endif
         else
             try
-                let yn = g:tlib#cache#run_script == 2 ? 'y' : tlib#input#Dialog("TLib: Could not delete some directories.\nDirectory removal script: ". scriptfile ."\nRun script to delete directories now?", ['yes', 'no', 'edit'], 'no')
+                let yn = g:tlib#cache#run_script == 2 ? 'y' : tlib#input#Dialog("TLib: About to delete directories by means of a shell script.\nDirectory removal script: ". scriptfile ."\nRun script to delete directories now?", ['yes', 'no', 'edit'], 'no')
                 if yn =~ '^y\%[es]$'
-                    exec 'cd '. fnameescape(dir)
+                    exec 'silent cd '. fnameescape(dir)
                     exec '! ' &shell shellescape(scriptfile, 1)
-                    exec 'cd -'
+                    exec 'silent cd -'
                     call delete(scriptfile)
                 elseif yn =~ '^e\%[dit]$'
                     exec 'edit '. fnameescape(scriptfile)

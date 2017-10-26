@@ -30,6 +30,8 @@ alias gc="g checkout"
 alias gf="g fetch"
 alias gh="g rev-parse HEAD"
 alias gi="g commit"
+alias gibu="gi -m 'Bundle update'"
+alias gigc="gi -m 'Update gem cache'"
 alias gl="g log"
 alias glo="gl --oneline"
 alias gs="g status"
@@ -52,13 +54,15 @@ alias dotfiles='cd ~/.dotfiles'
 alias derp='PB_IGNORE_DEPRECATIONS=1 RUBYOPT="-W0"'
 alias http='python -m SimpleHTTPServer'
 alias jitless='JRUBY_OPTS="$JRUBY_OPTS -J-Djruby.compile.mode=OFF"'
-alias jrbdev='JRUBY_OPTS="$JRUBY_OPTS --dev"'
+alias jrbdev='JRUBY_OPTS="$JRUBY_OPTS --dev --disable:did_you_mean --debug"'
 alias jrb2='JRUBY_OPTS="$JRUBY_OPTS -Xcompat.version=2.0"'
 alias lrb='localrb'
+alias nats='PB_CLIENT_TYPE="protobuf/nats/client" PB_SERVER_TYPE="protobuf/nats/server"'
 alias ns='nslookup'
 alias path='echo $PATH'
 alias redis='redis-server /usr/local/etc/redis.conf'
 alias reload='. ~/.bash_profile'
+alias rvmg='rvm gemset use global'
 alias t='turbo'
 alias tb='t b'
 alias tbu='t bu'

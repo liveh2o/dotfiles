@@ -27,6 +27,10 @@ function hunt { find $PROJECT_PATH -type f -name "$1" -not -path "*vendor*" -pri
 # Prompt setup
 function parse_git_branch { echo `__git_ps1`; }
 
+function gpush {
+  git push origin $(__git_current_branch)
+}
+
 # Backport changes downstream
 function backport {
   __git_sync_remote_branches
@@ -54,7 +58,7 @@ function backport {
 #
 # function ghe {
 #   local repo=$1
-#   local origin=git@$GITHUB_ENTERPRISE
+#   local origin=git@$GIT
 #   local orgs=('it-infrastructure' dev)
 #
 #   for org in $orgs
@@ -71,13 +75,13 @@ function backport {
 function dev {
   local directory=${2:-$1}
 
-  git clone git@git.moneydesktop.com:dev/$1 $directory
+  git clone git@$GIT:dev/$1 $directory
 }
 
 function ops {
   local directory=${2:-$1}
 
-  git clone git@git.moneydesktop.com:it-infrastructure/$1 $directory
+  git clone git@$GIT:it-infrastructure/$1 $directory
 }
 
 # List all commits matching a specific tag (e.g. prod-2015)
@@ -290,11 +294,11 @@ function localrb {
 }
 
 # Switch to latest Ruby with a gemset of the current directory
-function rb {
+function rb2 {
   rvm use ruby@${PWD##*/} --create
 }
 
-# Switch to latest Ruby 2.0 patch with a gemset of the current directory
-function rb2 {
-  rvm use ruby-2.0.0@${PWD##*/} --create
+# Switch to latest Ruby 2.3 patch with a gemset of the current directory
+function rb {
+  rvm use ruby-2.3.3@${PWD##*/} --create
 }

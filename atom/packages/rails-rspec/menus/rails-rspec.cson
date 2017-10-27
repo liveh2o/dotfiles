@@ -1,0 +1,11 @@
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Rails Rspec'
+      'submenu': [
+        { 'label': 'Toggle Spec File', 'command': 'rails-rspec:toggle-spec-file' }
+      ]
+    ]
+  }
+]

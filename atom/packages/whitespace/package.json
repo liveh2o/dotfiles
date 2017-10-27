@@ -1,0 +1,144 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+        "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117821-30742-3ucptf.bq31ru23xr"
+    ]
+  ],
+  "_from": "../d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+  "_id": "whitespace@0.37.4",
+  "_inCache": true,
+  "_location": "/whitespace",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+    "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+  "_shasum": "66e5c1c71e5fa68fb6fa8c622d55717cde238bd3",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+  "_where": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117821-30742-3ucptf.bq31ru23xr",
+  "bugs": {
+    "url": "https://github.com/atom/whitespace/issues"
+  },
+  "configSchema": {
+    "removeTrailingWhitespace": {
+      "type": "boolean",
+      "default": true,
+      "scopes": {
+        ".source.diff": {
+          "default": false
+        },
+        ".source.jade": {
+          "default": false
+        },
+        ".source.patch": {
+          "default": false
+        },
+        ".source.pug": {
+          "default": false
+        }
+      },
+      "description": "Automatically remove whitespace characters at ends of lines when the buffer is saved. To disable/enable for a certain language, use [syntax-scoped properties](https://github.com/atom/whitespace#readme) in your `config.cson`."
+    },
+    "keepMarkdownLineBreakWhitespace": {
+      "type": "boolean",
+      "default": true,
+      "description": "Markdown uses two or more spaces at the end of a line to signify a line break. Enable this option to keep this whitespace in Markdown files, even if other settings would remove it."
+    },
+    "ignoreWhitespaceOnCurrentLine": {
+      "type": "boolean",
+      "default": true,
+      "description": "Skip removing trailing whitespace on the line which the cursor is positioned on when the buffer is saved. To disable/enable for a certain language, use [syntax-scoped properties](https://github.com/atom/whitespace#readme) in your `config.cson`."
+    },
+    "ignoreWhitespaceOnlyLines": {
+      "type": "boolean",
+      "default": false,
+      "description": "Skip removing trailing whitespace on lines which consist only of whitespace characters. To disable/enable for a certain language, use [syntax-scoped properties](https://github.com/atom/whitespace#readme) in your `config.cson`."
+    },
+    "ensureSingleTrailingNewline": {
+      "type": "boolean",
+      "default": true,
+      "description": "If the buffer doesn't end with a newline character when it's saved, then append one. If it ends with more than one newline, remove all but one. To disable/enable for a certain language, use [syntax-scoped properties](https://github.com/atom/whitespace#readme) in your `config.cson`."
+    }
+  },
+  "dependencies": {},
+  "description": "Strips trailing whitespace and adds a trailing newline when an editor is saved.",
+  "devDependencies": {
+    "coffeelint": "^1.9.7",
+    "fs-plus": "2.x",
+    "standard": "^8.4.0",
+    "temp": "~0.8.1"
+  },
+  "engines": {
+    "atom": "*"
+  },
+  "homepage": "https://github.com/atom/whitespace#readme",
+  "license": "MIT",
+  "main": "./lib/main",
+  "name": "whitespace",
+  "optionalDependencies": {},
+  "readme": "# Whitespace package\n[![OS X Build Status](https://travis-ci.org/atom/whitespace.svg?branch=master)](https://travis-ci.org/atom/whitespace) [![Windows Build Status](https://ci.appveyor.com/api/projects/status/sf8pdb3ausdk1vtb/branch/master?svg=true)](https://ci.appveyor.com/project/Atom/whitespace/branch/master) [![Dependency Status](https://david-dm.org/atom/whitespace.svg)](https://david-dm.org/atom/whitespace)\n\nStrips trailing whitespace and adds a trailing newline when an editor is saved.\n\nTo disable/enable features for a certain language package, you can use syntax-scoped properties in your `config.cson`. E.g.\n\n```coffee\n'.slim.text':\n  whitespace:\n    removeTrailingWhitespace: false\n```\n\nYou find the `scope` on top of a grammar package's settings view.\n\nNote: for `.source.jade`, `.source.diff`, `.source.pug` and `.source.patch`, removing trailing whitespace is disabled by default.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atom/whitespace.git"
+  },
+  "scripts": {
+    "lint": "standard"
+  },
+  "standard": {
+    "ignore": [],
+    "globals": [
+      "atom",
+      "afterEach",
+      "beforeEach",
+      "describe",
+      "fdescribe",
+      "xdescribe",
+      "expect",
+      "it",
+      "fit",
+      "xit",
+      "jasmine",
+      "runs",
+      "spyOn",
+      "waits",
+      "waitsFor",
+      "waitsForPromise"
+    ]
+  },
+  "version": "0.37.4",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "coffeelint.json",
+        "package.json"
+      ],
+      ".js": [
+        "lib/main.js",
+        "lib/whitespace.js"
+      ]
+    },
+    "folders": []
+  }
+}

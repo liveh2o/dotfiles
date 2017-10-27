@@ -1,0 +1,69 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+        "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117217-71372-1fjjz3t"
+    ]
+  ],
+  "_from": "../d-117217-71372-1cftk2u/package.tgz",
+  "_id": "timecop@0.36.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/timecop",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+    "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-117217-71372-1cftk2u/package.tgz",
+  "_shasum": "6ad15522ab9b90cf6a235eb210c4d3a21a9a6812",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+  "_where": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117217-71372-1fjjz3t",
+  "bugs": {
+    "url": "https://github.com/atom/timecop/issues"
+  },
+  "dependencies": {
+    "dedent": "^0.7.0",
+    "etch": "^0.8.0",
+    "underscore-plus": "^1.0.0"
+  },
+  "description": "Displays information about where time is spent while Atom loads.",
+  "deserializers": {
+    "TimecopView": "createTimecopView"
+  },
+  "devDependencies": {
+    "coffeelint": "^1.9.7"
+  },
+  "engines": {
+    "atom": "*"
+  },
+  "homepage": "https://github.com/atom/timecop#readme",
+  "license": "MIT",
+  "main": "./lib/main",
+  "name": "timecop",
+  "optionalDependencies": {},
+  "readme": "# Timecop package\n[![OS X Build Status](https://travis-ci.org/atom/timecop.svg?branch=master)](https://travis-ci.org/atom/timecop) [![Windows Build Status](https://ci.appveyor.com/api/projects/status/37fhichmvx90sd97/branch/master?svg=true)](https://ci.appveyor.com/project/Atom/timecop/branch/master) [![Dependency Status](https://david-dm.org/atom/timecop.svg)](https://david-dm.org/atom/timecop)\n\nDisplays information about where time is spent while Atom loads.\n\n  * Startup time\n  * Compile cache\n  * Package loading time\n  * Package activation time\n  * Theme loading time\n  * Theme activation time\n\n![](https://cloud.githubusercontent.com/assets/378023/20422582/9e5907f8-adae-11e6-8267-faa3514de896.png)\n\nInspired by [Timecop](http://www.imdb.com/title/tt0111438/) the movie. :watch: :rotating_light:\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atom/timecop.git"
+  },
+  "version": "0.36.0"
+}

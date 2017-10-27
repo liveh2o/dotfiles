@@ -1,0 +1,195 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117618-28444-19xt9xa.977rchxgvi/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117618-28444-19xt9xa.977rchxgvi/package.tgz",
+        "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117618-28444-19xt9xa.977rchxgvi/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117618-28444-18dx9b6.9p70ttke29"
+    ]
+  ],
+  "_from": "../d-117618-28444-19xt9xa.977rchxgvi/package.tgz",
+  "_id": "goto-definition@1.3.4",
+  "_inCache": true,
+  "_location": "/goto-definition",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117618-28444-19xt9xa.977rchxgvi/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117618-28444-19xt9xa.977rchxgvi/package.tgz",
+    "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117618-28444-19xt9xa.977rchxgvi/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-117618-28444-19xt9xa.977rchxgvi/package.tgz",
+  "_shasum": "04fabb56d77592d581b847528c12f1efcd1308d6",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117618-28444-19xt9xa.977rchxgvi/package.tgz",
+  "_where": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117618-28444-18dx9b6.9p70ttke29",
+  "author": {
+    "name": "faceair"
+  },
+  "bugs": {
+    "url": "https://github.com/faceair/atom-goto-definition/issues"
+  },
+  "dependencies": {
+    "atom-select-list": "^0.2.0",
+    "etch": "^0.12.2"
+  },
+  "description": "Goto definition.",
+  "devDependencies": {
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3"
+  },
+  "homepage": "https://github.com/faceair/atom-goto-definition#readme",
+  "license": "GPL-2.0",
+  "main": "./lib/goto-definition",
+  "name": "goto-definition",
+  "optionalDependencies": {},
+  "providedServices": {
+    "hyperclick.provider": {
+      "versions": {
+        "0.0.0": "getProvider"
+      }
+    }
+  },
+  "readme": "# Goto Definition\n\n[![macOS & Linux Build Status](https://travis-ci.org/faceair/atom-goto-definition.svg?branch=master)](https://travis-ci.org/faceair/atom-goto-definition)\n[![Windows Build Status](https://ci.appveyor.com/api/projects/status/q8lttuxttxf69xs4?svg=true)](https://ci.appveyor.com/project/faceair/atom-goto-definition)\n[![dependencies Status](https://david-dm.org/faceair/atom-goto-definition/status.svg)](https://david-dm.org/faceair/atom-goto-definition)\n\n![demo](http://ww1.sinaimg.cn/large/71ef46c1ly1fdt8wgbaiqg20zi0j8hdu.gif)\n\n* Support for `JavaScript(ES6 && JSX)`, `TypeScript`, `CoffeeScript`, `Python`, `Ruby`, `PHP`, `Hack`, `Perl`, `KRL`, `Erb`, `Haml`, `C/C++`, `Puppet`, `ASP`, `Shell`\n* Works with Mac OSX, Linux and Windows\n* Goto-Definition functionality, by default on `Alt+Cmd+Enter`/`Ctrl+Alt+Enter`\n* Support [hyperclick](https://atom.io/packages/hyperclick), `<cmd-click>` on a word to jump it's declaration\n\n## Installing\nInstall the package ```goto-definition``` in Atom (Preferences->Install) or use Atom's package manager from a shell:  \n```\n$ apm install goto-definition\n```\n\n## Performance Mode\n\nPerformance mode is 10x faster then nomal model. if you want a better experience, please open the performance mode.\n\nSteps:\n\n1. Install `ripgrep`, see [https://github.com/BurntSushi/ripgrep#installation](https://github.com/BurntSushi/ripgrep#installation). Yeap, now we use `ripgrep` to search definitions, because of it's incredibly fast.\n2. Turn `Settings -> Packages -> goto-definition -> Settings -> Performance Mode` on.\n3. Enjoy it.\n\nNow the performance model is still testing, welcome suggestions and feedback. If it goes well, we will open the performance mode by default in the next version.\n\n### Ignoring files\n\nIn performance mode, if you want ignore some files, you can create a file called `.ignore` in the root of the project, it working like `.gitignore`.\n\n### Notice\n\n* In nomal model, if you want include VCS ignored paths, please turn `Settings -> Exclude VCS Ignored Paths` option off.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faceair/atom-goto-definition.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "apm test"
+  },
+  "version": "1.3.4",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "atom-select-list",
+        "version": "0.2.0",
+        "path": "node_modules/atom-select-list/src/select-list-view.js"
+      },
+      {
+        "name": "etch",
+        "version": "0.9.5",
+        "path": "node_modules/atom-select-list/node_modules/etch/lib/index.js"
+      },
+      {
+        "name": "etch",
+        "version": "0.12.5",
+        "path": "node_modules/etch/lib/index.js"
+      },
+      {
+        "name": "fuzzaldrin",
+        "version": "2.1.0",
+        "path": "node_modules/fuzzaldrin/lib/fuzzaldrin.js"
+      }
+    ],
+    "extensions": {
+      ".js": [
+        "lib/config.js",
+        "lib/definitions-view.js",
+        "lib/goto-definition.js",
+        "lib/searcher.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/component-helpers.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/default-scheduler.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/dom.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/event-listener-props.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/index.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/patch.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/render.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/scheduler-assignment.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/svg-attribute-translations.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/svg-tags.js",
+        "node_modules/atom-select-list/node_modules/etch/dist/update-props.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/component-helpers.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/default-scheduler.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/dom.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/event-listener-props.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/index.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/patch.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/render.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/scheduler-assignment.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/svg-attribute-translations.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/svg-tags.js",
+        "node_modules/atom-select-list/node_modules/etch/lib/update-props.js",
+        "node_modules/atom-select-list/src/select-list-view.js",
+        "node_modules/etch/dist/component-helpers.js",
+        "node_modules/etch/dist/default-scheduler.js",
+        "node_modules/etch/dist/dom.js",
+        "node_modules/etch/dist/event-listener-props.js",
+        "node_modules/etch/dist/index.js",
+        "node_modules/etch/dist/patch.js",
+        "node_modules/etch/dist/render.js",
+        "node_modules/etch/dist/scheduler-assignment.js",
+        "node_modules/etch/dist/svg-attribute-translations.js",
+        "node_modules/etch/dist/svg-tags.js",
+        "node_modules/etch/dist/update-props.js",
+        "node_modules/etch/lib/component-helpers.js",
+        "node_modules/etch/lib/default-scheduler.js",
+        "node_modules/etch/lib/dom.js",
+        "node_modules/etch/lib/event-listener-props.js",
+        "node_modules/etch/lib/index.js",
+        "node_modules/etch/lib/patch.js",
+        "node_modules/etch/lib/render.js",
+        "node_modules/etch/lib/scheduler-assignment.js",
+        "node_modules/etch/lib/svg-attribute-translations.js",
+        "node_modules/etch/lib/svg-tags.js",
+        "node_modules/etch/lib/update-props.js",
+        "node_modules/fuzzaldrin/lib/filter.js",
+        "node_modules/fuzzaldrin/lib/fuzzaldrin.js",
+        "node_modules/fuzzaldrin/lib/matcher.js",
+        "node_modules/fuzzaldrin/lib/scorer.js"
+      ],
+      ".json": [
+        "node_modules/atom-select-list/node_modules/etch/package.json",
+        "node_modules/atom-select-list/package.json",
+        "node_modules/etch/package.json",
+        "node_modules/fuzzaldrin/package.json",
+        "package.json"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "keymaps",
+          "lib",
+          "menus",
+          "",
+          "spec/fixtures",
+          "spec"
+        ],
+        "dependencies": {
+          "atom-select-list": "^0.2.0",
+          "etch": "^0.12.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-select-list",
+          "node_modules/atom-select-list/src",
+          "node_modules/atom-select-list/test"
+        ],
+        "dependencies": {
+          "etch": "^0.9.5",
+          "fuzzaldrin": "^2.1.0"
+        }
+      }
+    ]
+  }
+}

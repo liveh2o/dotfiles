@@ -1,0 +1,42 @@
+{
+  "name": "rails-rspec",
+  "main": "./lib/rails-rspec",
+  "version": "0.3.2",
+  "description": "Toggle spec and tested file in rails project",
+  "activationCommands": {
+    "atom-text-editor": "rails-rspec:toggle-spec-file"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wangyuhere/atom-rails-rspec"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "# Rails Rspec Package\n\nIn rails project with rspec, toggle between spec and tested file in atom editor.\n\n## How to use\n\nIn the editor:\n\n* __alt-ctrl-r__: toggle between spec and tested ruby file.\n\n## Config\n\nMultiple spec paths are supported. By default, find rspec files in \"spec\", \"fast_spec\".\n* rails-rspec.specSearchPaths: ['spec', 'fast_spec']\n* rails-rspec.specDefaultPath: 'spec'\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/wangyuhere/atom-rails-rspec/issues"
+  },
+  "homepage": "https://github.com/wangyuhere/atom-rails-rspec",
+  "_id": "rails-rspec@0.3.2",
+  "_shasum": "7dda446a5f2176a16e5fbca263373f51131d0499",
+  "_resolved": "file:../d-115518-66989-ho5c7l/package.tgz",
+  "_from": "../d-115518-66989-ho5c7l/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/rails-rspec.coffee",
+        "lib/rails.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}

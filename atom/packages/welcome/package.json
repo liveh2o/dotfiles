@@ -1,0 +1,140 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+        "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117530-49458-krwm33.shsjfhto6r"
+    ]
+  ],
+  "_from": "../d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+  "_id": "welcome@0.36.5",
+  "_inCache": true,
+  "_location": "/welcome",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+    "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+  "_shasum": "b18f63e9031167c024474404bf9bd981ddcde371",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+  "_where": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117530-49458-krwm33.shsjfhto6r",
+  "atomTestRunner": "atom-mocha-test-runner",
+  "bugs": {
+    "url": "https://github.com/atom/welcome/issues"
+  },
+  "configSchema": {
+    "showOnStartup": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show welcome panes with useful information when opening a new Atom window."
+    }
+  },
+  "consumedServices": {
+    "metrics-reporter": {
+      "versions": {
+        "^1.0.0": "consumeReporter"
+      }
+    }
+  },
+  "dependencies": {
+    "etch": "0.9.0"
+  },
+  "description": "Welcome users to Atom with useful information",
+  "deserializers": {
+    "WelcomeView": "createWelcomeView",
+    "GuideView": "createGuideView",
+    "ConsentView": "createConsentView"
+  },
+  "devDependencies": {
+    "atom-mocha-test-runner": "^1.0.0",
+    "standard": "^8.6.0"
+  },
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "homepage": "https://github.com/atom/welcome#readme",
+  "license": "MIT",
+  "main": "./lib/main",
+  "name": "welcome",
+  "optionalDependencies": {},
+  "readme": "## Welcome package\n[![macOS Build Status](https://travis-ci.org/atom/welcome.svg?branch=master)](https://travis-ci.org/atom/welcome)\n[![Windows Build Status](https://ci.appveyor.com/api/projects/status/c3ssyte35ivvnt62/branch/master?svg=true)](https://ci.appveyor.com/project/Atom/welcome/branch/master)\n[![Dependency Status](https://david-dm.org/atom/welcome.svg)](https://david-dm.org/atom/welcome)\n\nOpens a welcome editor with helpful information the very first time Atom is opened and the usage statistics opt-in.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atom/welcome.git"
+  },
+  "scripts": {
+    "test": "standard lib/**/*.js test/**/*.js && atom --test test/*.test.js"
+  },
+  "standard": {
+    "globals": [
+      "atom"
+    ]
+  },
+  "version": "0.36.5",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "etch",
+        "version": "0.9.0",
+        "path": "node_modules/etch/lib/index.js"
+      }
+    ],
+    "extensions": {
+      ".json": [
+        "coffeelint.json",
+        "node_modules/etch/package.json",
+        "package.json"
+      ],
+      ".js": [
+        "lib/consent-view.js",
+        "lib/guide-view.js",
+        "lib/main.js",
+        "lib/reporter-proxy.js",
+        "lib/welcome-package.js",
+        "lib/welcome-view.js",
+        "node_modules/etch/lib/component-helpers.js",
+        "node_modules/etch/lib/default-scheduler.js",
+        "node_modules/etch/lib/dom.js",
+        "node_modules/etch/lib/event-listener-props.js",
+        "node_modules/etch/lib/index.js",
+        "node_modules/etch/lib/patch.js",
+        "node_modules/etch/lib/render.js",
+        "node_modules/etch/lib/scheduler-assignment.js",
+        "node_modules/etch/lib/svg-attribute-translations.js",
+        "node_modules/etch/lib/svg-tags.js",
+        "node_modules/etch/lib/update-props.js"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "",
+          "lib",
+          "test"
+        ],
+        "dependencies": {
+          "etch": "0.9.0"
+        }
+      }
+    ]
+  }
+}

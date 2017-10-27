@@ -1,0 +1,13 @@
+var _atomMochaTestRunner = require('atom-mocha-test-runner');
+
+var _chai = require('chai');
+
+'use babel';
+
+global.expect = _chai.expect;
+
+module.exports = (0, _atomMochaTestRunner.createRunner)({
+  testSuffixes: ['spec.js', 'spec.coffee']
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9haC8uYXRvbS9wYWNrYWdlcy9zb2Z0LXdyYXAtaW5kaWNhdG9yL3NwZWMvcnVubmVyLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJtQ0FFMkIsd0JBQXdCOztvQkFDOUIsTUFBTTs7QUFIM0IsV0FBVyxDQUFBOztBQUlYLE1BQU0sQ0FBQyxNQUFNLGVBQVMsQ0FBQTs7QUFFdEIsTUFBTSxDQUFDLE9BQU8sR0FBRyx1Q0FBYTtBQUM1QixjQUFZLEVBQUUsQ0FBQyxTQUFTLEVBQUUsYUFBYSxDQUFDO0NBQ3pDLENBQUMsQ0FBQSIsImZpbGUiOiIvVXNlcnMvYWgvLmF0b20vcGFja2FnZXMvc29mdC13cmFwLWluZGljYXRvci9zcGVjL3J1bm5lci5qcyIsInNvdXJjZXNDb250ZW50IjpbIid1c2UgYmFiZWwnXG5cbmltcG9ydCB7Y3JlYXRlUnVubmVyfSBmcm9tICdhdG9tLW1vY2hhLXRlc3QtcnVubmVyJ1xuaW1wb3J0IHtleHBlY3R9IGZyb20gJ2NoYWknXG5nbG9iYWwuZXhwZWN0ID0gZXhwZWN0XG5cbm1vZHVsZS5leHBvcnRzID0gY3JlYXRlUnVubmVyKHtcbiAgdGVzdFN1ZmZpeGVzOiBbJ3NwZWMuanMnLCAnc3BlYy5jb2ZmZWUnXVxufSlcbiJdfQ==
+//# sourceURL=/Users/ah/.atom/packages/soft-wrap-indicator/spec/runner.js

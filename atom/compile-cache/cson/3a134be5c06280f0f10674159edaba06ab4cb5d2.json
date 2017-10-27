@@ -1,0 +1,1 @@
+{"context-menu":{".overlayer":{"Run All Specs":"rspec:run","Run Current Spec":"rspec:run-for-line","Re-Run Last Spec":"rspec:run-last"}},"menu":[{"label":"Packages","submenu":[{"label":"RSpec","submenu":[{"label":"Run All Specs","command":"rspec:run"},{"label":"Run Current Spec","command":"rspec:run-for-line"},{"label":"Re-Run Last Spec","command":"rspec:run-last"}]}]}]}

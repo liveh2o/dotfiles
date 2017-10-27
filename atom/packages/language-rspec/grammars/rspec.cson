@@ -1,0 +1,86 @@
+'name': 'RSpec'
+'fileTypes': [
+  'spec.rb'
+]
+'scopeName': 'source.ruby.rspec'
+'patterns': [
+  {
+    'include': '#behaviour'
+  }
+  {
+    'match': '(?<!\\.)\\b(it|specify|example|scenario|pending|skip|xit|xspecify|xexample|expect)(?!\\s=|=)\\b'
+    'name': 'keyword.other.example.rspec'
+  }
+  {
+    'match': '(should_not|should)'
+    'name': 'keyword.other.example.rspec'
+  }
+  {
+    'match': '(?<!\\.)\\b(before|after|around)\\b(?![?!])'
+    'name': 'keyword.other.hook.rspec'
+  }
+  {
+    'match': '\\b(eq|equal)\\b'
+    'name': 'keyword.other.matcher.rspec'
+  }
+  {
+    'include': 'source.ruby'
+  }
+]
+'repository':
+  'behaviour':
+    'begin': '^(RSpec)?(?:\\.|\\s*)(describe|context|feature)(?! =|=)\\b'
+    'beginCaptures':
+      '1':
+        'name': 'support.class.ruby'
+      '2':
+        'name': 'keyword.other.rspec.behaviour'
+    'end': '\\b(do)\\s*$'
+    'endCaptures':
+      '1':
+        'name': 'keyword.control.ruby.start-block'
+    'name': 'meta.rspec.behaviour'
+    'patterns': [
+      {
+        'begin': '"'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.string.begin.ruby'
+        'end': '"'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.string.end.ruby'
+        'name': 'string.quoted.double.interpolated.ruby'
+      }
+      {
+        'begin': "'"
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.string.begin.ruby'
+        'end': "'"
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.string.end.ruby'
+        'name': 'string.quoted.single.ruby'
+      }
+      {
+        'captures':
+          '1':
+            'name': 'punctuation.definition.constant.ruby'
+        'comment': 'symbols'
+        'match': '(?<!:)(:)(?>[$a-zA-Z_]\\w*(?>[?!]|=(?![>=]))?|===?|<=>|>[>=]?|<[<=]?|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?|@@?[a-zA-Z_]\\w*)'
+        'name': 'constant.other.symbol.ruby'
+      }
+      {
+        'begin': '(,)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.separator.object.ruby'
+        'end': '\\s(?=do)'
+        'patterns': [
+          {
+            'include': 'source.ruby'
+          }
+        ]
+      }
+    ]

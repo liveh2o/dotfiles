@@ -1,0 +1,221 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/stylesheets/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+@import "colors";
+
+atom-text-editor.editor {
+  background-color: @white;
+  color: @gray_dark;
+
+  .invisible-character,
+  .indent-guide { color: @gray_light2; }
+
+  .gutter { background-color: @gutter; }
+
+  .gutter .line-number { opacity: 1; color: @gutter_text; }
+
+  .gutter .line-number.folded,
+  .gutter .line-number:after,
+  .fold-marker:after { color: @gutter_text; }
+
+  .cursor { border-color: @cursor; }
+
+  .selection .region {
+    background-color: @selection;
+    // border: 1px solid @light_blue_border;
+    border-radius: 2px; }
+
+  .line-number.cursor-line-no-selection { background-color: @gutter_highlight; }
+
+}
+
+.bracket-matcher .region {
+  background-color: @light_blue;
+  border-radius: 2px;
+  border: 1px solid @blue;
+}
+
+.syntax--comment {
+  color: @comment;
+  font-style: normal; }
+
+.syntax--entity { color: @blue_tag; }
+
+.syntax--keyword { color: @green; }
+
+.syntax--storage.syntax--type { color: @green; }
+
+.syntax--constant { color: @red;
+
+  &.syntax--numeric,
+  &.syntax--boolean { color: @turquoise; }
+
+}
+
+.syntax--variable { color: @blue; }
+
+.syntax--delimiter, .syntax--brace { color: @black; }
+
+.syntax--delimiter.syntax--period { color: @green; }
+
+.syntax--invalid.syntax--deprecated {
+  text-decoration: underline;
+  color: @red; }
+
+.syntax--invalid.syntax--illegal { color: @red; }
+
+.syntax--string { color: @orange;
+
+  .syntax--constant.syntax--character.syntax--escape { color: @red; }
+
+  &.syntax--regexp { color: @turquoise;
+
+    .syntax--source.syntax--ruby.syntax--embedded,
+    .syntax--string.syntax--regexp.syntax--arbitrary-repitition { color: @red; }
+
+  }
+
+}
+
+// CSS
+
+.syntax--css {
+
+  .syntax--entity { color: @blue; }
+
+  .syntax--property-name { color: @red; }
+
+  .syntax--variable { color: @green; }
+
+  .syntax--constant,
+  .syntax--unit {
+    color: @purple;
+    background-color: @light_purple;
+    border-radius: 3px; }
+
+  .syntax--quoted { color: @orange; }
+
+}
+
+// HTML
+.syntax--html,
+.syntax--xml{
+
+  .syntax--tag { color: @blue; }
+
+  .syntax--entity { color: @blue_tag;
+
+    &.syntax--name {
+      background-color: @light_blue;
+      border-radius: 3px; }
+
+  }
+
+  .syntax--comment { color: @comment; }
+
+  .syntax--attribute-name { color: @blue; }
+
+  .syntax--quoted { color: @red;
+
+    .syntax--punctuation { color: @dark_blue; }
+
+  }
+
+  .syntax--js .syntax--quoted { color: @orange; }
+
+}
+
+// Markdown
+.syntax--gfm {
+
+  .syntax--link {
+    color: @black;
+    font-weight: bold;
+
+    .syntax--entity {
+      color: @orange;
+      font-weight: normal; }
+
+    .syntax--link {
+      color: @green;
+      font-weight: normal; }
+
+  }
+
+  .syntax--heading {
+    font-weight: bold;
+    color: @black; }
+
+  .syntax--list,
+  .syntax--hr { color: @red; }
+
+  .syntax--quote {
+    font-style: italic;
+    color: @dark_blue; }
+
+  .syntax--raw { color: @purple;
+
+    .syntax--support {
+      color: @red;
+      font-weight: bold; }
+
+  }
+
+}
+
+// JSON
+.syntax--json {
+
+  .syntax--punctuation { color: @gray_dark;
+
+    &.syntax--separator { color: red; }
+
+  }
+
+  .syntax--quoted {
+    color: @dark_blue;
+    background-color: @light_blue;
+    border-radius: 3px;  }
+
+  .syntax--constant {
+    color: @purple;
+    background-color: @light_purple;
+    border-radius: 3px;  }
+
+}
+
+// YAML
+.syntax--yaml {
+
+  .syntax--entity.syntax--name { background-color: @light_blue; }
+
+  .syntax--string .syntax--punctuation { color: @gray; }
+
+}
+
+// Ruby
+.syntax--ruby {
+
+  .syntax--entity.syntax--name { color: @purple; }
+
+  .syntax--string { color: @red; }
+
+}
+
+// Ruby ERB files
+.syntax--erb {
+
+  .syntax--embedded.syntax--erb {
+    color: @purple;
+    background-color: @light_purple;
+    border-radius: 3px;
+
+    .syntax--variable { color: @purple_dark; }
+
+    .syntax--punctuation { color: @purple; }
+
+  }
+
+}

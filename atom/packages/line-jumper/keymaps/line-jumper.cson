@@ -1,0 +1,6 @@
+'atom-text-editor':
+  'alt-up': 'line-jumper:move-up'
+  'alt-down': 'line-jumper:move-down'
+
+  'alt-shift-up': 'line-jumper:select-up'
+  'alt-shift-down': 'line-jumper:select-down'

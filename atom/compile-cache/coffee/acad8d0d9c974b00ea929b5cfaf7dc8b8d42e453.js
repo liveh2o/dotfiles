@@ -1,0 +1,123 @@
+(function() {
+  var RSpecView, url;
+
+  url = require('url');
+
+  RSpecView = require('./rspec-view');
+
+  module.exports = {
+    configDefaults: {
+      command: "rspec",
+      spec_directory: "spec",
+      force_colored_results: true
+    },
+    activate: function(state) {
+      if (state != null) {
+        this.lastFile = state.lastFile;
+        this.lastLine = state.lastLine;
+      }
+      atom.config.setDefaults("atom-rspec", {
+        command: this.configDefaults.command,
+        spec_directory: this.configDefaults.spec_directory,
+        force_colored_results: this.configDefaults.force_colored_results
+      });
+      atom.workspaceView.command('rspec:run', (function(_this) {
+        return function() {
+          return _this.run();
+        };
+      })(this));
+      atom.workspaceView.command('rspec:run-for-line', (function(_this) {
+        return function() {
+          return _this.runForLine();
+        };
+      })(this));
+      atom.workspaceView.command('rspec:run-last', (function(_this) {
+        return function() {
+          return _this.runLast();
+        };
+      })(this));
+      atom.workspaceView.command('rspec:run-all', (function(_this) {
+        return function() {
+          return _this.runAll();
+        };
+      })(this));
+      return atom.workspace.registerOpener(function(uriToOpen) {
+        var pathname, protocol, _ref;
+        _ref = url.parse(uriToOpen), protocol = _ref.protocol, pathname = _ref.pathname;
+        if (protocol !== 'rspec-output:') {
+          return;
+        }
+        return new RSpecView(pathname);
+      });
+    },
+    rspecView: null,
+    deactivate: function() {
+      return this.rspecView.destroy();
+    },
+    serialize: function() {
+      return {
+        rspecViewState: this.rspecView.serialize(),
+        lastFile: this.lastFile,
+        lastLine: this.lastLine
+      };
+    },
+    openUriFor: function(file, lineNumber) {
+      var previousActivePane, uri;
+      this.lastFile = file;
+      this.lastLine = lineNumber;
+      previousActivePane = atom.workspace.getActivePane();
+      uri = "rspec-output://" + file;
+      return atom.workspace.open(uri, {
+        split: 'right',
+        changeFocus: false,
+        searchAllPanes: true
+      }).done(function(rspecView) {
+        if (rspecView instanceof RSpecView) {
+          rspecView.run(lineNumber);
+          return previousActivePane.activate();
+        }
+      });
+    },
+    runForLine: function() {
+      var cursor, editor, line;
+      console.log("Starting runForLine...");
+      editor = atom.workspace.getActiveEditor();
+      console.log("Editor", editor);
+      if (editor == null) {
+        return;
+      }
+      cursor = editor.getCursor();
+      console.log("Cursor", cursor);
+      line = cursor.getBufferRow() + 1;
+      console.log("Line", line);
+      return this.openUriFor(editor.getPath(), line);
+    },
+    runLast: function() {
+      if (this.lastFile == null) {
+        return;
+      }
+      return this.openUriFor(this.lastFile, this.lastLine);
+    },
+    run: function() {
+      var editor;
+      console.log("RUN");
+      editor = atom.workspace.getActiveEditor();
+      if (editor == null) {
+        return;
+      }
+      return this.openUriFor(editor.getPath());
+    },
+    runAll: function() {
+      var project;
+      project = atom.project;
+      if (project == null) {
+        return;
+      }
+      return this.openUriFor(project.getPath() + "/" + atom.config.get("atom-rspec.spec_directory"));
+    }
+  };
+
+}).call(this);
+
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAiZmlsZSI6ICIiLAogICJzb3VyY2VSb290IjogIiIsCiAgInNvdXJjZXMiOiBbCiAgICAiIgogIF0sCiAgIm5hbWVzIjogW10sCiAgIm1hcHBpbmdzIjogIkFBQUE7QUFBQSxNQUFBLGNBQUE7O0FBQUEsRUFBQSxHQUFBLEdBQU0sT0FBQSxDQUFRLEtBQVIsQ0FBTixDQUFBOztBQUFBLEVBRUEsU0FBQSxHQUFZLE9BQUEsQ0FBUSxjQUFSLENBRlosQ0FBQTs7QUFBQSxFQUlBLE1BQU0sQ0FBQyxPQUFQLEdBQ0U7QUFBQSxJQUFBLGNBQUEsRUFDRTtBQUFBLE1BQUEsT0FBQSxFQUFTLE9BQVQ7QUFBQSxNQUNBLGNBQUEsRUFBZ0IsTUFEaEI7QUFBQSxNQUVBLHFCQUFBLEVBQXVCLElBRnZCO0tBREY7QUFBQSxJQUtBLFFBQUEsRUFBVSxTQUFDLEtBQUQsR0FBQTtBQUNSLE1BQUEsSUFBRyxhQUFIO0FBQ0UsUUFBQSxJQUFDLENBQUEsUUFBRCxHQUFZLEtBQUssQ0FBQyxRQUFsQixDQUFBO0FBQUEsUUFDQSxJQUFDLENBQUEsUUFBRCxHQUFZLEtBQUssQ0FBQyxRQURsQixDQURGO09BQUE7QUFBQSxNQUlBLElBQUksQ0FBQyxNQUFNLENBQUMsV0FBWixDQUF3QixZQUF4QixFQUNFO0FBQUEsUUFBQSxPQUFBLEVBQXVCLElBQUMsQ0FBQSxjQUFjLENBQUMsT0FBdkM7QUFBQSxRQUNBLGNBQUEsRUFBdUIsSUFBQyxDQUFBLGNBQWMsQ0FBQyxjQUR2QztBQUFBLFFBRUEscUJBQUEsRUFBdUIsSUFBQyxDQUFBLGNBQWMsQ0FBQyxxQkFGdkM7T0FERixDQUpBLENBQUE7QUFBQSxNQVNBLElBQUksQ0FBQyxhQUFhLENBQUMsT0FBbkIsQ0FBMkIsV0FBM0IsRUFBaUQsQ0FBQSxTQUFBLEtBQUEsR0FBQTtlQUFBLFNBQUEsR0FBQTtpQkFBRyxLQUFDLENBQUEsR0FBRCxDQUFBLEVBQUg7UUFBQSxFQUFBO01BQUEsQ0FBQSxDQUFBLENBQUEsSUFBQSxDQUFqRCxDQVRBLENBQUE7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
+//# sourceURL=/Users/ah/.atom/packages/rspec/lib/rspec.coffee

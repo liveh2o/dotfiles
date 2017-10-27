@@ -1,0 +1,123 @@
+(function() {
+  var ShowTodoView, TodosModel, path;
+
+  path = require('path');
+
+  ShowTodoView = require('../lib/show-todo-view');
+
+  TodosModel = require('../lib/todos-model');
+
+  describe("Show Todo View", function() {
+    var model, showTodoView, _ref;
+    _ref = [], showTodoView = _ref[0], model = _ref[1];
+    beforeEach(function() {
+      var regexes, uri;
+      regexes = ['TODOs', '/\\bTODO:?\\d*($|\\s.*$)/g'];
+      atom.config.set('todo-show.findTheseRegexes', regexes);
+      atom.project.setPaths([path.join(__dirname, 'fixtures/sample1')]);
+      model = new TodosModel;
+      uri = 'atom://todo-show/todos';
+      showTodoView = new ShowTodoView(model, uri);
+      return waitsFor(function() {
+        return !showTodoView.loading;
+      });
+    });
+    describe("Basic view properties", function() {
+      return it("has a title, uri, etc.", function() {
+        expect(showTodoView.getTitle()).toEqual('Todo-Show Results');
+        expect(showTodoView.getIconName()).toEqual('checklist');
+        expect(showTodoView.getURI()).toEqual('atom://todo-show/todos');
+        return expect(showTodoView.find('.btn-group')).toExist();
+      });
+    });
+    return describe("Automatic update of todos", function() {
+      it("refreshes on save", function() {
+        waitsForPromise(function() {
+          return atom.workspace.open('temp.txt');
+        });
+        return runs(function() {
+          var editor;
+          editor = atom.workspace.getActiveTextEditor();
+          expect(showTodoView.getTodos()).toHaveLength(3);
+          editor.setText("# TODO: Test");
+          editor.save();
+          waitsFor(function() {
+            return !showTodoView.loading;
+          });
+          return runs(function() {
+            expect(showTodoView.getTodos()).toHaveLength(4);
+            editor.setText("");
+            editor.save();
+            waitsFor(function() {
+              return !showTodoView.loading;
+            });
+            return runs(function() {
+              return expect(showTodoView.getTodos()).toHaveLength(3);
+            });
+          });
+        });
+      });
+      it("updates on search scope change", function() {
+        expect(showTodoView.loading).toBe(false);
+        expect(model.getSearchScope()).toBe('full');
+        expect(model.toggleSearchScope()).toBe('open');
+        expect(showTodoView.loading).toBe(true);
+        waitsFor(function() {
+          return !showTodoView.loading;
+        });
+        return runs(function() {
+          expect(model.toggleSearchScope()).toBe('active');
+          expect(showTodoView.loading).toBe(true);
+          waitsFor(function() {
+            return !showTodoView.loading;
+          });
+          return runs(function() {
+            expect(model.toggleSearchScope()).toBe('full');
+            return expect(showTodoView.loading).toBe(true);
+          });
+        });
+      });
+      return it("handles search scope; full, open, active", function() {
+        waitsForPromise(function() {
+          return atom.workspace.open('sample.c');
+        });
+        return runs(function() {
+          var pane;
+          pane = atom.workspace.getActivePane();
+          expect(showTodoView.getTodos()).toHaveLength(3);
+          model.setSearchScope('open');
+          waitsFor(function() {
+            return !showTodoView.loading;
+          });
+          return runs(function() {
+            expect(showTodoView.getTodos()).toHaveLength(1);
+            waitsForPromise(function() {
+              return atom.workspace.open('temp.txt');
+            });
+            return runs(function() {
+              model.setSearchScope('active');
+              waitsFor(function() {
+                return !showTodoView.loading;
+              });
+              return runs(function() {
+                expect(showTodoView.getTodos()).toHaveLength(0);
+                pane.activateItemAtIndex(0);
+                waitsFor(function() {
+                  return !showTodoView.loading;
+                });
+                return runs(function() {
+                  return expect(showTodoView.getTodos()).toHaveLength(1);
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+
+}).call(this);
+
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAiZmlsZSI6ICIiLAogICJzb3VyY2VSb290IjogIiIsCiAgInNvdXJjZXMiOiBbCiAgICAiL1VzZXJzL2FoLy5hdG9tL3BhY2thZ2VzL3RvZG8tc2hvdy9zcGVjL3Nob3ctdG9kby12aWV3LXNwZWMuY29mZmVlIgogIF0sCiAgIm5hbWVzIjogW10sCiAgIm1hcHBpbmdzIjogIkFBQUE7QUFBQSxNQUFBLDhCQUFBOztBQUFBLEVBQUEsSUFBQSxHQUFPLE9BQUEsQ0FBUSxNQUFSLENBQVAsQ0FBQTs7QUFBQSxFQUVBLFlBQUEsR0FBZSxPQUFBLENBQVEsdUJBQVIsQ0FGZixDQUFBOztBQUFBLEVBR0EsVUFBQSxHQUFhLE9BQUEsQ0FBUSxvQkFBUixDQUhiLENBQUE7O0FBQUEsRUFLQSxRQUFBLENBQVMsZ0JBQVQsRUFBMkIsU0FBQSxHQUFBO0FBQ3pCLFFBQUEseUJBQUE7QUFBQSxJQUFBLE9BQXdCLEVBQXhCLEVBQUMsc0JBQUQsRUFBZSxlQUFmLENBQUE7QUFBQSxJQUVBLFVBQUEsQ0FBVyxTQUFBLEdBQUE7QUFDVCxVQUFBLFlBQUE7QUFBQSxNQUFBLE9BQUEsR0FBVSxDQUNSLE9BRFEsRUFFUiw0QkFGUSxDQUFWLENBQUE7QUFBQSxNQUlBLElBQUksQ0FBQyxNQUFNLENBQUMsR0FBWixDQUFnQiw0QkFBaEIsRUFBOEMsT0FBOUMsQ0FKQSxDQUFBO0FBQUEsTUFNQSxJQUFJLENBQUMsT0FBTyxDQUFDLFFBQWIsQ0FBc0IsQ0FBQyxJQUFJLENBQUMsSUFBTCxDQUFVLFNBQVYsRUFBcUIsa0JBQXJCLENBQUQsQ0FBdEIsQ0FOQSxDQUFBO0FBQUEsTUFPQSxLQUFBLEdBQVEsR0FBQSxDQUFBLFVBUFIsQ0FBQTtBQUFBLE1BUUEsR0FBQSxHQUFNLHdCQVJOLENBQUE7QUFBQSxNQVNBLFlBQUEsR0FBbUIsSUFBQSxZQUFBLENBQWEsS0FBYixFQUFvQixHQUFwQixDQVRuQixDQUFBO2FBVUEsUUFBQSxDQUFTLFNBQUEsR0FBQTtlQUFHLENBQUEsWUFBYSxDQUFDLFFBQWpC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
+
+//# sourceURL=/Users/ah/.atom/packages/todo-show/spec/show-todo-view-spec.coffee

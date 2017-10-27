@@ -1,0 +1,29 @@
+'use babel';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.consumeStatusBar = consumeStatusBar;
+exports.deactivate = deactivate;
+var model = null;
+var tile = null;
+
+function consumeStatusBar(statusBar) {
+  var SoftWrapStatus = require('./soft-wrap-status');
+  model = new SoftWrapStatus();
+  tile = statusBar.addLeftTile({ item: model.view.element, priority: 150 });
+}
+
+function deactivate() {
+  if (model) {
+    model.destroy();
+    model = null;
+  }
+
+  if (tile) {
+    tile.destroy();
+    tile = null;
+  }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9haC8uYXRvbS9wYWNrYWdlcy9zb2Z0LXdyYXAtaW5kaWNhdG9yL2xpYi9tYWluLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLFdBQVcsQ0FBQTs7Ozs7OztBQUVYLElBQUksS0FBSyxHQUFHLElBQUksQ0FBQTtBQUNoQixJQUFJLElBQUksR0FBRyxJQUFJLENBQUE7O0FBRVIsU0FBUyxnQkFBZ0IsQ0FBRSxTQUFTLEVBQUU7QUFDM0MsTUFBTSxjQUFjLEdBQUcsT0FBTyxDQUFDLG9CQUFvQixDQUFDLENBQUE7QUFDcEQsT0FBSyxHQUFHLElBQUksY0FBYyxFQUFFLENBQUE7QUFDNUIsTUFBSSxHQUFHLFNBQVMsQ0FBQyxXQUFXLENBQUMsRUFBQyxJQUFJLEVBQUUsS0FBSyxDQUFDLElBQUksQ0FBQyxPQUFPLEVBQUUsUUFBUSxFQUFFLEdBQUcsRUFBQyxDQUFDLENBQUE7Q0FDeEU7O0FBRU0sU0FBUyxVQUFVLEdBQUk7QUFDNUIsTUFBSSxLQUFLLEVBQUU7QUFDVCxTQUFLLENBQUMsT0FBTyxFQUFFLENBQUE7QUFDZixTQUFLLEdBQUcsSUFBSSxDQUFBO0dBQ2I7O0FBRUQsTUFBSSxJQUFJLEVBQUU7QUFDUixRQUFJLENBQUMsT0FBTyxFQUFFLENBQUE7QUFDZCxRQUFJLEdBQUcsSUFBSSxDQUFBO0dBQ1o7Q0FDRiIsImZpbGUiOiIvVXNlcnMvYWgvLmF0b20vcGFja2FnZXMvc29mdC13cmFwLWluZGljYXRvci9saWIvbWFpbi5qcyIsInNvdXJjZXNDb250ZW50IjpbIid1c2UgYmFiZWwnXG5cbmxldCBtb2RlbCA9IG51bGxcbmxldCB0aWxlID0gbnVsbFxuXG5leHBvcnQgZnVuY3Rpb24gY29uc3VtZVN0YXR1c0JhciAoc3RhdHVzQmFyKSB7XG4gIGNvbnN0IFNvZnRXcmFwU3RhdHVzID0gcmVxdWlyZSgnLi9zb2Z0LXdyYXAtc3RhdHVzJylcbiAgbW9kZWwgPSBuZXcgU29mdFdyYXBTdGF0dXMoKVxuICB0aWxlID0gc3RhdHVzQmFyLmFkZExlZnRUaWxlKHtpdGVtOiBtb2RlbC52aWV3LmVsZW1lbnQsIHByaW9yaXR5OiAxNTB9KVxufVxuXG5leHBvcnQgZnVuY3Rpb24gZGVhY3RpdmF0ZSAoKSB7XG4gIGlmIChtb2RlbCkge1xuICAgIG1vZGVsLmRlc3Ryb3koKVxuICAgIG1vZGVsID0gbnVsbFxuICB9XG5cbiAgaWYgKHRpbGUpIHtcbiAgICB0aWxlLmRlc3Ryb3koKVxuICAgIHRpbGUgPSBudWxsXG4gIH1cbn1cbiJdfQ==
+//# sourceURL=/Users/ah/.atom/packages/soft-wrap-indicator/lib/main.js

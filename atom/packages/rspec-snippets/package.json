@@ -1,0 +1,28 @@
+{
+  "name": "rspec-snippets",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Rspec snippets in Atom",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonmagic/atom-rspec-snippets"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": "*",
+    "node": "*"
+  },
+  "dependencies": {},
+  "bugs": {
+    "url": "https://github.com/jonmagic/atom-rspec-snippets/issues"
+  },
+  "readme": "# Rspec snippets in Atom\n\nOriginally [converted](http://atom.io/docs/latest/converting-a-text-mate-bundle) from the [Rspec bundle](https://github.com/rspec/rspec-tmbundle).\n\nContributions are greatly appreciated. Please fork this repository and open a pull request to add snippets, make grammar tweaks, etc.\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/jonmagic/atom-rspec-snippets",
+  "_id": "rspec-snippets@0.4.0",
+  "dist": {
+    "shasum": "8f4d1df6a7ca8d5d50969f499cc5e7eafea28ffc"
+  },
+  "_resolved": "/var/folders/nx/6798xl3519v0zhdt1vrxy0k00000gp/T/d-114627-31105-dq4of6/package.tgz",
+  "_from": "/var/folders/nx/6798xl3519v0zhdt1vrxy0k00000gp/T/d-114627-31105-dq4of6/package.tgz"
+}

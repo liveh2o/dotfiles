@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+        "raw": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69675-1m6632q.sc9qk3mcxr/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
-        "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+        "rawSpec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69675-1m6632q.sc9qk3mcxr/package.tgz",
+        "spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69675-1m6632q.sc9qk3mcxr/package.tgz",
         "type": "local"
       },
-      "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117821-30742-3ucptf.bq31ru23xr"
+      "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/apm-install-dir-1171030-69675-tuhmax.j87u8fr"
     ]
   ],
-  "_from": "../d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
-  "_id": "whitespace@0.37.4",
+  "_from": "../d-1171030-69675-1m6632q.sc9qk3mcxr/package.tgz",
+  "_id": "whitespace@0.37.5",
   "_inCache": true,
   "_location": "/whitespace",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+    "raw": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69675-1m6632q.sc9qk3mcxr/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
-    "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
+    "rawSpec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69675-1m6632q.sc9qk3mcxr/package.tgz",
+    "spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69675-1m6632q.sc9qk3mcxr/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
-  "_shasum": "66e5c1c71e5fa68fb6fa8c622d55717cde238bd3",
+  "_resolved": "file:../d-1171030-69675-1m6632q.sc9qk3mcxr/package.tgz",
+  "_shasum": "4b0f65a0acb8ebbe1768eab8f130e7a3d29a9b76",
   "_shrinkwrap": null,
-  "_spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117821-30742-vafkif.cf6s2fyldi/package.tgz",
-  "_where": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117821-30742-3ucptf.bq31ru23xr",
+  "_spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69675-1m6632q.sc9qk3mcxr/package.tgz",
+  "_where": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/apm-install-dir-1171030-69675-tuhmax.j87u8fr",
   "bugs": {
     "url": "https://github.com/atom/whitespace/issues"
   },
@@ -125,20 +125,5 @@
       "waitsForPromise"
     ]
   },
-  "version": "0.37.4",
-  "_atomModuleCache": {
-    "version": 1,
-    "dependencies": [],
-    "extensions": {
-      ".json": [
-        "coffeelint.json",
-        "package.json"
-      ],
-      ".js": [
-        "lib/main.js",
-        "lib/whitespace.js"
-      ]
-    },
-    "folders": []
-  }
+  "version": "0.37.5"
 }

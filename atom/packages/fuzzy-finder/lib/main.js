@@ -1,5 +1,5 @@
 const {Disposable} = require('atom')
-const FileIcons = require('./file-icons')
+const getIconServices = require('./get-icon-services')
 
 module.exports = {
   activate (state) {
@@ -48,9 +48,14 @@ module.exports = {
     this.active = false
   },
 
+  consumeElementIcons (service) {
+    getIconServices().setElementIcons(service)
+    return new Disposable(() => getIconServices().resetElementIcons())
+  },
+
   consumeFileIcons (service) {
-    FileIcons.setService(service)
-    return new Disposable(() => FileIcons.resetService())
+    getIconServices().setFileIcons(service)
+    return new Disposable(() => getIconServices().resetFileIcons())
   },
 
   serialize () {

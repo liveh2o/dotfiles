@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-11797-75226-hhfocp.w2gvipmn29/package.tgz",
+        "raw": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171113-76652-p8keu4.aho38zolxr/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-11797-75226-hhfocp.w2gvipmn29/package.tgz",
-        "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-11797-75226-hhfocp.w2gvipmn29/package.tgz",
+        "rawSpec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171113-76652-p8keu4.aho38zolxr/package.tgz",
+        "spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171113-76652-p8keu4.aho38zolxr/package.tgz",
         "type": "local"
       },
-      "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-11797-75226-1qlzuh7.shwmsoflxr"
+      "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/apm-install-dir-1171113-76652-db8gff.m517g2pgb9"
     ]
   ],
-  "_from": "../d-11797-75226-hhfocp.w2gvipmn29/package.tgz",
-  "_id": "fuzzy-finder@1.6.1",
+  "_from": "../d-1171113-76652-p8keu4.aho38zolxr/package.tgz",
+  "_id": "fuzzy-finder@1.7.4",
   "_inCache": true,
   "_location": "/fuzzy-finder",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-11797-75226-hhfocp.w2gvipmn29/package.tgz",
+    "raw": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171113-76652-p8keu4.aho38zolxr/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-11797-75226-hhfocp.w2gvipmn29/package.tgz",
-    "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-11797-75226-hhfocp.w2gvipmn29/package.tgz",
+    "rawSpec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171113-76652-p8keu4.aho38zolxr/package.tgz",
+    "spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171113-76652-p8keu4.aho38zolxr/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-11797-75226-hhfocp.w2gvipmn29/package.tgz",
-  "_shasum": "5f089cfb4d8564bc8c1c8d9da33ce7ef2f169e4a",
+  "_resolved": "file:../d-1171113-76652-p8keu4.aho38zolxr/package.tgz",
+  "_shasum": "5c3d1682e6da0c12a444a45f2d3fd58d9085ca82",
   "_shrinkwrap": null,
-  "_spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-11797-75226-hhfocp.w2gvipmn29/package.tgz",
-  "_where": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-11797-75226-1qlzuh7.shwmsoflxr",
+  "_spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171113-76652-p8keu4.aho38zolxr/package.tgz",
+  "_where": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/apm-install-dir-1171113-76652-db8gff.m517g2pgb9",
   "bugs": {
     "url": "https://github.com/atom/fuzzy-finder/issues"
   },
@@ -70,11 +70,16 @@
       "versions": {
         "1.0.0": "consumeFileIcons"
       }
+    },
+    "file-icons.element-icons": {
+      "versions": {
+        "1.0.0": "consumeElementIcons"
+      }
     }
   },
   "dependencies": {
     "async": "0.2.6",
-    "atom-select-list": "^0.1.0",
+    "atom-select-list": "^0.7.0",
     "fs-plus": "^3.0.0",
     "fuzzaldrin": "^2.0",
     "fuzzaldrin-plus": "^0.4.1",
@@ -111,418 +116,5 @@
       "spec/fixtures"
     ]
   },
-  "version": "1.6.1",
-  "_atomModuleCache": {
-    "version": 1,
-    "dependencies": [
-      {
-        "name": "async",
-        "version": "0.2.6",
-        "path": "node_modules/async/lib/async.js"
-      },
-      {
-        "name": "atom-select-list",
-        "version": "0.1.0",
-        "path": "node_modules/atom-select-list/src/select-list-view.js"
-      },
-      {
-        "name": "balanced-match",
-        "version": "1.0.0",
-        "path": "node_modules/balanced-match/index.js"
-      },
-      {
-        "name": "brace-expansion",
-        "version": "1.1.8",
-        "path": "node_modules/brace-expansion/index.js"
-      },
-      {
-        "name": "concat-map",
-        "version": "0.0.1",
-        "path": "node_modules/concat-map/index.js"
-      },
-      {
-        "name": "etch",
-        "version": "0.9.5",
-        "path": "node_modules/etch/lib/index.js"
-      },
-      {
-        "name": "fs-plus",
-        "version": "3.0.1",
-        "path": "node_modules/fs-plus/lib/fs-plus.js"
-      },
-      {
-        "name": "async",
-        "version": "1.5.2",
-        "path": "node_modules/fs-plus/node_modules/async/lib/async.js"
-      },
-      {
-        "name": "fs.realpath",
-        "version": "1.0.0",
-        "path": "node_modules/fs.realpath/index.js"
-      },
-      {
-        "name": "fuzzaldrin",
-        "version": "2.1.0",
-        "path": "node_modules/fuzzaldrin/lib/fuzzaldrin.js"
-      },
-      {
-        "name": "fuzzaldrin-plus",
-        "version": "0.4.1",
-        "path": "node_modules/fuzzaldrin-plus/lib/fuzzaldrin.js"
-      },
-      {
-        "name": "glob",
-        "version": "7.1.2",
-        "path": "node_modules/glob/glob.js"
-      },
-      {
-        "name": "humanize-plus",
-        "version": "1.8.2",
-        "path": "node_modules/humanize-plus/dist/humanize.js"
-      },
-      {
-        "name": "inflight",
-        "version": "1.0.6",
-        "path": "node_modules/inflight/inflight.js"
-      },
-      {
-        "name": "inherits",
-        "version": "2.0.3",
-        "path": "node_modules/inherits/inherits.js"
-      },
-      {
-        "name": "minimatch",
-        "version": "3.0.4",
-        "path": "node_modules/minimatch/minimatch.js"
-      },
-      {
-        "name": "minimist",
-        "version": "0.0.8",
-        "path": "node_modules/minimist/index.js"
-      },
-      {
-        "name": "mkdirp",
-        "version": "0.5.1",
-        "path": "node_modules/mkdirp/index.js"
-      },
-      {
-        "name": "once",
-        "version": "1.4.0",
-        "path": "node_modules/once/once.js"
-      },
-      {
-        "name": "os-tmpdir",
-        "version": "1.0.2",
-        "path": "node_modules/os-tmpdir/index.js"
-      },
-      {
-        "name": "path-is-absolute",
-        "version": "1.0.1",
-        "path": "node_modules/path-is-absolute/index.js"
-      },
-      {
-        "name": "rimraf",
-        "version": "2.6.2",
-        "path": "node_modules/rimraf/rimraf.js"
-      },
-      {
-        "name": "temp",
-        "version": "0.8.3",
-        "path": "node_modules/temp/lib/temp.js"
-      },
-      {
-        "name": "rimraf",
-        "version": "2.2.8",
-        "path": "node_modules/temp/node_modules/rimraf/rimraf.js"
-      },
-      {
-        "name": "underscore",
-        "version": "1.6.0",
-        "path": "node_modules/underscore/underscore.js"
-      },
-      {
-        "name": "underscore-plus",
-        "version": "1.6.6",
-        "path": "node_modules/underscore-plus/lib/underscore-plus.js"
-      },
-      {
-        "name": "wrappy",
-        "version": "1.0.2",
-        "path": "node_modules/wrappy/wrappy.js"
-      },
-      {
-        "name": "wrench",
-        "version": "1.5.9",
-        "path": "node_modules/wrench/lib/wrench.js"
-      }
-    ],
-    "extensions": {
-      ".js": [
-        "lib/buffer-view.js",
-        "lib/default-file-icons.js",
-        "lib/file-icons.js",
-        "lib/fuzzy-finder-view.js",
-        "lib/git-status-view.js",
-        "lib/helpers.js",
-        "lib/load-paths-handler.js",
-        "lib/main.js",
-        "lib/path-loader.js",
-        "lib/project-view.js",
-        "node_modules/async/lib/async.js",
-        "node_modules/atom-select-list/src/select-list-view.js",
-        "node_modules/balanced-match/index.js",
-        "node_modules/brace-expansion/index.js",
-        "node_modules/concat-map/example/map.js",
-        "node_modules/concat-map/index.js",
-        "node_modules/etch/dist/component-helpers.js",
-        "node_modules/etch/dist/default-scheduler.js",
-        "node_modules/etch/dist/dom.js",
-        "node_modules/etch/dist/event-listener-props.js",
-        "node_modules/etch/dist/index.js",
-        "node_modules/etch/dist/patch.js",
-        "node_modules/etch/dist/render.js",
-        "node_modules/etch/dist/scheduler-assignment.js",
-        "node_modules/etch/dist/svg-attribute-translations.js",
-        "node_modules/etch/dist/svg-tags.js",
-        "node_modules/etch/dist/update-props.js",
-        "node_modules/etch/lib/component-helpers.js",
-        "node_modules/etch/lib/default-scheduler.js",
-        "node_modules/etch/lib/dom.js",
-        "node_modules/etch/lib/event-listener-props.js",
-        "node_modules/etch/lib/index.js",
-        "node_modules/etch/lib/patch.js",
-        "node_modules/etch/lib/render.js",
-        "node_modules/etch/lib/scheduler-assignment.js",
-        "node_modules/etch/lib/svg-attribute-translations.js",
-        "node_modules/etch/lib/svg-tags.js",
-        "node_modules/etch/lib/update-props.js",
-        "node_modules/fs-plus/lib/fs-plus.js",
-        "node_modules/fs-plus/node_modules/async/dist/async.js",
-        "node_modules/fs-plus/node_modules/async/dist/async.min.js",
-        "node_modules/fs-plus/node_modules/async/lib/async.js",
-        "node_modules/fs.realpath/index.js",
-        "node_modules/fs.realpath/old.js",
-        "node_modules/fuzzaldrin/lib/filter.js",
-        "node_modules/fuzzaldrin/lib/fuzzaldrin.js",
-        "node_modules/fuzzaldrin/lib/matcher.js",
-        "node_modules/fuzzaldrin/lib/scorer.js",
-        "node_modules/fuzzaldrin-plus/dist-browser/0.3.1/fuzzaldrin-plus.js",
-        "node_modules/fuzzaldrin-plus/dist-browser/0.3.1/fuzzaldrin-plus.min.js",
-        "node_modules/fuzzaldrin-plus/dist-browser/fuzzaldrin-plus.js",
-        "node_modules/fuzzaldrin-plus/dist-browser/fuzzaldrin-plus.min.js",
-        "node_modules/fuzzaldrin-plus/lib/filter.js",
-        "node_modules/fuzzaldrin-plus/lib/fuzzaldrin.js",
-        "node_modules/fuzzaldrin-plus/lib/matcher.js",
-        "node_modules/fuzzaldrin-plus/lib/pathScorer.js",
-        "node_modules/fuzzaldrin-plus/lib/query.js",
-        "node_modules/fuzzaldrin-plus/lib/scorer.js",
-        "node_modules/fuzzaldrin-plus/src/lib/filter.js",
-        "node_modules/fuzzaldrin-plus/src/lib/matcher.js",
-        "node_modules/fuzzaldrin-plus/src/lib/pathScorer.js",
-        "node_modules/fuzzaldrin-plus/src/lib/query.js",
-        "node_modules/fuzzaldrin-plus/src/lib/scorer.js",
-        "node_modules/glob/common.js",
-        "node_modules/glob/glob.js",
-        "node_modules/glob/sync.js",
-        "node_modules/humanize-plus/__tests__/humanize.spec.js",
-        "node_modules/humanize-plus/__tests__/runner.js",
-        "node_modules/humanize-plus/dist/humanize.js",
-        "node_modules/humanize-plus/dist/humanize.min.js",
-        "node_modules/humanize-plus/src/humanize.js",
-        "node_modules/inflight/inflight.js",
-        "node_modules/inherits/inherits.js",
-        "node_modules/inherits/inherits_browser.js",
-        "node_modules/minimatch/minimatch.js",
-        "node_modules/minimist/example/parse.js",
-        "node_modules/minimist/index.js",
-        "node_modules/mkdirp/bin/cmd.js",
-        "node_modules/mkdirp/examples/pow.js",
-        "node_modules/mkdirp/index.js",
-        "node_modules/once/once.js",
-        "node_modules/os-tmpdir/index.js",
-        "node_modules/path-is-absolute/index.js",
-        "node_modules/rimraf/bin.js",
-        "node_modules/rimraf/rimraf.js",
-        "node_modules/temp/examples/grepcount.js",
-        "node_modules/temp/examples/pdfcreator.js",
-        "node_modules/temp/lib/temp.js",
-        "node_modules/temp/no_cleanup.js",
-        "node_modules/temp/no_cleanup_on_exit.js",
-        "node_modules/temp/no_cleanup_on_exit.spec.js",
-        "node_modules/temp/node_modules/rimraf/bin.js",
-        "node_modules/temp/node_modules/rimraf/rimraf.js",
-        "node_modules/underscore/underscore-min.js",
-        "node_modules/underscore/underscore.js",
-        "node_modules/underscore-plus/lib/underscore-plus.js",
-        "node_modules/wrappy/wrappy.js",
-        "node_modules/wrench/lib/wrench.js"
-      ],
-      ".json": [
-        "node_modules/async/package.json",
-        "node_modules/atom-select-list/package.json",
-        "node_modules/balanced-match/package.json",
-        "node_modules/brace-expansion/package.json",
-        "node_modules/concat-map/package.json",
-        "node_modules/etch/package.json",
-        "node_modules/fs-plus/node_modules/async/package.json",
-        "node_modules/fs-plus/package.json",
-        "node_modules/fs.realpath/package.json",
-        "node_modules/fuzzaldrin/package.json",
-        "node_modules/fuzzaldrin-plus/bower.json",
-        "node_modules/fuzzaldrin-plus/demo/movies.json",
-        "node_modules/fuzzaldrin-plus/package.json",
-        "node_modules/glob/package.json",
-        "node_modules/humanize-plus/bower.json",
-        "node_modules/humanize-plus/package.json",
-        "node_modules/inflight/package.json",
-        "node_modules/inherits/package.json",
-        "node_modules/minimatch/package.json",
-        "node_modules/minimist/package.json",
-        "node_modules/mkdirp/package.json",
-        "node_modules/once/package.json",
-        "node_modules/os-tmpdir/package.json",
-        "node_modules/path-is-absolute/package.json",
-        "node_modules/rimraf/package.json",
-        "node_modules/temp/node_modules/rimraf/package.json",
-        "node_modules/temp/package.json",
-        "node_modules/underscore/package.json",
-        "node_modules/underscore-plus/package.json",
-        "node_modules/wrappy/package.json",
-        "node_modules/wrench/package.json",
-        "package.json"
-      ]
-    },
-    "folders": [
-      {
-        "paths": [
-          "lib",
-          "",
-          "spec/fixtures/root-dir1",
-          "spec"
-        ],
-        "dependencies": {
-          "async": "0.2.6",
-          "atom-select-list": "^0.1.0",
-          "fs-plus": "^3.0.0",
-          "fuzzaldrin": "^2.0",
-          "fuzzaldrin-plus": "^0.4.1",
-          "humanize-plus": "~1.8.2",
-          "minimatch": "~3.0.3",
-          "temp": "~0.8.1",
-          "underscore-plus": "^1.0.0",
-          "wrench": "^1.5"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/atom-select-list",
-          "node_modules/atom-select-list/src",
-          "node_modules/atom-select-list/test"
-        ],
-        "dependencies": {
-          "etch": "^0.9.5",
-          "fuzzaldrin": "^2.1.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/brace-expansion"
-        ],
-        "dependencies": {
-          "balanced-match": "^1.0.0",
-          "concat-map": "0.0.1"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/fs-plus/lib",
-          "node_modules/fs-plus"
-        ],
-        "dependencies": {
-          "async": "^1.5.2",
-          "mkdirp": "^0.5.1",
-          "rimraf": "^2.5.2",
-          "underscore-plus": "1.x"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/glob"
-        ],
-        "dependencies": {
-          "fs.realpath": "^1.0.0",
-          "inflight": "^1.0.4",
-          "inherits": "2",
-          "minimatch": "^3.0.4",
-          "once": "^1.3.0",
-          "path-is-absolute": "^1.0.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/inflight"
-        ],
-        "dependencies": {
-          "once": "^1.3.0",
-          "wrappy": "1"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/minimatch"
-        ],
-        "dependencies": {
-          "brace-expansion": "^1.1.7"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/mkdirp/bin",
-          "node_modules/mkdirp/examples",
-          "node_modules/mkdirp",
-          "node_modules/mkdirp/test"
-        ],
-        "dependencies": {
-          "minimist": "0.0.8"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/once"
-        ],
-        "dependencies": {
-          "wrappy": "1"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/rimraf"
-        ],
-        "dependencies": {
-          "glob": "^7.0.5"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/temp/examples",
-          "node_modules/temp/lib",
-          "node_modules/temp",
-          "node_modules/temp/test"
-        ],
-        "dependencies": {
-          "os-tmpdir": "^1.0.0",
-          "rimraf": "~2.2.6"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/underscore-plus/lib",
-          "node_modules/underscore-plus"
-        ],
-        "dependencies": {
-          "underscore": "~1.6.0"
-        }
-      }
-    ]
-  }
+  "version": "1.7.4"
 }

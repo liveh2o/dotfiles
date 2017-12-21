@@ -300,5 +300,5 @@ function rb2 {
 
 # Switch to latest Ruby 2.3 patch with a gemset of the current directory
 function rb {
-  rvm use ruby-2.3.3@${PWD##*/} --create
+  rvm use ruby-2.3@${PWD##*/} --create
 }

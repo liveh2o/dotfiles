@@ -2,46 +2,45 @@
   "_args": [
     [
       {
-        "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+        "raw": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69664-140p9wp.93kutyb9/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
-        "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+        "rawSpec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69664-140p9wp.93kutyb9/package.tgz",
+        "spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69664-140p9wp.93kutyb9/package.tgz",
         "type": "local"
       },
-      "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117217-71372-1fjjz3t"
+      "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/apm-install-dir-1171030-69664-1s27iwc.c4737919k9"
     ]
   ],
-  "_from": "../d-117217-71372-1cftk2u/package.tgz",
-  "_id": "timecop@0.36.0",
+  "_from": "../d-1171030-69664-140p9wp.93kutyb9/package.tgz",
+  "_id": "timecop@0.36.2",
   "_inCache": true,
-  "_installable": true,
   "_location": "/timecop",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+    "raw": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69664-140p9wp.93kutyb9/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
-    "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
+    "rawSpec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69664-140p9wp.93kutyb9/package.tgz",
+    "spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69664-140p9wp.93kutyb9/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117217-71372-1cftk2u/package.tgz",
-  "_shasum": "6ad15522ab9b90cf6a235eb210c4d3a21a9a6812",
+  "_resolved": "file:../d-1171030-69664-140p9wp.93kutyb9/package.tgz",
+  "_shasum": "8965f20444701af3b6f86dfa9f144a46e1aaa9d0",
   "_shrinkwrap": null,
-  "_spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117217-71372-1cftk2u/package.tgz",
-  "_where": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117217-71372-1fjjz3t",
+  "_spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69664-140p9wp.93kutyb9/package.tgz",
+  "_where": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/apm-install-dir-1171030-69664-1s27iwc.c4737919k9",
   "bugs": {
     "url": "https://github.com/atom/timecop/issues"
   },
   "dependencies": {
     "dedent": "^0.7.0",
-    "etch": "^0.8.0",
+    "etch": "^0.12.6",
     "underscore-plus": "^1.0.0"
   },
   "description": "Displays information about where time is spent while Atom loads.",
@@ -49,7 +48,7 @@
     "TimecopView": "createTimecopView"
   },
   "devDependencies": {
-    "coffeelint": "^1.9.7"
+    "standard": "^10.0.3"
   },
   "engines": {
     "atom": "*"
@@ -65,5 +64,16 @@
     "type": "git",
     "url": "git+https://github.com/atom/timecop.git"
   },
-  "version": "0.36.0"
+  "standard": {
+    "env": {
+      "atomtest": true,
+      "browser": true,
+      "jasmine": true,
+      "node": true
+    },
+    "globals": [
+      "atom"
+    ]
+  },
+  "version": "0.36.2"
 }

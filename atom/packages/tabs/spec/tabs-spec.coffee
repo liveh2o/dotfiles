@@ -123,6 +123,16 @@ describe "TabBarView", ->
       expect(tabBar.tabAtIndex(0).element.style.maxWidth).toBe ''
       expect(tabBar.tabAtIndex(1).element.style.maxWidth).toBe ''
 
+  describe "when a drag leave event moves the mouse from the tab bar", ->
+    it "resets the width on every tab", ->
+      jasmine.attachToDOM(tabBar.element)
+
+      triggerMouseEvent('mouseenter', tabBar.element)
+      triggerMouseEvent('dragleave', tabBar.element)
+
+      expect(tabBar.tabAtIndex(0).element.style.maxWidth).toBe ''
+      expect(tabBar.tabAtIndex(1).element.style.maxWidth).toBe ''
+
   describe ".initialize(pane)", ->
     it "creates a tab for each item on the tab bar's parent pane", ->
       expect(pane.getItems().length).toBe 3
@@ -271,7 +281,7 @@ describe "TabBarView", ->
 
       expect(pane.getItems().length).toBe 2
       expect(pane.getItems().indexOf(editor1)).toBe -1
-      expect(editor1.destroyed).toBeTruthy()
+      expect(editor1.isDestroyed()).toBeTruthy()
       expect(tabBar.getTabs().length).toBe 2
       expect(tabBar.element.textContent).not.toMatch('sample.js')
 
@@ -299,7 +309,7 @@ describe "TabBarView", ->
       tabBar.tabForItem(editor1).element.querySelector('.close-icon').click()
       expect(pane.getItems().length).toBe 2
       expect(pane.getItems().indexOf(editor1)).toBe -1
-      expect(editor1.destroyed).toBeTruthy()
+      expect(editor1.isDestroyed()).toBeTruthy()
       expect(tabBar.getTabs().length).toBe 2
       expect(tabBar.element.textContent).not.toMatch('sample.js')
 
@@ -627,9 +637,9 @@ describe "TabBarView", ->
         beforeEach ->
           triggerClickEvent(tabBar.tabForItem(item1).element, which: 3)
           expect(atom.workspace.getCenter().getPanes().length).toBe 1
+          spyOn(atom, 'open')
 
         it "opens new window, closes current tab", ->
-          spyOn(atom, 'open')
           atom.commands.dispatch(tabBar.element, 'tabs:open-in-new-window')
           expect(atom.open).toHaveBeenCalled()
 
@@ -637,6 +647,16 @@ describe "TabBarView", ->
           expect(tabBar.getTabs().length).toBe 2
           expect(tabBar.element.textContent).toMatch('Item 2')
           expect(tabBar.element.textContent).not.toMatch('Item 1')
+
+        it "resets the width on every tab", ->
+          # mouseenter (which will get emitted when going to right-click the tab) fixes the tab widths
+          # Make sure after the command is executed the widths are reset
+          triggerMouseEvent('mouseenter', tabBar.element)
+          atom.commands.dispatch(tabBar.element, 'tabs:open-in-new-window')
+
+          jasmine.attachToDOM(tabBar.element)
+          expect(tabBar.tabAtIndex(0).element.style.maxWidth).toBe ''
+          expect(tabBar.tabAtIndex(1).element.style.maxWidth).toBe ''
 
       describe "from the command palette", ->
         # See #309 for background

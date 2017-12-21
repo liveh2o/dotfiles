@@ -3,7 +3,6 @@
 
 import _ from 'underscore-plus'
 import dedent from 'dedent'
-import {Disposable} from 'atom'
 import etch from 'etch'
 import CachePanelView from './cache-panel-view'
 import PackagePanelView from './package-panel-view'
@@ -13,11 +12,17 @@ export default class TimecopView {
   constructor ({uri}) {
     this.uri = uri
     etch.initialize(this)
-    if (atom.packages.getActivePackages().length > 0) {
-      this.populateViews()
+    this.refs.cacheLoadingPanel.populate()
+    if (atom.packages.hasLoadedInitialPackages()) {
+      this.populateLoadingViews()
     } else {
-      // Render on next tick so packages have been activated
-      setImmediate(() => { this.populateViews() })
+      atom.packages.onDidLoadInitialPackages(() => this.populateLoadingViews())
+    }
+
+    if (atom.packages.hasActivatedInitialPackages()) {
+      this.populateActivationViews()
+    } else {
+      atom.packages.onDidActivateInitialPackages(() => this.populateActivationViews())
     }
   }
 
@@ -46,12 +51,14 @@ export default class TimecopView {
     )
   }
 
-  populateViews () {
-    this.refs.windowLoadingPanel.populate()
-    this.refs.cacheLoadingPanel.populate()
+  populateLoadingViews () {
     this.showLoadedPackages()
-    this.showActivePackages()
     this.showLoadedThemes()
+  }
+
+  populateActivationViews () {
+    this.refs.windowLoadingPanel.populate()
+    this.showActivePackages()
     this.showActiveThemes()
   }
 
@@ -126,13 +133,5 @@ export default class TimecopView {
 
   getIconName () {
     return 'dashboard'
-  }
-
-  onDidChangeTitle () {
-    return new Disposable(function () {})
-  }
-
-  onDidChangeModified () {
-    return new Disposable(function () {})
   }
 }

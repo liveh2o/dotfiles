@@ -1,0 +1,18 @@
+{
+  "presets": [
+    "es2015",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-flow-strip-types",
+    "transform-object-assign",
+    "transform-object-rest-spread",
+    "transform-export-extensions",
+    "transform-async-to-generator",
+    "transform-async-generator-functions",
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
+  ]
+}

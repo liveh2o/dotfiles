@@ -11,6 +11,8 @@ const wrench = require('wrench')
 
 const PathLoader = require('../lib/path-loader')
 const DefaultFileIcons = require('../lib/default-file-icons')
+const getIconServices = require('../lib/get-icon-services')
+const {Disposable} = require('atom')
 
 function rmrf (_path) {
   if (fs.statSync(_path).isDirectory()) {
@@ -30,8 +32,9 @@ describe('FuzzyFinder', () => {
   let fuzzyFinder, projectView, bufferView, gitStatusView, workspaceElement, fixturesPath
 
   beforeEach(() => {
-    rootDir1 = fs.realpathSync(temp.mkdirSync('root-dir1'))
-    rootDir2 = fs.realpathSync(temp.mkdirSync('root-dir2'))
+    const ancestorDir = fs.realpathSync(temp.mkdirSync('ancestor-dir'))
+    rootDir1 = path.join(ancestorDir, 'root-dir1')
+    rootDir2 = path.join(ancestorDir, 'root-dir2')
 
     fixturesPath = atom.project.getPaths()[0]
 
@@ -215,6 +218,7 @@ describe('FuzzyFinder', () => {
 
             fs.symlinkSync(atom.project.getDirectories()[0].resolve('sample.txt'), atom.project.getDirectories()[0].resolve('symlink-to-internal-file'))
             fs.symlinkSync(atom.project.getDirectories()[0].resolve('dir'), atom.project.getDirectories()[0].resolve('symlink-to-internal-dir'))
+            fs.symlinkSync(atom.project.getDirectories()[0].resolve('..'), atom.project.getDirectories()[0].resolve('symlink-to-project-dir-ancestor'))
 
             fs.unlinkSync(brokenFilePath)
           })
@@ -1185,10 +1189,8 @@ describe('FuzzyFinder', () => {
     })
   })
 
-  describe('file icons', () => {
-    const fileIcons = new DefaultFileIcons()
-
-    it('defaults to text', () => {
+  describe('default file icons', () => {
+    it('shows a text icon for text-based formats', () => {
       waitsForPromise(() => atom.workspace.open('sample.js'))
 
       waitsForPromise(() => bufferView.toggle())
@@ -1202,11 +1204,11 @@ describe('FuzzyFinder', () => {
 
       runs(() => {
         const firstResult = bufferView.element.querySelector('li .primary-line')
-        expect(fileIcons.iconClassForPath(firstResult.dataset.path)).toBe('icon-file-text')
+        expect(DefaultFileIcons.iconClassForPath(firstResult.dataset.path)).toBe('icon-file-text')
       })
     })
 
-    it('shows image icons', () => {
+    it('shows an image icon for graphic formats', () => {
       waitsForPromise(() => atom.workspace.open('sample.gif'))
 
       waitsForPromise(() => bufferView.toggle())
@@ -1220,7 +1222,112 @@ describe('FuzzyFinder', () => {
 
       runs(() => {
         const firstResult = bufferView.element.querySelector('li .primary-line')
-        expect(fileIcons.iconClassForPath(firstResult.dataset.path)).toBe('icon-file-media')
+        expect(DefaultFileIcons.iconClassForPath(firstResult.dataset.path)).toBe('icon-file-media')
+      })
+    })
+  })
+
+  describe('icon services', () => {
+    describe('atom.file-icons', () => {
+      it('has a default handler', () => {
+        expect(getIconServices().fileIcons).toBe(DefaultFileIcons)
+      })
+
+      it('allows services to replace the default handler', () => {
+        const provider = {iconClassForPath: () => 'foo bar'}
+        const disposable = atom.packages.serviceHub.provide('atom.file-icons', '1.0.0', provider)
+        expect(getIconServices().fileIcons).toBe(provider)
+
+        waitsForPromise(() => atom.workspace.open('sample.js'))
+
+        waitsForPromise(() => bufferView.toggle())
+
+        runs(() => {
+          expect(atom.workspace.panelForItem(bufferView).isVisible()).toBe(true)
+          bufferView.selectListView.refs.queryEditor.insertText('js')
+        })
+
+        waitsForPromise(() => getOrScheduleUpdatePromise())
+
+        runs(() => {
+          const firstResult = bufferView.element.querySelector('li .primary-line')
+          expect(firstResult).toBeDefined()
+          expect(firstResult.className).toBe('primary-line file icon foo bar')
+          disposable.dispose()
+          expect(getIconServices().fileIcons).toBe(DefaultFileIcons)
+        })
+      })
+    })
+
+    describe('file-icons.element-icons', () => {
+      it('has no default handler', () => {
+        expect(getIconServices().elementIcons).toBe(null)
+      })
+
+      it('uses the element-icon service if available', () => {
+        const provider = element => {
+          element.classList.add('foo', 'bar')
+          return new Disposable(() => {
+            element.classList.remove('foo', 'bar')
+          })
+        }
+        const disposable = atom.packages.serviceHub.provide('file-icons.element-icons', '1.0.0', provider)
+        expect(getIconServices().elementIcons).toBe(provider)
+
+        waitsForPromise(() => atom.workspace.open('sample.js'))
+
+        waitsForPromise(() => bufferView.toggle())
+
+        runs(() => {
+          expect(atom.workspace.panelForItem(bufferView).isVisible()).toBe(true)
+          bufferView.selectListView.refs.queryEditor.insertText('js')
+        })
+
+        waitsForPromise(() => getOrScheduleUpdatePromise())
+
+        runs(() => {
+          const firstResult = bufferView.element.querySelector('li .primary-line')
+          expect(firstResult).toBeDefined()
+          expect(firstResult.className).toBe('primary-line file icon foo bar')
+          disposable.dispose()
+          expect(getIconServices().elementIcons).toBe(null)
+          expect(firstResult.classList).not.toBe('primary-line file icon foo bar')
+        })
+      })
+    })
+
+    describe('when both services are provided', () => {
+      it('gives priority to the element-icon service', () => {
+        const basicProvider = {iconClassForPath: () => 'foo'}
+        const elementProvider = element => {
+          element.classList.add('bar')
+          return new Disposable(() => {
+            element.classList.remove('bar')
+          })
+        }
+        spyOn(basicProvider, 'iconClassForPath').andCallThrough()
+        atom.packages.serviceHub.provide('atom.file-icons', '1.0.0', basicProvider)
+        atom.packages.serviceHub.provide('file-icons.element-icons', '1.0.0', elementProvider)
+        expect(getIconServices().fileIcons).toBe(basicProvider)
+        expect(getIconServices().elementIcons).toBe(elementProvider)
+
+        waitsForPromise(() => atom.workspace.open('sample.js'))
+
+        waitsForPromise(() => bufferView.toggle())
+
+        runs(() => {
+          expect(atom.workspace.panelForItem(bufferView).isVisible()).toBe(true)
+          bufferView.selectListView.refs.queryEditor.insertText('js')
+        })
+
+        waitsForPromise(() => getOrScheduleUpdatePromise())
+
+        runs(() => {
+          const firstResult = bufferView.element.querySelector('li .primary-line')
+          expect(firstResult).toBeDefined()
+          expect(firstResult.className).toBe('primary-line file icon bar')
+          expect(basicProvider.iconClassForPath).not.toHaveBeenCalled()
+        })
       })
     })
   })

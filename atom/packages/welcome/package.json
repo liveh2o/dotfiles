@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+        "raw": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69678-jce183.9od60kvs4i/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
-        "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+        "rawSpec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69678-jce183.9od60kvs4i/package.tgz",
+        "spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69678-jce183.9od60kvs4i/package.tgz",
         "type": "local"
       },
-      "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117530-49458-krwm33.shsjfhto6r"
+      "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/apm-install-dir-1171030-69678-1kbd0xk.y6n4gqfr"
     ]
   ],
-  "_from": "../d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
-  "_id": "welcome@0.36.5",
+  "_from": "../d-1171030-69678-jce183.9od60kvs4i/package.tgz",
+  "_id": "welcome@0.36.6",
   "_inCache": true,
   "_location": "/welcome",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+    "raw": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69678-jce183.9od60kvs4i/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
-    "spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
+    "rawSpec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69678-jce183.9od60kvs4i/package.tgz",
+    "spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69678-jce183.9od60kvs4i/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
-  "_shasum": "b18f63e9031167c024474404bf9bd981ddcde371",
+  "_resolved": "file:../d-1171030-69678-jce183.9od60kvs4i/package.tgz",
+  "_shasum": "6dc512a3d5ac4b0453a97ee2e2e002b3a721f1ab",
   "_shrinkwrap": null,
-  "_spec": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/d-117530-49458-1kjba3z.q7bi2ro1or/package.tgz",
-  "_where": "/private/var/folders/78/5x_w6tsj7s50y05_rsnqg2t00000gn/T/apm-install-dir-117530-49458-krwm33.shsjfhto6r",
+  "_spec": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/d-1171030-69678-jce183.9od60kvs4i/package.tgz",
+  "_where": "/private/var/folders/x7/hykmbq153bj9b0xvspt2frbh0000gp/T/apm-install-dir-1171030-69678-1kbd0xk.y6n4gqfr",
   "atomTestRunner": "atom-mocha-test-runner",
   "bugs": {
     "url": "https://github.com/atom/welcome/issues"
@@ -81,60 +81,13 @@
     "url": "git+https://github.com/atom/welcome.git"
   },
   "scripts": {
-    "test": "standard lib/**/*.js test/**/*.js && atom --test test/*.test.js"
+    "lint": "standard",
+    "test": "atom --test test/*.test.js"
   },
   "standard": {
     "globals": [
       "atom"
     ]
   },
-  "version": "0.36.5",
-  "_atomModuleCache": {
-    "version": 1,
-    "dependencies": [
-      {
-        "name": "etch",
-        "version": "0.9.0",
-        "path": "node_modules/etch/lib/index.js"
-      }
-    ],
-    "extensions": {
-      ".json": [
-        "coffeelint.json",
-        "node_modules/etch/package.json",
-        "package.json"
-      ],
-      ".js": [
-        "lib/consent-view.js",
-        "lib/guide-view.js",
-        "lib/main.js",
-        "lib/reporter-proxy.js",
-        "lib/welcome-package.js",
-        "lib/welcome-view.js",
-        "node_modules/etch/lib/component-helpers.js",
-        "node_modules/etch/lib/default-scheduler.js",
-        "node_modules/etch/lib/dom.js",
-        "node_modules/etch/lib/event-listener-props.js",
-        "node_modules/etch/lib/index.js",
-        "node_modules/etch/lib/patch.js",
-        "node_modules/etch/lib/render.js",
-        "node_modules/etch/lib/scheduler-assignment.js",
-        "node_modules/etch/lib/svg-attribute-translations.js",
-        "node_modules/etch/lib/svg-tags.js",
-        "node_modules/etch/lib/update-props.js"
-      ]
-    },
-    "folders": [
-      {
-        "paths": [
-          "",
-          "lib",
-          "test"
-        ],
-        "dependencies": {
-          "etch": "0.9.0"
-        }
-      }
-    ]
-  }
+  "version": "0.36.6"
 }

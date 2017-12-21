@@ -1,8 +1,9 @@
 'use babel';
 
-import { map, find, debounce } from 'underscore';
+import { debounce, bindAll } from 'lodash';
 import { Range, CompositeDisposable } from 'atom';
-import { React, ReactDOM } from 'react-for-atom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 import Blamer from './Blamer';
 import RemoteRevision from './RemoteRevision';
@@ -17,6 +18,8 @@ const RESIZE_DEBOUNCE_MS = 5;
 export default class BlameGutter {
 
   constructor(editor) {
+    bindAll(this, ['onResizeStart']);
+
     this.editor = editor;
     this.isShown = false;
     this.lineDecorations = [];
@@ -81,7 +84,7 @@ export default class BlameGutter {
   gutter() {
     const { editor } = this;
     const gutter = editor.gutterWithName(GUTTER_ID);
-    return gutter ? gutter : editor.addGutter({
+    return gutter || editor.addGutter({
       name: GUTTER_ID,
       visible: false,
       priority: 100,
@@ -91,8 +94,9 @@ export default class BlameGutter {
   updateLineMarkers(filePath) {
     const showOnlyLastNames = atom.config.get('git-blame.showOnlyLastNames');
     const showHash = atom.config.get('git-blame.showHash');
+    const colorCommitAuthors = atom.config.get('git-blame.colorCommitAuthors');
     return repositoryForEditorPath(filePath)
-      .then(repo => {
+      .then((repo) => {
         const blamer = new Blamer(repo);
         return new Promise((resolve, reject) => {
           blamer.blame(filePath, function (err, data) {
@@ -106,17 +110,17 @@ export default class BlameGutter {
         let lastHash = null;
         let className = null;
 
-        blameData.forEach(lineData => {
+        blameData.forEach((lineData) => {
           const { lineNumber, hash, noCommit } = lineData;
           if (noCommit) {
             return;
           }
 
           // set alternating background className
-          if (lineData.hash !== lastHash) {
+          if (hash !== lastHash) {
             className = (className === 'lighter') ? 'darker' : 'lighter';
           }
-          lastHash = lineData.hash;
+          lastHash = hash;
 
           // generate a link to the commit
           const viewCommitUrl = hasUrlTemplate ? remoteRevision.url(lineData.hash) : '#';
@@ -128,6 +132,7 @@ export default class BlameGutter {
             viewCommitUrl,
             showOnlyLastNames,
             showHash,
+            colorCommitAuthors,
           };
 
           // adding one marker to the first line
@@ -149,7 +154,7 @@ export default class BlameGutter {
   removeLineMarkers() {
     this.disposables.dispose();
     this.disposables = new CompositeDisposable();
-    this.lineDecorations.forEach(decoration => {
+    this.lineDecorations.forEach((decoration) => {
       decoration.destroy();
     });
   }
@@ -159,7 +164,7 @@ export default class BlameGutter {
 
     // Use React to render the BlameLine component
     ReactDOM.render(
-      <GutterResize onResizeStart={this.onResizeStart.bind(this)}>
+      <GutterResize onResizeStart={this.onResizeStart}>
         <BlameLine {...lineProps} />
       </GutterResize>,
       div
@@ -181,7 +186,7 @@ export default class BlameGutter {
     this.bindResizeEvents();
   }
 
-  onResizeEnd(e) {
+  onResizeEnd() {
     this.unbindResizeEvents();
     this.isResizing = false;
     this.resizeStartX = null;
@@ -196,14 +201,14 @@ export default class BlameGutter {
   }
 
   bindResizeEvents() {
-    if (!this.eventListeners['mouseup']) {
+    if (!this.eventListeners.mouseup) {
       const mouseupHandler = this.onResizeEnd.bind(this);
-      this.eventListeners['mouseup'] = mouseupHandler;
+      this.eventListeners.mouseup = mouseupHandler;
       document.addEventListener('mouseup', mouseupHandler);
     }
-    if (!this.eventListeners['mousemove']) {
+    if (!this.eventListeners.mousemove) {
       const mouseMoveHandler = debounce(this.onResizeMove.bind(this), RESIZE_DEBOUNCE_MS);
-      this.eventListeners['mousemove'] = mouseMoveHandler;
+      this.eventListeners.mousemove = mouseMoveHandler;
       document.addEventListener('mousemove', mouseMoveHandler);
     }
   }

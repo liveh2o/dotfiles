@@ -32,6 +32,7 @@ task :install do
   end
 
   install_vim_bundles
+  link_atom_config
   link_default_ruby
 end
 
@@ -102,12 +103,17 @@ def install_vim_bundles
   system %{Q ./vim/update_bundles --trash}
 end
 
+def link_atom_config
+  puts "linking Atom config from Dropbox"
+  link_file("$HOME/Dropbox/Apps/atom", "atom")
+end
+
 def link_default_ruby
   puts "linking default ruby"
   system %Q{ln -s -i "$rvm_path/rubies/default/bin/ruby" "$rvm_bin_path/default_ruby"}
 end
 
-def link_file(file)
+def link_dotfile(file)
   if file =~ /.erb$/
     puts "generating ~/.#{file.sub('.erb', '')}"
 
@@ -123,8 +129,12 @@ def link_file(file)
     end
   else
     puts "linking ~/.#{file}"
-    system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+    link_file("$PWD/#{file}", file)
   end
+end
+
+def link_file(source, dotfile)
+  system %Q{ln -s "#{source}" "$HOME/.#{dotfile}"}
 end
 
 def replace_file(file)

@@ -1,1 +1,0 @@
-{"source":"atom-text-editor .gutter .line-number.bookmarked .icon-right {\n  visibility: visible;\n}\natom-text-editor .gutter .line-number.bookmarked .icon-right:before {\n  content: \"\\f07b\";\n  color: #09C;\n}\n.bookmarks-view .bookmark .line-text {\n  font-family: monospace;\n}\n"}

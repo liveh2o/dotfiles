@@ -1,1 +1,0 @@
-{"source":".spell-check-misspelling .region {\n  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);\n}\n.spell-check-corrections {\n  width: 25em !important;\n}\n"}

@@ -1,1 +1,0 @@
-{"source":"busy-signal {\n  margin-top: 0.4em;\n}\nbusy-signal.busy {\n  cursor: wait;\n  color: #e2c08d;\n}\nbusy-signal.idle {\n  background: radial-gradient(#64c42d 0.1em, transparent 0.11em);\n}\nbusy-signal.idle::before,\nbusy-signal.idle::after {\n  display: none;\n  -webkit-animation: none;\n}\n"}

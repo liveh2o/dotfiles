@@ -1,1 +1,0 @@
-{"source":".tabs-layout-overlay {\n  background: grey;\n  position: absolute;\n  opacity: 0;\n  pointer-events: none;\n  transition: all 0.2s;\n}\n.tabs-layout-overlay.visible {\n  opacity: 0.1;\n}\n"}

@@ -1,6 +1,0 @@
-{
-  "extends": [
-    "@workpop/eslint-config-workpop",
-    "plugin:import/errors"
-  ]
-}

@@ -52,26 +52,6 @@ function backport {
   echo "All branches have been backported."
 }
 
-# function __git_remote_repo_exists {
-#   [[ $(git ls-remote --exit-code $1) ]]
-# }
-#
-# function ghe {
-#   local repo=$1
-#   local origin=git@$GIT
-#   local orgs=('it-infrastructure' dev)
-#
-#   for org in $orgs
-#   do
-#     if __git_remote_repo_exists $origin:$org/$repo
-#     then
-#       echo "$repo lives at $org"
-#     else
-#       echo "$repo does not live at $org"
-#     fi
-#   done
-# }
-
 function dev {
   local directory=${2:-$1}
 

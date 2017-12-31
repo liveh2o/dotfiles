@@ -2,8 +2,8 @@
   core:
     destroyEmptyPanes: false
     disabledPackages: [
-      "vim-mode"
       "language-protocol-buffers"
+      "vim-mode-plus"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -23,6 +23,7 @@
   editor:
     fontSize: 11
     invisibles: {}
+    maxScreenLineLength: 1000
     preferredLineLength: 120
     softWrap: true
     softWrapAtPreferredLineLength: true

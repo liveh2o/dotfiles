@@ -31,6 +31,7 @@ task :install do
     end
   end
 
+  install_vim_bundles
   link_default_ruby
 end
 
@@ -96,14 +97,14 @@ task :convert_osx_keychain_to_certfile do
   MESSAGE
 end
 
+def install_vim_bundles
+  puts "installing VIM bundles"
+  system %{Q ./vim/update_bundles --trash}
+end
+
 def link_default_ruby
   puts "linking default ruby"
   system %Q{ln -s -i "$rvm_path/rubies/default/bin/ruby" "$rvm_bin_path/default_ruby"}
-end
-
-def replace_file(file)
-  system %Q{rm -rf "$HOME/.#{file.sub('.erb', '')}"}
-  link_file(file)
 end
 
 def link_file(file)
@@ -124,4 +125,9 @@ def link_file(file)
     puts "linking ~/.#{file}"
     system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
   end
+end
+
+def replace_file(file)
+  system %Q{rm -rf "$HOME/.#{file.sub('.erb', '')}"}
+  link_file(file)
 end

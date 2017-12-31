@@ -1,26 +1,17 @@
 #!/usr/bin/env ruby
+# vim:ft=ruby:
 
 # Original: http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 git_bundles = [
-  "git://github.com/godlygeek/csapprox.git",
-  "git://github.com/tomtom/tlib_vim.git",
-  "git://github.com/MarcWeber/vim-addon-mw-utils.git",
-  "git://github.com/vim-scripts/Command-T.git",
-  "git://github.com/tpope/vim-repeat.git",
+  "git://github.com/jdevera/vim-protobuf-syntax.git",
   "git://github.com/mileszs/ack.vim.git",
-  "git://github.com/scrooloose/nerdcommenter.git",
-  "git://github.com/garbas/vim-snipmate.git",
+  "git://github.com/tpope/vim-endwise.git",
   "git://github.com/tpope/vim-fugitive.git",
   "git://github.com/tpope/vim-rails.git",
-  "git://github.com/tpope/vim-surround.git",
-  "git://github.com/tpope/vim-endwise.git",
-  "git://github.com/jdevera/vim-protobuf-syntax.git",
-  "git://github.com/scrooloose/nerdtree.git",
-  "git://github.com/ervandew/supertab.git",
+  "git://github.com/tpope/vim-surround.git"
 ]
 
 vim_org_scripts = [
-  ["IndentAnything", "10228", "syntax"],
   ["vibrantink", "10117", "colors"]
 ]
 
@@ -80,6 +71,3 @@ get_requests.each do |name, script_url, script_type|
     file << open(script_url).read
   end
 end
-
-# vim:ft=ruby:
-

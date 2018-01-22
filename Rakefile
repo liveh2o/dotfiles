@@ -27,7 +27,7 @@ task :install do
         end
       end
     else
-      link_file(file)
+      link_dotfile(file)
     end
   end
 

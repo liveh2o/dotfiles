@@ -43,11 +43,11 @@ alias a="atom ."
 alias m="mate -w ."
 
 # trebuchet aliases
-alias prod="tbx treb prod"
-alias int="tbx treb int"
-alias qa="tbx treb qa"
-alias sand="tbx treb sand"
-alias corp="tbx treb corp"
+alias prod="t treb prod"
+alias int="t treb int"
+alias qa="t treb qa"
+alias sand="t treb sand"
+alias corp="t treb corp"
 
 # misc
 alias dotfiles='cd ~/.dotfiles'

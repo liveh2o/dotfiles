@@ -258,6 +258,11 @@ function upstream {
   cherry qa master
 }
 
+# Switch to default Ruby with a gemset of the current directory
+function drb {
+  rvm use default@${PWD##*/} --create
+}
+
 # Switch to latest JRuby with a gemset of the current directory
 function jrb {
   rvm use jruby@${PWD##*/} --create

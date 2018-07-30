@@ -55,13 +55,13 @@ function backport {
 function dev {
   local directory=${2:-$1}
 
-  git clone git@$GIT:dev/$1 $directory
+  git clone git@$GIT:mx/$1 $directory
 }
 
 function ops {
   local directory=${2:-$1}
 
-  git clone git@$GIT:it-infrastructure/$1 $directory
+  git clone git@$GIT:ops/$1 $directory
 }
 
 # List all commits matching a specific tag (e.g. prod-2015)

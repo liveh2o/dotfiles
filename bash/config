@@ -1,6 +1,3 @@
-# Setup the path
-PATH=$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
-
 # Export some environment variables
 export ARCHFLAGS="-arch x86_64"
 export DEPLOYMENT_PATH=$HOME/Deployment
@@ -8,9 +5,13 @@ export EDITOR=vim
 export FIREBOLT_SKIP_WARMING="1"
 export GIT="gitlab.mx.com"
 export GIT_PS1_SHOWDIRTYSTATE="1"
+export GOPATH="${HOME}/.go"
+export GOROOT="$(brew --prefix golang)/libexec"
 export JRUBY_OPTS="-J-Xmx2048m"
 export PROJECT_PATH=$HOME/Code
-#export SSL_CERT_FILE="/usr/local/etc/openssl/cert.pem"
+
+# Setup the path
+PATH=$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${GOPATH}/bin:${GOROOT}/bin
 
 # Load the rest of the configuration
 source ~/.bash/colors

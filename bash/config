@@ -1,8 +1,7 @@
-# Export some environment variables
+## Export some environment variables
 export ARCHFLAGS="-arch x86_64"
 export DEPLOYMENT_PATH=$HOME/Deployment
 export EDITOR=vim
-export FIREBOLT_SKIP_WARMING="1"
 export GIT="gitlab.mx.com"
 export GIT_PS1_SHOWDIRTYSTATE="1"
 export GOPATH="${HOME}/.go"
@@ -10,20 +9,20 @@ export GOROOT="$(brew --prefix golang)/libexec"
 export JRUBY_OPTS="-J-Xmx2048m"
 export PROJECT_PATH=$HOME/Code
 
-# Setup the path
-PATH=$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${GOPATH}/bin:${GOROOT}/bin
+## Setup the path
+PATH=$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${GOPATH}/bin:${GOROOT}/bin:$HOME/.rvm/bin
 
-# Load the rest of the configuration
+## Load the rest of the configuration
 source ~/.bash/colors
 source ~/.bash/completions
 source ~/.bash/functions
 source ~/.bash/aliases
 
-# Map keys for better navigation
+## Map keys for better navigation
 bind '"\e\e[D": backward-word'
 bind '"\e\e[C": forward-word'
 bind '"\e[1;2H": beginning-of-line'
 bind '"\e[1;2F": end-of-line'
 
-# Setup the prompt
+## Setup the prompt
 PS1="$BRIGHT_CYAN\w$VIOLET \$(parse_git_branch)$BRIGHT_WHITE\n∴ "

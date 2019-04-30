@@ -12,6 +12,39 @@ function rebase {
   git rebase -i HEAD~$1
 }
 
+function promote {
+  # rvm use ruby@promote
+  drb
+
+  local env=$1
+  shift
+
+  case "$env" in
+    prod)
+      git checkout stable
+      git merge qa --ff-only
+      git push origin stable
+      treb prod deploy --site se,sd $*
+      ;;
+    int)
+      git checkout stable
+      git merge qa --ff-only
+      git push origin stable
+      treb int deploy $*
+      ;;
+    qa)
+      git checkout qa
+      git merge master --ff-only
+      git push origin qa
+      treb qa deploy --site sb,sa $*
+      ;;
+    sand)
+      git checkout master
+      treb sand deploy $*
+      ;;
+  esac
+}
+
 function cherry {
   __git_repo_check
 

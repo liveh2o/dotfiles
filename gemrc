@@ -6,6 +6,6 @@
 - https://gems.internal.mx
 :update_sources: true
 :verbose: true
-install: "--no-rdoc --no-ri"
-update: "--no-rdoc --no-ri"
+install: "--no-rdoc --no-ri --no-document"
+update: "--no-rdoc --no-ri --no-document"
 benchmark: false

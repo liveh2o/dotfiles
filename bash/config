@@ -10,7 +10,10 @@ export JRUBY_OPTS="-J-Xmx2048m"
 export PROJECT_PATH=$HOME/Code
 
 ## Setup the path
-PATH=$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${GOPATH}/bin:${GOROOT}/bin:$HOME/.rvm/bin
+PATH=$HOME/.bin:$HOME/.jenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${GOPATH}/bin:${GOROOT}/bin
+
+## Setup jenv
+eval "$(jenv init -)"
 
 ## Load the rest of the configuration
 source ~/.bash/colors

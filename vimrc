@@ -50,7 +50,7 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --nosql --column --ignore-dir=doc"
 " Solarized
 syntax enable
 set background=dark
-colorscheme vibrantink
+"colorscheme vibrantink
 
 " Change autocomplete PINK background
 highlight Pmenu ctermbg=238 gui=bold

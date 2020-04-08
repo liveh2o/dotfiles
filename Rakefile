@@ -31,8 +31,6 @@ task :install do
     end
   end
 
-  install_vim_bundles
-  link_atom_config
   link_default_ruby
 end
 
@@ -96,16 +94,6 @@ task :convert_osx_keychain_to_certfile do
 
       export SSL_CERT_FILE='#{CERT_FILE}'
   MESSAGE
-end
-
-def install_vim_bundles
-  puts "installing VIM bundles"
-  system %{Q ./vim/update_bundles --trash}
-end
-
-def link_atom_config
-  puts "linking Atom config from Dropbox"
-  link_file("$HOME/Dropbox/Apps/atom", "atom")
 end
 
 def link_default_ruby

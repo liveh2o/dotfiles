@@ -34,6 +34,40 @@ task :install do
   link_default_ruby
 end
 
+desc "Download "
+task :apps do
+  puts "Installing 1Password..."
+  system %Q(brew cask install 1password)
+  puts "Installing Alfred..."
+  system %Q(brew cask install alfred)
+  puts "Installing Atom.io..."
+  system %Q(brew cask install atom)
+  puts "Installing Deckset..."
+  system %Q(brew cask install daisydisk)
+  puts "Installing GitHub Desktop..."
+  system %Q(brew cask install github)
+  puts "Installing iTerm2..."
+  system %Q(brew cask install iterm2)
+  puts "Installing Little Snitch..."
+  system %Q(brew cask install little-snitch)
+  puts "Installing Sharemouse..."
+  system %Q(brew cask install sharemouse)
+end
+
+desc "Setup the environment"
+task :setup do
+  puts "Installing Xcode Command Line Tools..."
+  system %Q(xcode-select --install)
+  puts "Installing Homebrew..."
+  system %Q(/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)")
+  puts "Installing Git..."
+  system %Q(brew install git)
+  puts "Installing RVM..."
+  system %Q(curl -sSL https://get.rvm.io | bash -s stable --rails)
+  puts "Installing JDK..."
+  system %Q(brew tap AdoptOpenJDK/openjdk && brew cask install adoptopenjdk)
+end
+
 desc "link default ruby"
 task :link_default_ruby do
   link_default_ruby

@@ -21,11 +21,5 @@ source ~/.bash/completions
 source ~/.bash/functions
 source ~/.bash/aliases
 
-## Map keys for better navigation
-bind '"\e\e[D": backward-word'
-bind '"\e\e[C": forward-word'
-bind '"\e[1;2H": beginning-of-line'
-bind '"\e[1;2F": end-of-line'
-
 ## Setup the prompt
 PS1="$BRIGHT_CYAN\w$VIOLET \$(parse_git_branch)$BRIGHT_WHITE\n∴ "

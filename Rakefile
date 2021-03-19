@@ -66,6 +66,18 @@ task :setup do
   system %Q(curl -sSL https://get.rvm.io | bash -s stable --rails)
   puts "Installing JDK..."
   system %Q(brew tap AdoptOpenJDK/openjdk && brew cask install adoptopenjdk)
+  puts "Installing jenv..."
+  system %Q(brew install jenv)
+  puts "Installing V8..."
+  system %Q(brew install v8)
+  puts "Installing Node.js..."
+  system %Q(brew install node)
+  puts "Installing Postgres..."
+  system %Q(brew install postgres)
+  system %Q(brew services start postgresq)
+  system %Q(createuser -s postgres)
+  puts "Installing Redis..."
+  system %Q(brew install redis)
 end
 
 desc "link default ruby"

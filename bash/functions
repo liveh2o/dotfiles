@@ -1,163 +1,72 @@
 #!bash
 #
+# Switch to default Ruby with a gemset of the current directory
+function drb {
+  rvm use default@${PWD##*/} --create
+}
+
+# Switch to latest JRuby with a gemset of the current directory
+function jrb {
+  rvm use jruby@${PWD##*/} --create
+}
+
+# Link a given Ruby into the RVM bin so it can be executed directly
+function linkrb {
+  ln -s $rvm_path/rubies/$1/bin/ruby $rvm_bin_path/$1
+}
+
+# Switch to Ruby version specified in the current directory
+function localrb {
+  rvm use .
+}
+
+# Switch to latest Ruby with a gemset of the current directory
+function rb {
+  if [ -z "$1" ]
+  then
+    rvm use ruby@${PWD##*/} --create
+  else
+    rvm use ruby-$1@${PWD##*/} --create
+  fi
+}
+
 # Changing directory to code project
 function c { cd $PROJECT_PATH/$1; }
 
-# Changing directory to code project
-function d { cd $DEPLOYMENT_PATH/$1; }
+# Search through the whole codebase
+function hunt { find $PROJECT_PATH -type f -name "$1" -not -path "*vendor*" -print0 | xargs -0 ack -Q $2; }
 
-# Interactively rebase the current git branch
-function rebase {
-  __git_status_check
-  git rebase -i HEAD~$1
-}
-
-function promote {
-  # rvm use ruby@promote
-  drb
-
-  local env=$1
-  shift
-
-  case "$env" in
-    prod)
-      git checkout stable
-      git merge qa --ff-only
-      git push origin stable
-      treb prod deploy --site se,sd $*
-      ;;
-    int)
-      git checkout stable
-      git merge qa --ff-only
-      git push origin stable
-      treb int deploy $*
-      ;;
-    qa)
-      git checkout qa
-      git merge master --ff-only
-      git push origin qa
-      treb qa deploy --site sb,sa $*
-      ;;
-    sand)
-      git checkout master
-      treb sand deploy $*
-      ;;
-  esac
-}
-
+# Find commit diffs between two branches
 function cherry {
   __git_repo_check
 
-  local upstream=${1:-'master'}
+  local upstream=${1:-'main'}
   local head=${2:-'HEAD'}
 
   git cherry -v $upstream $head
 }
 
-# Search through the whole codebase
-function hunt { find $PROJECT_PATH -type f -name "$1" -not -path "*vendor*" -print0 | xargs -0 ack -Q $2; }
-
-# Prompt setup
-function parse_git_branch { echo `__git_ps1`; }
-
+# Push a branch to origin
 function gpush {
   git push origin $(__git_current_branch)
 }
 
-# Backport changes downstream
-function backport {
-  __git_sync_remote_branches
+# Synchronize remote branches
+function gsync {
+  case $1 in
+    '-A' | '--all')
+      local current_directory=$PWD
 
-  local startbranch=$(__git_current_branch)
+      for repo in $(ls -d */)
+      do
+        cd $current_directory/$repo
+        __git_sync_remote_branches
+      done
 
-  echo 'Backporting stable > qa';
-  git checkout qa
-  git merge stable
-  git push origin qa
-
-  echo 'Backporting qa > master';
-  git checkout master
-  git merge qa
-  git push origin master
-
-  __git_checkout_unless_current $startbranch
-
-  echo "All branches have been backported."
-}
-
-function dev {
-  local directory=${2:-$1}
-
-  git clone git@$GIT:mx/$1 $directory
-}
-
-function ops {
-  local directory=${2:-$1}
-
-  git clone git@$GIT:ops/$1 $directory
-}
-
-# List all commits matching a specific tag (e.g. prod-2015)
-# Also accepts an optional directory
-function commit-log {
-  __git_repo_check
-
-  local current_directory=$PWD
-  local total_commits=0
-  local directory=${2:-'.'}
-
-  for repo in $(ls $directory)
-  do
-    cd $current_directory/$repo
-    $(git log --after="2014-10-01" --before="2015-10-01" --format="%H,%ai,%an <%ae>,\"%B\"" > $current_directory/$repo-commits.csv)
-    $(git log --after="2014-10-01" --before="2015-10-01" > $current_directory/$repo-commits.log)
-  done
-
-  cd $current_directory
-}
-
-# List all commits matching a specific tag (e.g. prod-2015)
-# Also accepts an optional directory
-function commit-count {
-  __git_repo_check
-
-  local current_directory=$PWD
-  local total_commits=0
-  local directory=${2:-'.'}
-
-  for repo in $(ls $directory)
-  do
-    cd $current_directory/$repo
-    local commits=$(git rev-list HEAD --count)
-    total_commits=$((commits + total_commits))
-    echo "$repo: $commits"
-  done
-
-  echo "total: $total_commits"
-
-  cd $current_directory
-}
-
-# List all releases matching a specific tag (e.g. prod-2015)
-# Also accepts an optional directory
-function releases {
-  __git_repo_check
-
-  local current_directory=$PWD
-  local total_releases=0
-  local directory=${2:-'.'}
-
-  for repo in $(ls $directory)
-  do
-    cd $current_directory/$repo
-    local releases=$(git tag | grep $1 | wc -l | tr -d ' ')
-    total_releases=$((releases + total_releases))
-    echo "$repo: $releases"
-  done
-
-  echo "total: $total_releases"
-
-  cd $current_directory
+      cd $current_directory;;
+    *)
+      __git_sync_remote_branches;;
+  esac
 }
 
 # Hard-reset branches back to origin
@@ -191,22 +100,14 @@ function hardreset {
   echo "Local branches have been reset."
 }
 
-function gsync {
-  case $1 in
-    '-A' | '--all')
-      local current_directory=$PWD
-
-      for repo in $(ls -d */)
-      do
-        cd $current_directory/$repo
-        __git_sync_remote_branches
-      done
-
-      cd $current_directory;;
-    *)
-      __git_sync_remote_branches;;
-  esac
+# Interactively rebase the current git branch
+function rebase {
+  __git_status_check
+  git rebase -i HEAD~$1
 }
+
+# Prompt setup
+function parse_git_branch { echo `__git_ps1`; }
 
 function __git_branches {
   git branch | sed -e 's|* ||g' -e 's|^[ ]*||'
@@ -267,56 +168,4 @@ function __git_sync_remote_branches {
   __git_checkout_unless_current $startbranch
 
   echo "Local branches are in sync."
-}
-
-# Downstream out-of-date branch check
-function downstream {
-  echo 'Downstream out-of-date branch check'
-
-  echo '[stable > qa]'
-  cherry qa stable
-
-  echo '[qa > master]'
-  cherry master qa
-}
-
-# Upstream branch check
-function upstream {
-  echo 'Upstream branch check'
-
-  echo '[qa > stable]'
-  cherry stable qa
-
-  echo '[master > qa]'
-  cherry qa master
-}
-
-# Switch to default Ruby with a gemset of the current directory
-function drb {
-  rvm use default@${PWD##*/} --create
-}
-
-# Switch to latest JRuby with a gemset of the current directory
-function jrb {
-  rvm use jruby@${PWD##*/} --create
-}
-
-# Link a given Ruby into the RVM bin so it can be executed directly
-function linkrb {
-  ln -s $rvm_path/rubies/$1/bin/ruby $rvm_bin_path/$1
-}
-
-# Switch to Ruby version specified in the current directory
-function localrb {
-  rvm use .
-}
-
-# Switch to latest Ruby with a gemset of the current directory
-function rb {
-  if [ -z "$1" ]
-  then
-    rvm use ruby@${PWD##*/} --create
-  else
-    rvm use ruby-$1@${PWD##*/} --create
-  fi
 }

@@ -3,6 +3,7 @@ alias cd..="cd .."
 alias l="ls -al"
 alias lp="ls -p"
 alias o="open ."
+alias ls="ls -G"
 
 # the "kp" alias ("que pasa"), in honor of tony p.
 alias kp="ps auxwww"
@@ -42,36 +43,17 @@ alias stash="g stash"
 # editor aliases
 alias a="atom ."
 alias m="mate -w ."
-
-# trebuchet aliases
-alias prod="t treb prod"
-alias int="t treb int"
-alias qa="t treb qa"
-alias sand="t treb sand"
-alias corp="t treb corp"
+alias n="nova ."
 
 # misc
 alias dotfiles='cd ~/.dotfiles'
-alias derp='PB_IGNORE_DEPRECATIONS=1 RUBYOPT="-W0"'
 alias ffi='LDFLAGS="-L/usr/local/opt/libffi/lib" PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"'
 alias http='python -m SimpleHTTPServer'
 alias jitless='JRUBY_OPTS="$JRUBY_OPTS -J-Djruby.compile.mode=OFF"'
 alias jrbdev='JRUBY_OPTS="$JRUBY_OPTS --dev --disable:did_you_mean --debug"'
-alias jrb2='JRUBY_OPTS="$JRUBY_OPTS -Xcompat.version=2.0"'
 alias lrb='localrb'
-alias nats='PB_CLIENT_TYPE="protobuf/nats/client" PB_SERVER_TYPE="protobuf/nats/server"'
 alias ns='nslookup'
 alias path='echo $PATH'
 alias redis='redis-server /usr/local/etc/redis.conf'
 alias reload='. ~/.bash_profile'
 alias rvmg='rvm gemset use global'
-alias t='turbo'
-alias tb='t b'
-alias tbu='t bu'
-alias tbx='t bx'
-alias turbo='jrbdev derp'
-alias zmq='PB_CLIENT_TYPE=zmq PB_SERVER_TYPE=zmq'
-
-if [ `uname` == 'Darwin' ]; then
-  alias ls="ls -G"
-fi

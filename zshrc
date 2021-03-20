@@ -18,7 +18,7 @@ setopt HIST_VERIFY        # Show the substituted commands in the prompt
 # setopt HIST_FIND_NO_DUPS      # Ignore duplicates when searching
 
 source ~/.bash/aliases
-source ~/.bash/functioms
+source ~/.bash/functions
 
 # Initialize the zsh completion system
 autoload -Uz compinit && compinit

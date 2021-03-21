@@ -1,8 +1,8 @@
 require 'rake'
 require 'erb'
 
-desc "install the dot files into user's home directory"
-task :install do
+desc "Install the dot files into user's home directory"
+task :dotfiles do
   replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile README.rdoc LICENSE].include? file
@@ -30,32 +30,31 @@ task :install do
       link_dotfile(file)
     end
   end
-
-  link_default_ruby
 end
 
-desc "Download "
+desc "Download apps"
 task :apps do
-  puts "Installing 1Password..."
-  system %Q(brew cask install 1password)
-  puts "Installing Alfred..."
-  system %Q(brew cask install alfred)
-  puts "Installing Atom.io..."
-  system %Q(brew cask install atom)
-  puts "Installing Deckset..."
-  system %Q(brew cask install daisydisk)
-  puts "Installing GitHub Desktop..."
-  system %Q(brew cask install github)
-  puts "Installing iTerm2..."
-  system %Q(brew cask install iterm2)
-  puts "Installing Little Snitch..."
-  system %Q(brew cask install little-snitch)
-  puts "Installing Sharemouse..."
-  system %Q(brew cask install sharemouse)
+  all = false
+  %w( 1password alfred atom daisydisk github iterm2 little-snitch nova sharemouse ).each do |app|
+    if all
+      install_app(app)
+    else
+      print "Install #{app}? [ynaq] "
+      case $stdin.gets.chomp
+      when 'a'
+        all = true
+        install_app(app)
+      when 'y'
+        install_app(app)
+      when 'q'
+        exit
+      end
+    end
+  end
 end
 
-desc "Setup the environment"
-task :setup do
+desc "setup the environment"
+task :env do
   puts "Installing Xcode Command Line Tools..."
   system %Q(xcode-select --install)
   puts "Installing Homebrew..."
@@ -65,7 +64,7 @@ task :setup do
   puts "Installing RVM..."
   system %Q(curl -sSL https://get.rvm.io | bash -s stable --rails)
   puts "Installing JDK..."
-  system %Q(brew tap AdoptOpenJDK/openjdk && brew cask install adoptopenjdk)
+  system %Q(brew tap AdoptOpenJDK/openjdk && brew install --cask adoptopenjdk)
   puts "Installing jenv..."
   system %Q(brew install jenv)
   puts "Installing V8..."
@@ -74,7 +73,7 @@ task :setup do
   system %Q(brew install node)
   puts "Installing Postgres..."
   system %Q(brew install postgres)
-  system %Q(brew services start postgresq)
+  system %Q(brew services start postgresql)
   system %Q(createuser -s postgres)
   puts "Installing Redis..."
   system %Q(brew install redis)
@@ -84,6 +83,11 @@ desc "link default ruby"
 task :link_default_ruby do
   link_default_ruby
 end
+
+desc "Link dotfiles"
+task :install => [:dotfiles]
+desc "Setup environment, install apps, and link dotfiles"
+task :setup => [:env, :apps, :dotfiles]
 
 desc "convert OSX keychain to certfile to fix OpenSSL issues"
 task :convert_osx_keychain_to_certfile do
@@ -140,6 +144,10 @@ task :convert_osx_keychain_to_certfile do
 
       export SSL_CERT_FILE='#{CERT_FILE}'
   MESSAGE
+end
+
+def install_app(app)
+  system %Q(brew install --cask #{app})
 end
 
 def link_default_ruby

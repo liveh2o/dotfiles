@@ -2,6 +2,8 @@
 export DEPLOYMENT_PATH=$HOME/Deployment
 export GITLAB="gitlab.mx.com"
 
+complete -C ~/.bash/completion_scripts/deployment_completion -o default d
+
 # MX aliases
 alias derp='PB_IGNORE_DEPRECATIONS=1 RUBYOPT="-W0"'
 alias nats='PB_CLIENT_TYPE="protobuf/nats/client" PB_SERVER_TYPE="protobuf/nats/server"'

@@ -1,5 +1,8 @@
 #!bash
 #
+# Changing directory to code project
+function c { cd $PROJECT_PATH/$1; }
+
 # Switch to default Ruby with a gemset of the current directory
 function drb {
   rvm use default@${PWD##*/} --create

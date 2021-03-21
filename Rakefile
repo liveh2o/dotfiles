@@ -3,6 +3,7 @@ require 'erb'
 
 desc "Install the dot files into user's home directory"
 task :dotfiles do
+
   replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile README.rdoc LICENSE].include? file
@@ -55,10 +56,12 @@ end
 
 desc "setup the environment"
 task :env do
+  puts "Installing oh-my-zsh..."
+  system 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
   puts "Installing Xcode Command Line Tools..."
   system %Q(xcode-select --install)
   puts "Installing Homebrew..."
-  system %Q(/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)")
+  system '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"'
   puts "Installing Git..."
   system %Q(brew install git)
   puts "Installing RVM..."
@@ -87,7 +90,7 @@ end
 desc "Link dotfiles"
 task :install => [:dotfiles]
 desc "Setup environment, install apps, and link dotfiles"
-task :setup => [:env, :apps, :dotfiles]
+task :setup => [:env, :dotfiles, :apps]
 
 desc "convert OSX keychain to certfile to fix OpenSSL issues"
 task :convert_osx_keychain_to_certfile do

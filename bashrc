@@ -1,20 +1,22 @@
 ## Export some environment variables
+export PROJECT_PATH=$HOME/Code
 export EDITOR=vim
 export GIT_PS1_SHOWDIRTYSTATE="1"
 export JRUBY_OPTS="-J-Xmx2048m"
-export PROJECT_PATH=$HOME/Code
 
 ## Setup the path
-PATH=$HOME/.bin:$HOME/.jenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
+export PATH=$HOME/.bin:$HOME/.jenv/bin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/opt/bin:/bin:/usr/local/sbin:/usr/sbin:/opt/sbin:/sbin
 
 ### Setup jenv
-eval "$(jenv init -)"
+#eval "$(jenv init -)"
 
 ### Load the rest of the configuration
 source ~/.bash/colors
 source ~/.bash/completions
 source ~/.bash/functions
 source ~/.bash/aliases
+
+alias reload='. ~/.bash_profile'
 
 ### Setup the prompt
 PS1="$BRIGHT_CYAN\w$VIOLET \$(parse_git_branch)$BRIGHT_WHITE\n∴ "

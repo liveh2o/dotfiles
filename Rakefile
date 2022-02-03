@@ -71,7 +71,7 @@ task :env do
   puts "Installing RVM..."
   system %Q(curl -sSL https://get.rvm.io | bash -s stable --rails)
   puts "Installing JDK..."
-  system %Q(brew tap AdoptOpenJDK/openjdk && brew install --cask adoptopenjdk)
+  system %Q(brew tap homebrew/cask-versions && brew install --cask temurin)
   puts "Installing jenv..."
   system %Q(brew install jenv)
   puts "Installing V8..."

@@ -116,6 +116,10 @@ source ~/.bash/completions
 
 [[ -s "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)" # Setup brew if its installed
 
+# Add jenv to PATH
+export PATH="$HOME/.jenv/bin:$PATH"
+[[ -s "/opt/homebrew/bin/jenv" ]] && eval "$(jenv init -)"
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 

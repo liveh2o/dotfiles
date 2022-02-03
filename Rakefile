@@ -74,10 +74,6 @@ task :env do
   system %Q(brew tap homebrew/cask-versions && brew install --cask temurin)
   puts "Installing jenv..."
   system %Q(brew install jenv)
-  puts "Installing V8..."
-  system %Q(brew install v8)
-  puts "Installing Node.js..."
-  system %Q(brew install node)
   puts "Installing Postgres..."
   system %Q(brew install postgres)
   system %Q(brew services start postgresql)

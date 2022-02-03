@@ -36,19 +36,23 @@ end
 desc "Download apps"
 task :apps do
   all = false
-  %w( 1password alfred atom daisydisk github iterm2 little-snitch nova sharemouse ).each do |app|
+  %w( 1password alfred atom bartender daisydisk github iterm2 little-snitch nova textmate ).each do |app|
     if all
       install_app(app)
     else
-      print "Install #{app}? [ynaq] "
+      print "Install #{app}? [Ynaq] "
       case $stdin.gets.chomp
       when 'a'
         all = true
         install_app(app)
-      when 'y'
+      when 'Y' || 'y'
         install_app(app)
       when 'q'
         exit
+      when 'n'
+        next
+      else
+        install_app(app)
       end
     end
   end

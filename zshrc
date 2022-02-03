@@ -114,6 +114,8 @@ source ~/.bash/functions
 autoload bashcompinit && bashcompinit
 source ~/.bash/completions
 
+[[ -s "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)" # Setup brew if its installed
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 

@@ -38,5 +38,6 @@ Thumbs.db
 
 # RVM configs #
 ###############
+.jenv
 .ruby-gemset
 .ruby-version

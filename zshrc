@@ -120,7 +120,5 @@ source ~/.bash/completions
 export PATH="$HOME/.jenv/bin:$PATH"
 [[ -s "/opt/homebrew/bin/jenv" ]] && eval "$(jenv init -)"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+# Load rbenv automatically
+eval "$(/opt/homebrew/bin/rbenv init - zsh)"

@@ -20,5 +20,3 @@ if which ssh &> /dev/null; then
   complete -o default -F _ssh ns
   complete -o default -F _ssh nslookup
 fi
-
-[[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion

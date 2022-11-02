@@ -44,19 +44,11 @@ task :env do
   system %Q(brew bundle --file ~/.dotfiles/Brewfile)
   puts "Creating postgres user"
   system %Q(createuser -s postgres)
-desc "link default ruby"
-task :link_default_ruby do
-  link_default_ruby
 end
 
 desc "Link dotfiles"
 task :install => [:dotfiles]
 desc "Setup environment, install apps, and link dotfiles"
-
-def link_default_ruby
-  puts "linking default ruby"
-  system %Q{ln -s -i "$rvm_path/rubies/default/bin/ruby" "$rvm_bin_path/default_ruby"}
-end
 task :setup => [:env, :dotfiles]
 
 def link_dotfile(file)

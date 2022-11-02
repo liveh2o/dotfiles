@@ -15,11 +15,14 @@ alias bi="b install"
 alias biv="bi --path vendor && echo 'vendor/ruby' >> .gitignore"
 alias bivp="biv && bp"
 alias bl="b list"
-alias bo="EDITOR=atom b open"
+alias bo="EDITOR=nova b open"
 alias bout="b outdated"
 alias bp="b package"
 alias bu="b update"
 alias bx="b exec"
+alias tb='t b'
+alias tbu='t bu'
+alias tbx='t bx'
 
 # git aliases
 alias g="git"
@@ -46,6 +49,7 @@ alias m="mate -w ."
 alias n="nova ."
 
 # misc
+alias derp='PB_IGNORE_DEPRECATIONS=1 RUBYOPT="-W0"'
 alias dotfiles='cd ~/.dotfiles'
 alias ffi='LDFLAGS="-L/usr/local/opt/libffi/lib" PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"'
 alias http='python -m SimpleHTTPServer'
@@ -53,7 +57,10 @@ alias jitless='JRUBY_OPTS="$JRUBY_OPTS -J-Djruby.compile.mode=OFF"'
 alias jrbdev='JRUBY_OPTS="$JRUBY_OPTS --dev --disable:did_you_mean --debug"'
 alias lrb='localrb'
 alias m1='CFLAGS="-Wno-error=implicit-function-declaration -Wcompound-token-split-by-macro"'
+alias nats='PB_CLIENT_TYPE="protobuf/nats/client" PB_SERVER_TYPE="protobuf/nats/server"'
 alias ns='nslookup'
 alias path='echo $PATH'
 alias redis='redis-server /usr/local/etc/redis.conf'
 alias rvmg='rvm gemset use global'
+alias t='turbo'
+alias turbo='jrbdev derp'

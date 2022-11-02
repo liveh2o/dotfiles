@@ -5,7 +5,6 @@ if which ssh &> /dev/null; then
   source ~/.bash/completion_scripts/ssh_completion
   complete -o default -F _ssh scp
   complete -o default -F _ssh ssh
-  complete -o default -F _ssh sshmux
   complete -o default -F _ssh ping
   complete -o default -F _ssh ns
   complete -o default -F _ssh nslookup

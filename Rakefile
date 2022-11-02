@@ -3,7 +3,6 @@ require 'erb'
 
 desc "Install the dot files into user's home directory"
 task :dotfiles do
-
   replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile README.rdoc LICENSE].include? file
@@ -33,31 +32,6 @@ task :dotfiles do
   end
 end
 
-desc "Download apps"
-task :apps do
-  all = false
-  %w( 1password alfred atom bartender daisydisk github iterm2 little-snitch nova textmate ).each do |app|
-    if all
-      install_app(app)
-    else
-      print "Install #{app}? [Ynaq] "
-      case $stdin.gets.chomp
-      when 'a'
-        all = true
-        install_app(app)
-      when 'Y' || 'y'
-        install_app(app)
-      when 'q'
-        exit
-      when 'n'
-        next
-      else
-        install_app(app)
-      end
-    end
-  end
-end
-
 desc "setup the environment"
 task :env do
   puts "Installing oh-my-zsh..."
@@ -66,22 +40,10 @@ task :env do
   system %Q(xcode-select --install)
   puts "Installing Homebrew..."
   system '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"'
-  puts "Installing Git..."
-  system %Q(brew install git)
-  puts "Installing RVM..."
-  system %Q(curl -sSL https://get.rvm.io | bash -s stable --rails)
-  puts "Installing JDK..."
-  system %Q(brew tap homebrew/cask-versions && brew install --cask temurin)
-  puts "Installing jenv..."
-  system %Q(brew install jenv)
-  puts "Installing Postgres..."
-  system %Q(brew install postgres)
-  system %Q(brew services start postgresql)
+  puts "Installing all dependencies from the Brewfile"
+  system %Q(brew bundle --file ~/.dotfiles/Brewfile)
+  puts "Creating postgres user"
   system %Q(createuser -s postgres)
-  puts "Installing Redis..."
-  system %Q(brew install redis)
-end
-
 desc "link default ruby"
 task :link_default_ruby do
   link_default_ruby
@@ -90,7 +52,6 @@ end
 desc "Link dotfiles"
 task :install => [:dotfiles]
 desc "Setup environment, install apps, and link dotfiles"
-task :setup => [:env, :dotfiles, :apps]
 
 desc "convert OSX keychain to certfile to fix OpenSSL issues"
 task :convert_osx_keychain_to_certfile do
@@ -157,6 +118,7 @@ def link_default_ruby
   puts "linking default ruby"
   system %Q{ln -s -i "$rvm_path/rubies/default/bin/ruby" "$rvm_bin_path/default_ruby"}
 end
+task :setup => [:env, :dotfiles]
 
 def link_dotfile(file)
   if file =~ /.erb$/

@@ -1,16 +1,6 @@
 complete -C ~/.bash/completion_scripts/project_completion -o default c
 complete -C ~/.bash/completion_scripts/rake_completion -o default rake
 
-if which git &> /dev/null; then
-  source ~/.bash/completion_scripts/git_completion
-  complete -o default -F _git_add ga
-  complete -o default -F _git_branch gb
-  complete -o default -F _git_checkout gc
-  complete -o default -F _git_fetch gf
-  complete -o default -F _git_merge gm
-  complete -o default -F _git_stash stash
-fi
-
 if which ssh &> /dev/null; then
   source ~/.bash/completion_scripts/ssh_completion
   complete -o default -F _ssh scp

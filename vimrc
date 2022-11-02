@@ -33,5 +33,6 @@ highlight Pmenu ctermbg=238 gui=bold
 " Setup ignore patterns for CommandT
 set wildignore+=*.o,*.obj,.git,doc/**,*.sql,*.log
 
-" Add spell check to git commits
+" Add spell check and maxium text width to git commits
 autocmd FileType gitcommit setlocal spell
+autocmd FileType gitcommit setlocal textwidth=72

@@ -53,67 +53,6 @@ desc "Link dotfiles"
 task :install => [:dotfiles]
 desc "Setup environment, install apps, and link dotfiles"
 
-desc "convert OSX keychain to certfile to fix OpenSSL issues"
-task :convert_osx_keychain_to_certfile do
-  # https://gist.github.com/docwhat/24f0add92c2f43d8ec9e#file-keychain2certfile-rb-L30
-  require 'fileutils'
-  require 'openssl'
-  require 'digest/md5'
-  require 'digest/sha1'
-
-  CERT_FILE = ENV.fetch('SSL_CERT_FILE', '/usr/local/etc/openssl/cert.pem')
-
-  keychains = %w(
-    /Library/Keychains/System.keychain
-    /System/Library/Keychains/SystemRootCertificates.keychain
-  )
-
-  # Get all the certs!
-  # We filter out:
-  # * Not yet valid certificates
-  # * Expired certificates
-  # * Certificates with multiple extendedKeyUsage extensions break Java/JRuby.
-  #   See https://github.com/jruby/jruby-openssl/issues/56
-  certs = `security find-certificate -a -p #{keychains.join(' ')}`
-          .scan(/-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----/m)
-          .map { |pem| OpenSSL::X509::Certificate.new pem }
-          .reject { |cert| cert.not_before > Time.now }
-          .reject { |cert| cert.not_after < Time.now }
-          .reject { |cert| cert.extensions.map(&:oid).count { |x| x == 'extendedKeyUsage' } > 1 }
-
-  # Write out the new certs.
-  File.open(CERT_FILE, 'w') do |f|
-    certs.each do |cert|
-      md5_fingerprint  = Digest::MD5.hexdigest(cert.to_der).upcase
-      sha1_fingerprint = Digest::SHA1.hexdigest(cert.to_der).upcase
-
-      f.puts
-      f.puts '=' * 60
-      f.puts "Subject: #{cert.subject}"
-      f.puts "Issuer:  #{cert.issuer}" unless cert.issuer.to_s == cert.subject.to_s
-      f.puts
-      f.puts "Not Before:       #{cert.not_before}"
-      f.puts "Not After:        #{cert.not_after}"
-      f.puts "MD5 Fingerprint:  #{md5_fingerprint}"
-      f.puts "SHA1 Fingerprint: #{sha1_fingerprint}"
-      f.puts
-      f.puts cert.to_pem
-    end
-  end
-
-  puts <<-MESSAGE
-  You need to ensure that you export the SSL_CERT_FILE environment variable.
-
-  In sh/zsh/bash use:
-
-      export SSL_CERT_FILE='#{CERT_FILE}'
-  MESSAGE
-end
-
-def install_app(app)
-  system %Q(brew install --cask #{app})
-end
-
 def link_default_ruby
   puts "linking default ruby"
   system %Q{ln -s -i "$rvm_path/rubies/default/bin/ruby" "$rvm_bin_path/default_ruby"}

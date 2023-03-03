@@ -10,4 +10,7 @@
 # Ignore Brewfile.lock
 Brewfile.lock.json
 
+# Ignore alternate Brewfiles
+Brewfile.*
+
 !.keep

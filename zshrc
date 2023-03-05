@@ -77,9 +77,9 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-export PROJECT_PATH=$HOME/Code
+
 export EDITOR=vim
-export JRUBY_OPTS="-J-Xmx2048m"
+export PROJECT_PATH=$HOME/Code
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -93,8 +93,6 @@ export JRUBY_OPTS="-J-Xmx2048m"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-export LC_ALL=C
-export LANG=C
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -104,9 +102,10 @@ export LANG=C
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source ~/.bash/aliases
+alias reload=". ~/.zshrc"
 
-alias reload='. ~/.zshrc'
+# Load additional custom aliases
+source ~/.bash/aliases
 
 # Load personal functions
 source ~/.bash/functions

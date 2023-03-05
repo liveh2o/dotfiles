@@ -44,7 +44,6 @@ alias pop="g stash pop"
 alias stash="g stash"
 
 # editor aliases
-alias a="atom ."
 alias m="mate -w ."
 alias n="nova ."
 

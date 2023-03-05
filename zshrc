@@ -79,7 +79,6 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 export PROJECT_PATH=$HOME/Code
 export EDITOR=vim
-export GIT_PS1_SHOWDIRTYSTATE="1"
 export JRUBY_OPTS="-J-Xmx2048m"
 
 # You may need to manually set your language environment

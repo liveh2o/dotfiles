@@ -41,3 +41,7 @@ Thumbs.db
 .jenv
 .ruby-gemset
 .ruby-version
+
+# Caches #
+##########
+.rake_tasks*

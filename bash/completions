@@ -1,5 +1,4 @@
 complete -C ~/.bash/completion_scripts/project_completion -o default c
-complete -C ~/.bash/completion_scripts/rake_completion -o default rake
 
 if which ssh &> /dev/null; then
   source ~/.bash/completion_scripts/ssh_completion

@@ -84,7 +84,7 @@ function git_pull {
 
 	  cd $current_directory;;
 	*)
-	  git_sync_remote_branches;;
+	  git_pull_remote_branches;;
   esac
 }
 alias gsync="git_pull"

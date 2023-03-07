@@ -17,6 +17,8 @@ brew "libtool"
 brew "openssl@1.1"
 # Functional metaprogramming aware language built on Erlang VM
 brew "elixir"
+# GitHub command-line tool
+brew "gh"
 # Distributed revision control system
 brew "git"
 # Open source programming language to build simple/reliable/efficient software

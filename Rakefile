@@ -2,11 +2,16 @@ require 'rake'
 require 'erb'
 
 desc "Install the dot files into user's home directory"
-task :dotfiles do
+task :install do
+  install_oh_my_zsh
+  switch_to_zsh
   replace_all = false
-  Dir['*'].each do |file|
-    next if %w[Rakefile README.rdoc LICENSE].include? file
 
+  files = Dir['*'] - %w[Rakefile README.md LICENSE oh-my-zsh]
+  files.reject! { |file| file.start_with?('Brewfile') }
+  files << "oh-my-zsh/custom/aliases.zsh"
+  files << "oh-my-zsh/custom/plugins/liveh2o"
+  files.each do |file|
     if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
       if File.identical? file, File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
         puts "identical ~/.#{file.sub('.erb', '')}"
@@ -32,10 +37,8 @@ task :dotfiles do
   end
 end
 
-desc "setup the environment"
+desc "Setup the environment"
 task :env do
-  puts "Installing oh-my-zsh..."
-  system 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
   puts "Installing Xcode Command Line Tools..."
   system %Q(xcode-select --install)
   puts "Installing Homebrew..."
@@ -46,10 +49,25 @@ task :env do
   system %Q(createuser -s postgres)
 end
 
-desc "Link dotfiles"
-task :install => [:dotfiles]
 desc "Setup environment, install apps, and link dotfiles"
 task :setup => [:env, :dotfiles]
+
+def install_oh_my_zsh
+  if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh"))
+    puts "found ~/.oh-my-zsh"
+  else
+    print "install oh-my-zsh? [ynq] "
+    case $stdin.gets.chomp
+    when 'y'
+      puts "installing oh-my-zsh"
+      system %Q{git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"}
+    when 'q'
+      exit
+    else
+      puts "skipping oh-my-zsh, you will need to change ~/.zshrc"
+    end
+  end
+end
 
 def link_dotfile(file)
   if file =~ /.erb$/
@@ -78,4 +96,21 @@ end
 def replace_file(file)
   system %Q{rm -rf "$HOME/.#{file.sub('.erb', '')}"}
   link_file("$PWD/#{file}", file)
+end
+
+def switch_to_zsh
+  if ENV["SHELL"] =~ /zsh/
+    puts "using zsh"
+  else
+    print "switch to zsh? (recommended) [ynq] "
+    case $stdin.gets.chomp
+    when 'y'
+      puts "switching to zsh"
+      system %Q{chsh -s `which zsh`}
+    when 'q'
+      exit
+    else
+      puts "skipping zsh"
+    end
+  end
 end

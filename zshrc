@@ -70,14 +70,13 @@ ZSH_THEME="gozilla"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git bundler brew gem rails rake-fast)
+plugins=(git bundler brew gem liveh2o rails rake-fast)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-
 export EDITOR=vim
 export PROJECT_PATH=$HOME/Code
 
@@ -102,17 +101,6 @@ export PROJECT_PATH=$HOME/Code
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias reload=". ~/.zshrc"
-
-# Load additional custom aliases
-source ~/.bash/aliases
-
-# Load personal functions
-source ~/.bash/functions
-
-# Initialize the additional bash completions
-autoload bashcompinit && bashcompinit
-source ~/.bash/completions
 
 [[ -s "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)" # Setup brew if its installed
 
@@ -121,5 +109,4 @@ export PATH="$HOME/.jenv/bin:$PATH"
 [[ -s "/opt/homebrew/bin/jenv" ]] && eval "$(jenv init -)"
 
 # Load rbenv automatically
-eval "$(/opt/homebrew/bin/rbenv init - zsh)"
-
+[[ -s "/opt/homebrew/bin/rbenv" ]] && eval "$(/opt/homebrew/bin/rbenv init - zsh)"

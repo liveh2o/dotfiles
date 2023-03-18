@@ -19,10 +19,14 @@ alias tbx='t bx'
 alias ghe="g rev-parse HEAD"
 alias gi="g commit"
 alias gl="g log"
-alias gpush="ggpush"
+alias gpo="ggpush --set-upstream"
+alias grbm="grb $(git_main_branch)"
 alias gs="g status"
 alias pop="g stash pop"
 alias stash="g stash"
+
+# GitHub CLI aliases
+alias ghpr="gh pr create --web"
 
 # Editor aliases
 alias m="mate -w ."

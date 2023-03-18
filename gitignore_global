@@ -45,3 +45,8 @@ Thumbs.db
 # Caches #
 ##########
 .rake_tasks*
+.irb_history
+
+# Local configs #
+#################
+.rspec-local

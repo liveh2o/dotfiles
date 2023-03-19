@@ -1,5 +1,5 @@
-require 'rake'
-require 'erb'
+require "rake"
+require "erb"
 
 desc "Install the dot files into user's home directory"
 task :install do
@@ -7,25 +7,25 @@ task :install do
   switch_to_zsh
   replace_all = false
 
-  files = Dir['*'] - %w[Rakefile README.md LICENSE oh-my-zsh]
-  files.reject! { |file| file.start_with?('Brewfile') }
+  files = Dir["*"] - %w[Rakefile README.md LICENSE oh-my-zsh]
+  files.reject! { |file| file.start_with?("Brewfile") }
   files << "oh-my-zsh/custom/aliases.zsh"
   files << "oh-my-zsh/custom/plugins/liveh2o"
   files.each do |file|
-    if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
-      if File.identical? file, File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
-        puts "identical ~/.#{file.sub('.erb', '')}"
+    if File.exist?(File.join(ENV["HOME"], ".#{file.sub(".erb", "")}"))
+      if File.identical? file, File.join(ENV["HOME"], ".#{file.sub(".erb", "")}")
+        puts "Identical ~/.#{file.sub(".erb", "")}"
       elsif replace_all
         replace_file(file)
       else
-        print "overwrite ~/.#{file.sub('.erb', '')}? [ynaq] "
+        print "Overwrite ~/.#{file.sub(".erb", "")}? [Ynaq] "
         case $stdin.gets.chomp
-        when 'a'
+        when "a"
           replace_all = true
           replace_file(file)
-        when 'y'
+        when "Y", "y", ""
           replace_file(file)
-        when 'q'
+        when "q"
           exit
         else
           puts "Skipping ~/.#{file.sub(".erb", "")}"
@@ -46,7 +46,7 @@ task :env do
 end
 
 desc "Setup environment, install apps, and link dotfiles"
-task :setup => [:env, :dotfiles]
+task setup: [:env, :dotfiles]
 
 def create_postgresql_user
   print "Create PostgreSQL user? [Ynq] "
@@ -108,15 +108,15 @@ def install_homebrew_packages
 end
 
 def install_oh_my_zsh
-  if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh"))
+  if File.exist?(File.join(ENV["HOME"], ".oh-my-zsh"))
     puts "Found ~/.oh-my-zsh"
   else
     print "Install Oh My Zsh? [Ynq] "
     case $stdin.gets.chomp
     when "Y", "y", ""
-      system %Q{git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"}
-    when 'q'
       puts "Installing Oh My Zsh"
+      system %(git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh")
+    when "q"
       exit
     else
       puts "Skipping Oh My Zsh, you will need to change ~/.zshrc"
@@ -125,19 +125,17 @@ def install_oh_my_zsh
 end
 
 def link_dotfile(file)
-  if file =~ /.erb$/
+  if /.erb$/.match?(file)
     puts "Generating ~/.#{file.sub(".erb", "")}"
 
-    if file =~ /gitconfig/
+    if /gitconfig/.match?(file)
       print "  git user.name: "
-      ENV['GIT_USER_NAME'] = $stdin.gets.chomp
+      ENV["GIT_USER_NAME"] = $stdin.gets.chomp
       print "  git user.email: "
-      ENV['GIT_USER_EMAIL'] = $stdin.gets.chomp
+      ENV["GIT_USER_EMAIL"] = $stdin.gets.chomp
     end
 
-    File.open(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"), 'w') do |new_file|
-      new_file.write ERB.new(File.read(file)).result(binding)
-    end
+    File.write(File.join(ENV["HOME"], ".#{file.sub(".erb", "")}"), ERB.new(File.read(file)).result(binding))
   else
     puts "linking ~/.#{file}"
     link_file("$PWD/#{file}", file)
@@ -145,24 +143,24 @@ def link_dotfile(file)
 end
 
 def link_file(source, dotfile)
-  system %Q{ln -s "#{source}" "$HOME/.#{dotfile}"}
+  system %(ln -s "#{source}" "$HOME/.#{dotfile}")
 end
 
 def replace_file(file)
-  system %Q{rm -rf "$HOME/.#{file.sub('.erb', '')}"}
+  system %(rm -rf "$HOME/.#{file.sub(".erb", "")}")
   link_file("$PWD/#{file}", file)
 end
 
 def switch_to_zsh
-  if ENV["SHELL"] =~ /zsh/
+  if /zsh/.match?(ENV["SHELL"])
     puts "Using Zsh"
   else
     print "Switch to Zsh? (recommended) [Ynq] "
     case $stdin.gets.chomp
-      system %Q{chsh -s `which zsh`}
-    when 'q'
     when "Y", "y", ""
       puts "Switching to Zsh"
+      system %(chsh -s `which zsh`)
+    when "q"
       exit
     else
       puts "Skipping Zsh"

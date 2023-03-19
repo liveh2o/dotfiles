@@ -77,7 +77,9 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
+export DOTFILES=$HOME/.dotfiles
 export EDITOR=vim
+export HOMEBREW_BUNDLE_FILE=$DOTFILES/Brewfile
 export PROJECT_PATH=$HOME/Code
 
 # You may need to manually set your language environment

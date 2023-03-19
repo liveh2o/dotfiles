@@ -15,6 +15,13 @@ Clone the repo:
 $ git clone git://github.com/liveh2o/dotfiles ~/.dotfiles
 ```
 
+Install the dotfiles:
+
+```
+cd ~/.dotfiles
+rake install
+```
+
 Setup the environment:
 
 ```
@@ -22,14 +29,7 @@ cd ~/.dotfiles
 rake env
 ```
 
-Setup the dotfiles:
-
-```
-cd ~/.dotfiles
-rake install
-```
-
-Or setup the environment and dotfiles at once:
+Or install the dotfiles and setup the environment at once:
 
 ```
 cd ~/.dotfiles

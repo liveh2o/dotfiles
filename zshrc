@@ -80,6 +80,7 @@ source $ZSH/oh-my-zsh.sh
 export DOTFILES=$HOME/.dotfiles
 export EDITOR=vim
 export HOMEBREW_BUNDLE_FILE=$DOTFILES/Brewfile
+export PATH="$PATH:$HOME/.bin"
 export PROJECT_PATH=$HOME/Code
 
 # You may need to manually set your language environment

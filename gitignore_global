@@ -49,4 +49,5 @@ Thumbs.db
 
 # Local configs #
 #################
+.nova/
 .rspec-local

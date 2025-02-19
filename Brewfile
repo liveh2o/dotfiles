@@ -75,6 +75,8 @@ cask "hey"
 cask "iterm2"
 # Host-based application firewall
 cask "little-snitch"
+# A Sophisticated CSV Editor/Viewer
+cask "modern-csv"
 # Native code editor
 cask "nova"
 # JDK from the Eclipse Foundation (Adoptium)

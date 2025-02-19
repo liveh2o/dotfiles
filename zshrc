@@ -75,13 +75,15 @@ plugins=(git bundler brew gem liveh2o rails rake-fast)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
 # export MANPATH="/usr/local/man:$MANPATH"
 export DOTFILES=$HOME/.dotfiles
 export EDITOR=vim
 export HOMEBREW_BUNDLE_FILE=$DOTFILES/Brewfile
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES # https://github.com/rails/rails/issues/38560
 export PATH="$PATH:$HOME/.bin"
+export PGGSSENCMODE="disable" # https://github.com/rails/spring/issues/606
 export PROJECT_PATH=$HOME/Code
+export VOLTA_HOME="$HOME/.volta"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -105,11 +107,14 @@ export PROJECT_PATH=$HOME/Code
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-[[ -s "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)" # Setup brew if its installed
+# Load brew if automatically when installed
+[[ -s "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Add jenv to PATH
-export PATH="$HOME/.jenv/bin:$PATH"
+# Load jenv automatically when installed
 [[ -s "/opt/homebrew/bin/jenv" ]] && eval "$(jenv init -)"
 
-# Load rbenv automatically
+# Load rbenv automatically when installed
 [[ -s "/opt/homebrew/bin/rbenv" ]] && eval "$(/opt/homebrew/bin/rbenv init - zsh)"
+
+# Add volta to the path when installed
+[[ -s "$HOME/.volta" ]] && export PATH="$VOLTA_HOME/bin:$PATH"

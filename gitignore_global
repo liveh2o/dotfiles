@@ -49,5 +49,6 @@ Thumbs.db
 
 # Local configs #
 #################
+.actrc
 .nova/
 .rspec-local

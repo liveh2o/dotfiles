@@ -1,7 +1,5 @@
 tap "homebrew/bundle"
-tap "homebrew/cask"
 tap "homebrew/cask-versions"
-tap "homebrew/core"
 tap "homebrew/services"
 # Automatic configure script builder
 brew "autoconf"
@@ -65,8 +63,6 @@ cask "alfred"
 cask "bartender"
 # Disk space visualizer
 cask "daisydisk"
-# Application window manager focusing on simplicity
-cask "divvy"
 # Desktop client for GitHub repositories
 cask "github"
 # Access the HEY email service
@@ -85,8 +81,6 @@ cask "temurin"
 cask "textmate"
 # Open-source code editor
 cask "visual-studio-code"
-mas "1Blocker", id: 1365531024
-mas "1Password for Safari", id: 1569813296
 mas "Boop", id: 1518425043
 mas "ColorSlurp", id: 1287239339
 mas "Cooler", id: 677535539

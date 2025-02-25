@@ -16,6 +16,10 @@ alias tb='t b'
 alias tbu='t bu'
 alias tbx='t bx'
 
+# Additional docker-compose aliases
+alias dc='docker-compose'
+alias dcx='dc exec web'
+
 # Additional git aliases
 alias ghe='g rev-parse HEAD'
 alias gi='g commit'
@@ -37,6 +41,7 @@ alias n='nova .'
 alias bullet='BULLET=1'
 alias cd..='cd ..'
 alias ci='bin/rails ci'
+alias cloud='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs'
 alias derp='PB_IGNORE_DEPRECATIONS=1 RUBYOPT=W0'
 alias dotfiles='cd ~/.dotfiles'
 alias ffi='LDFLAGS="-L/opt/homebrew/opt/libffi/lib" PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig"'

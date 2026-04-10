@@ -37,6 +37,9 @@ brew "readline"
 brew "postgresql@15", restart_service: true, link: true
 # Persistent key-value database, with built-in net interface
 brew "redis"
+# Cross-shell prompt for astronauts
+brew "starship"
+
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
 # Application launcher and productivity software
@@ -45,6 +48,12 @@ cask "alfred"
 cask "bartender"
 # Disk space visualizer
 cask "daisydisk"
+# JetBrainsMono Nerd Font families
+cask "font-jetbrains-mono-nerd-font"
+# MesloLG Nerd Font families (Meslo LG)
+cask "font-meslo-lg-nerd-font"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
 # Desktop client for GitHub repositories
 cask "github"
 # Access the HEY email service

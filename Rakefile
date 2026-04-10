@@ -9,7 +9,9 @@ task :install do
 
   files = Dir["*"] - %w[LICENSE Rakefile README.md config oh-my-zsh]
   files.reject! { |file| file.start_with?("Brewfile") }
+  files << "config/ghostty"
   files << "config/mise"
+  files << "config/starship.toml"
   files << "oh-my-zsh/custom/aliases.zsh"
   files << "oh-my-zsh/custom/plugins/liveh2o"
   files.each do |file|

@@ -7,8 +7,9 @@ task :install do
   switch_to_zsh
   replace_all = false
 
-  files = Dir["*"] - %w[Rakefile README.md LICENSE oh-my-zsh]
+  files = Dir["*"] - %w[LICENSE Rakefile README.md config oh-my-zsh]
   files.reject! { |file| file.start_with?("Brewfile") }
+  files << "config/mise"
   files << "oh-my-zsh/custom/aliases.zsh"
   files << "oh-my-zsh/custom/plugins/liveh2o"
   files.each do |file|

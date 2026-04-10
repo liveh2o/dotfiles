@@ -97,31 +97,3 @@ rebase 3
 ```
 
 This is useful for editing, squashing, rewording, or removing previous commits. I use this on local topic branches.
-
-#### rbenv helpers
-
-**jrb**
-
-Set Ruby to latest JRuby version in shell optionally specifying the version as an argument (equivalent to `rbenv shell jruby-9.4.1.0`).
-
-```terminal
-jrb 9.4.1
-```
-
-**localrb**
-
-Set Ruby to the version specified in `./.ruby-version` (equivalent to `rbenv shell --unset`)
-
-```terminal
-localrb
-```
-
-_also aliased as `lrb`_
-
-**rb**
-
-Set Ruby to latest JRuby version in shell optionally specifying the version as an argument (equivalent to `rbenv shell 3.2.1`).
-
-```terminal
-rb 3.2
-```

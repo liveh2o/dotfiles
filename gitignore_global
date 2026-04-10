@@ -36,9 +36,8 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
-# RVM configs #
+# Version manager configs #
 ###############
-.jenv
 .ruby-gemset
 .ruby-version
 

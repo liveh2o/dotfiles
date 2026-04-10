@@ -83,7 +83,6 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES # https://github.com/rails/rails/
 export PATH="$PATH:$HOME/.bin"
 export PGGSSENCMODE="disable" # https://github.com/rails/spring/issues/606
 export PROJECT_PATH=$HOME/Code
-export VOLTA_HOME="$HOME/.volta"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -110,11 +109,5 @@ export VOLTA_HOME="$HOME/.volta"
 # Load brew if automatically when installed
 [[ -s "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Load jenv automatically when installed
-[[ -s "/opt/homebrew/bin/jenv" ]] && eval "$(jenv init -)"
+[[ -s "$HOME/.local/bin/mise" ]] && eval "$(mise activate zsh)"
 
-# Load rbenv automatically when installed
-[[ -s "/opt/homebrew/bin/rbenv" ]] && eval "$(/opt/homebrew/bin/rbenv init - zsh)"
-
-# Add volta to the path when installed
-[[ -s "$HOME/.volta" ]] && export PATH="$VOLTA_HOME/bin:$PATH"

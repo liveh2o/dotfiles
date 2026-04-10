@@ -1,9 +1,3 @@
-# rbenv aliases
-alias defaultrb='rbenv shell default' # Switch to default Ruby
-alias drb='defaultrb'
-alias localrb='rbenv shell --unset' # Switch to Ruby version specified in the current directory
-alias lrb='localrb'
-
 # Additional bundler aliases
 alias b='bundle'
 alias bc='bundle console'
@@ -46,12 +40,8 @@ alias derp='PB_IGNORE_DEPRECATIONS=1 RUBYOPT=W0'
 alias dotfiles='cd ~/.dotfiles'
 alias ffi='LDFLAGS="-L/opt/homebrew/opt/libffi/lib" PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig"'
 alias http='python -m SimpleHTTPServer'
-alias javah='javahome'
-alias javahome='/usr/libexec/java_home'
-alias jh='javah'
 alias jitless='JRUBY_OPTS="$JRUBY_OPTS -J-Djruby.compile.mode=OFF"'
 alias jrbdev='JRUBY_OPTS="$JRUBY_OPTS --dev --disable:did_you_mean --debug"'
-alias jx='jenv exec'
 alias kp='ps auxwww' # the "kp" alias ("que pasa"), in honor of tony p.
 alias lp='ls -p'
 alias mspec='rspec $(git ls-files --modified spec)'

@@ -1,0 +1,12 @@
+[settings]
+idiomatic_version_file_enable_tools = ["java","node","python","ruby"]
+auto_install = true
+
+[settings.ruby]
+compile = false
+
+[tools]
+java = "latest"
+node = "latest"
+python = "latest"
+ruby = "latest"

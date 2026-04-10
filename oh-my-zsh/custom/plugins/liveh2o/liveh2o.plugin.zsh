@@ -6,30 +6,6 @@ compdef _c c
 # Search all projects skipping vendor/
 function hunt() { find $PROJECT_PATH -type f -name "$1" -not -path "*vendor*" -print0 | xargs -0 ack -Q $2; }
 
-# Set Ruby to latest JRuby version in shell
-# Specify the version as an argument: jrb 9.4.1
-# Works with any aliased version
-function jrb {
-  if [ -z "$1" ]
-  then
-	rbenv shell jruby
-  else
-	rbenv shell jruby-$1
-  fi
-}
-
-# Set Ruby to latest CRuby version in shell
-# Specify the version as an argument: rb 3.2
-# Works with any aliased version
-function rb {
-  if [ -z "$1" ]
-  then
-	rbenv shell ruby
-  else
-	rbenv shell $1
-  fi
-}
-
 function git_branches {
   git branch | sed -e 's|* ||g' -e 's|^[ ]*||'
 }

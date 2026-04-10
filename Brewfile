@@ -13,16 +13,10 @@ brew "coreutils"
 brew "libtool"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@1.1"
-# Functional metaprogramming aware language built on Erlang VM
-brew "elixir"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
 brew "git"
-# Open source programming language to build simple/reliable/efficient software
-brew "go"
-# Manage your Java environment
-brew "jenv"
 # X.509 and CMS library
 brew "libksba"
 # YAML Parser
@@ -35,26 +29,14 @@ brew "mas"
 brew "zlib"
 # Open source relational database management system
 brew "mysql", restart_service: true
-# Platform built on V8 to build network applications
-brew "node"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
 # Library for command-line editing
 brew "readline"
 # Object-relational database system
 brew "postgresql@15", restart_service: true, link: true
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.10"
-# Ruby version manager
-brew "rbenv"
-# Make aliases for Ruby versions
-brew "rbenv-aliases"
 # Persistent key-value database, with built-in net interface
 brew "redis"
-# Safe, concurrent, practical language
-brew "rust"
-# JVM-based programming language
-brew "scala"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
 # Application launcher and productivity software
@@ -75,8 +57,6 @@ cask "little-snitch"
 cask "modern-csv"
 # Native code editor
 cask "nova"
-# JDK from the Eclipse Foundation (Adoptium)
-cask "temurin"
 # General-purpose text editor
 cask "textmate"
 # Open-source code editor

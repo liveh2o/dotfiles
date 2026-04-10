@@ -1,40 +1,17 @@
-tap "homebrew/bundle"
-tap "homebrew/cask-versions"
-tap "homebrew/services"
-# Automatic configure script builder
-brew "autoconf"
-# Tool for generating GNU Standards-compliant Makefiles
-brew "automake"
-# Manage compile and link flags for libraries
-brew "pkg-config"
-# GNU File, Shell, and Text utilities
-brew "coreutils"
-# Generic library support script
-brew "libtool"
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@1.1"
+# Run your GitHub Actions locally
+brew "act"
+# Improved top (interactive process viewer)
+brew "htop"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
 brew "git"
-# X.509 and CMS library
-brew "libksba"
-# YAML Parser
-brew "libyaml"
-# Utility for directing compilation
-brew "make"
 # Mac App Store command-line interface
 brew "mas"
-# General-purpose lossless data-compression library
-brew "zlib"
 # Open source relational database management system
 brew "mysql", restart_service: true
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@3"
-# Library for command-line editing
-brew "readline"
 # Object-relational database system
-brew "postgresql@15", restart_service: true, link: true
+brew "postgresql@18", restart_service: true, link: true
 # Persistent key-value database, with built-in net interface
 brew "redis"
 # Cross-shell prompt for astronauts
@@ -44,10 +21,12 @@ brew "starship"
 cask "1password"
 # Application launcher and productivity software
 cask "alfred"
-# Menu bar icon organizer
-cask "bartender"
+# Terminal-based AI coding assistant
+cask "claude-code"
 # Disk space visualizer
 cask "daisydisk"
+# App to build and share containerized applications and microservices
+cask "docker-desktop"
 # JetBrainsMono Nerd Font families
 cask "font-jetbrains-mono-nerd-font"
 # MesloLG Nerd Font families (Meslo LG)
@@ -58,18 +37,22 @@ cask "ghostty"
 cask "github"
 # Access the HEY email service
 cask "hey"
-# Terminal emulator as alternative to Apple's Terminal app
-cask "iterm2"
+# Utility to hide menu bar items
+cask "hiddenbar"
 # Host-based application firewall
 cask "little-snitch"
 # A Sophisticated CSV Editor/Viewer
 cask "modern-csv"
 # Native code editor
 cask "nova"
+# WebKit based web browser
+cask "orion"
 # General-purpose text editor
 cask "textmate"
-# Open-source code editor
-cask "visual-studio-code"
+# File transfer application
+cask "transmit"
+
+# Mac App Store command-line interface
 mas "Boop", id: 1518425043
 mas "ColorSlurp", id: 1287239339
 mas "Cooler", id: 677535539

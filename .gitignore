@@ -13,4 +13,7 @@ Brewfile.lock.json
 # Ignore alternate Brewfiles
 Brewfile.*
 
+# Ignore gh hosts config (it's got secrets)
+/config/gh/hosts.yml
+
 !.keep

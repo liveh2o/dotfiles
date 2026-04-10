@@ -19,7 +19,7 @@ Install the dotfiles:
 
 ```
 cd ~/.dotfiles
-rake install
+rake dotfiles
 ```
 
 Setup the environment:

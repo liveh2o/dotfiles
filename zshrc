@@ -70,7 +70,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git bundler gem liveh2o rails rake-fast)
+plugins=(bundler git liveh2o mise)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -79,9 +79,7 @@ source $ZSH/oh-my-zsh.sh
 export DOTFILES=$HOME/.dotfiles
 export EDITOR=vim
 export HOMEBREW_BUNDLE_FILE=$DOTFILES/Brewfile
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES # https://github.com/rails/rails/issues/38560
-export PATH="$PATH:$HOME/.bin"
-export PGGSSENCMODE="disable" # https://github.com/rails/spring/issues/606
+export PATH="$PATH:$HOME/.bin:$HOME/.local/bin"
 export PROJECT_PATH=$HOME/Code
 
 # You may need to manually set your language environment

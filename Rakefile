@@ -13,7 +13,7 @@ task :dotfiles do
   # Skip all Brewfiles
   files.reject! { |file| file.start_with?("Brewfile") }
 
-  files << "config/gh"
+  files << "config/gh/config.yml"
   files << "config/ghostty"
   files << "config/mise"
   files << "config/starship.toml"

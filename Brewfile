@@ -8,8 +8,12 @@ brew "gh"
 brew "git"
 # Mac App Store command-line interface
 brew "mas"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
 # Open source relational database management system
 brew "mysql", restart_service: true
+# AI coding agent, built for the terminal
+brew "opencode"
 # Object-relational database system
 brew "postgresql@18", restart_service: true, link: true
 # Persistent key-value database, with built-in net interface
@@ -36,7 +40,7 @@ cask "ghostty"
 # Desktop client for GitHub repositories
 cask "github"
 # Access the HEY email service
-cask "hey"
+cask "hey-desktop"
 # Utility to hide menu bar items
 cask "hiddenbar"
 # Host-based application firewall
@@ -58,7 +62,6 @@ mas "ColorSlurp", id: 1287239339
 mas "Cooler", id: 677535539
 mas "Divvy", id: 413857545
 mas "GarageBand", id: 682658836
-mas "HTML Editor", id: 1580431405
 mas "iA Writer", id: 775737590
 mas "iMovie", id: 408981434
 mas "iWriter Pro", id: 893199093

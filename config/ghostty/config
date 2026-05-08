@@ -1,4 +1,6 @@
 background-blur = true
 background-opacity = 0.75
+cursor-style = underline
+shell-integration-features = no-cursor
 window-padding-x = 4
 window-padding-y = 4

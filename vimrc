@@ -33,6 +33,9 @@ highlight Pmenu ctermbg=238 gui=bold
 " Setup ignore patterns for CommandT
 set wildignore+=*.o,*.obj,.git,doc/**,*.sql,*.log
 
+" Reset cursor on exit so terminal picks up Ghostty's cursor-style
+autocmd VimLeave * silent !echo -ne "\e[0 q"
+
 " Add spell check and maxium text width to git commits
 autocmd FileType gitcommit setlocal spell
 autocmd FileType gitcommit setlocal textwidth=72

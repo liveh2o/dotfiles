@@ -9,4 +9,5 @@ compile = false
 java = "latest"
 node = "latest"
 python = "latest"
-ruby = "latest"
+ruby = ["latest","3.4","3.3","3.2","jruby-10.1","jruby-10.0","jruby-9.4"]
+

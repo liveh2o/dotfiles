@@ -16,6 +16,8 @@ task :dotfiles do
   files << "config/gh/config.yml"
   files << "config/ghostty"
   files << "config/mise"
+  files << "config/opencode/opencode.jsonc"
+  files << "config/opencode/tui.json"
   files << "config/starship.toml"
 
   if switch_to_zsh && install_oh_my_zsh

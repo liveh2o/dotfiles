@@ -42,7 +42,7 @@ rake setup
 
 ## Features
 
-Many of the following features are added through the "liveh2o" Oh My ZSH plugin. If you're using rbenv, it's automatically loaded as well.
+Many of the following features are provided by Fish shell functions. If you're using rbenv, it's automatically loaded via mise.
 
 #### Project helpers
 

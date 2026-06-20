@@ -1,11 +1,13 @@
 # Run your GitHub Actions locally
 brew "act"
-# Improved top (interactive process viewer)
-brew "htop"
+# User-friendly command-line shell for UNIX-like operating systems
+brew "fish"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
 brew "git"
+# Improved top (interactive process viewer)
+brew "htop"
 # Mac App Store command-line interface
 brew "mas"
 # Polyglot runtime manager (asdf rust clone)

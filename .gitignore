@@ -16,4 +16,7 @@ Brewfile.*
 # Ignore gh hosts config (it's got secrets)
 /config/gh/hosts.yml
 
+# Ignore machine-specific fish variables
+/config/fish/fish_variables
+
 !.keep

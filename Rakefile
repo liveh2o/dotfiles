@@ -8,11 +8,12 @@ NOVA_SETTTINGS_PATH = File.join(ENV["HOME"], ".dotfiles/config/nova/settings.pli
 
 desc "Install the dot files into user's home directory"
 task :dotfiles do
-  files = Dir["*"] - %w[LICENSE Rakefile README.md config oh-my-zsh setup.sh]
+  files = Dir["*"] - %w[LICENSE Rakefile README.md config setup.sh]
 
   # Skip all Brewfiles
   files.reject! { |file| file.start_with?("Brewfile") }
 
+  files << "config/fish"
   files << "config/gh/config.yml"
   files << "config/ghostty"
   files << "config/mise"
@@ -20,12 +21,10 @@ task :dotfiles do
   files << "config/opencode/tui.json"
   files << "config/starship.toml"
 
-  if switch_to_zsh && install_oh_my_zsh
-    files << "oh-my-zsh/custom/aliases.zsh"
-    files << "oh-my-zsh/custom/plugins/liveh2o"
-  end
-
   link_or_replace_dotfiles(files)
+
+  switch_to_fish
+  install_fisher
 end
 
 desc "Setup the environment"
@@ -164,23 +163,38 @@ def install_homebrew_packages
   end
 end
 
-def install_oh_my_zsh
-  if File.exist?(File.join(ENV["HOME"], ".oh-my-zsh"))
-    puts "Found ~/.oh-my-zsh"
-    true
-  else
-    print "Install Oh My Zsh? [Ynq] "
+def install_fisher
+  unless fish_installed?
+    puts "Skipping fish plugin installation, fish is not installed"
+    return false
+  end
+
+  fisher_file = File.join(ENV["HOME"], ".config/fish/functions/fisher.fish")
+
+  unless File.exist?(fisher_file)
+    print "fisher not found. Bootstrap fisher? [Ynq] "
     case $stdin.gets.chomp
     when "Y", "y", ""
-      puts "Installing Oh My Zsh"
-      system %(git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh")
-      true
+      puts "Bootstrapping fisher..."
+      return false unless system("fish", "-c", "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher")
     when "q"
       exit
     else
-      puts "Skipping Oh My Zsh, you will need to change ~/.zshrc"
-      false
+      puts "Skipping fisher bootstrap"
+      return false
     end
+  end
+
+  print "Install or update fish plugins with fisher? [Ynq] "
+  case $stdin.gets.chomp
+  when "Y", "y", ""
+    puts "Installing or updating fish plugins..."
+    system("fish", "-c", "fisher update")
+  when "q"
+    exit
+  else
+    puts "Skipping fish plugin installation"
+    false
   end
 end
 
@@ -238,29 +252,45 @@ def replace_file(file)
   link_file("$PWD/#{file}", file)
 end
 
-def switch_to_zsh
-  if /zsh/.match?(ENV["SHELL"])
-    puts "Using Zsh"
+def switch_to_fish
+  unless fish_installed?
+    puts "Skipping Fish, fish is not installed"
+    return false
+  end
+
+  fish_path = `command -v fish`.strip
+
+  if fish_path == ENV["SHELL"]
+    puts "Using Fish"
     true
   else
-    print "Switch to Zsh? (recommended) [Ynq] "
+    print "Switch to Fish? (recommended) [Ynq] "
     case $stdin.gets.chomp
     when "Y", "y", ""
-      puts "Switching to Zsh"
-      system %(chsh -s `which zsh`)
-      true
+      shells_file = "/etc/shells"
+      unless File.exist?(shells_file) && File.readlines(shells_file, chomp: true).include?(fish_path)
+        puts "Skipping Fish, #{fish_path} is not listed in /etc/shells"
+        return false
+      end
+
+      puts "Switching to Fish"
+      system("chsh", "-s", fish_path)
     when "q"
       exit
     else
-      puts "Skipping Zsh"
+      puts "Skipping Fish"
       false
     end
   end
 end
 
+def fish_installed?
+  system("command -v fish >/dev/null 2>&1")
+end
+
 def ensure_ssh_config
   config_path = File.join(ENV["HOME"], ".ssh/config")
-  github_entry = "Host github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/id_github_ed25519\n"
+  github_entry = "Host github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/id_github_ed25519\n  IdentitiesOnly yes\n"
 
   if File.exist?(config_path)
     content = File.read(config_path)

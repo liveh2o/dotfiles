@@ -1,16 +1,16 @@
 [user]
-	name = <%= ENV['GIT_USER_NAME'] %>
-	email = <%= ENV['GIT_USER_EMAIL'] %>
+  name = <%= ENV['GIT_USER_NAME'] %>
+  email = <%= ENV['GIT_USER_EMAIL'] %>
 [push]
-	default = current
+  default = current
 [color]
-	ui = true
+  ui = true
 [core]
-	excludesfile = <%=ENV['HOME'] %>/.gitignore_global
+  excludesfile = <%=ENV['HOME'] %>/.gitignore_global
 [filter "media"]
-	required = true
-	clean = git media clean %f
-	smudge = git media smudge %f
+  required = true
+  clean = git media clean %f
+  smudge = git media smudge %f
 [merge]
   ff = only
 [fetch]

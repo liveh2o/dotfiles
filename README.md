@@ -7,9 +7,13 @@ I am running on Mac OS X, but it will likely work on Linux as well.
 
 ## Installation
 
-Run the following commands in your terminal. It will prompt you before it does anything destructive. Check out the [Rakefile](https://github.com/liveh2o/dotfiles/blob/main/Rakefile) to see exactly what it does.
+Run the setup script below. It clones this repo into `~/.dotfiles` and runs `rake setup`. It will prompt you before it does anything destructive. Check out the [Rakefile](https://github.com/liveh2o/dotfiles/blob/main/Rakefile) to see exactly what it does.
 
-Clone the repo:
+```terminal
+curl -fsSL https://raw.githubusercontent.com/liveh2o/dotfiles/main/setup.sh | sh
+```
+
+If you prefer to run the steps manually:
 
 ```
 $ git clone git://github.com/liveh2o/dotfiles ~/.dotfiles

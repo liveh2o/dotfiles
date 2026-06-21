@@ -8,7 +8,7 @@ NOVA_SETTTINGS_PATH = File.join(ENV["HOME"], ".dotfiles/config/nova/settings.pli
 
 desc "Install the dot files into user's home directory"
 task :dotfiles do
-  files = Dir["*"] - %w[LICENSE Rakefile README.md config oh-my-zsh]
+  files = Dir["*"] - %w[LICENSE Rakefile README.md config oh-my-zsh setup.sh]
 
   # Skip all Brewfiles
   files.reject! { |file| file.start_with?("Brewfile") }

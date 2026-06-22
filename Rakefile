@@ -41,6 +41,19 @@ end
 desc "Setup environment, install apps, and link dotfiles"
 task setup: [:env, :dotfiles]
 
+def abort_non_interactive_setup
+  abort "Error: setup requires interactive input. Run `cd ~/.dotfiles && rake setup` in a terminal."
+end
+
+def prompt_input(prompt = nil)
+  print prompt if prompt
+
+  input = $stdin.gets
+  abort_non_interactive_setup if input.nil?
+
+  input.chomp
+end
+
 desc "Install Mac App Store apps via Homebrew"
 task "brew:apps" do
   "Installing Mac App Store apps..."
@@ -78,7 +91,7 @@ end
 
 def import_divvy_shortcuts
   print "Import Divvy shortcuts? [Ynq] "
-  case $stdin.gets.chomp
+  case prompt_input
   when "Y", "y", ""
     system %(open "$(cat config/divvy.uri)")
   when "q"
@@ -90,7 +103,7 @@ end
 
 def import_nova_settings_and_extensions
   print "Import Nova settings? [Ynq] "
-  case $stdin.gets.chomp
+  case prompt_input
   when "Y", "y", ""
     system %(defaults import com.panic.Nova #{NOVA_SETTTINGS_PATH})
   when "q"
@@ -100,7 +113,7 @@ def import_nova_settings_and_extensions
   end
 
   print "Import Nova extensions? [Ynq] "
-  case $stdin.gets.chomp
+  case prompt_input
   when "Y", "y", ""
     system %(ditto -x -k #{NOVA_EXTENSIONS_EXPORT_PATH} #{NOVA_EXTENSIONS_IMPORT_PATH})
   when "q"
@@ -112,10 +125,10 @@ end
 
 def create_postgresql_user
   print "Create PostgreSQL user? [Ynq] "
-  case $stdin.gets.chomp
+  case prompt_input
   when "Y", "y", ""
     print "username [postgres]: "
-    username = $stdin.gets.chomp
+    username = prompt_input
     username = "postgres" if username.empty?
     puts "Creating PostgreSQL user: postgres"
     system %(createuser -s #{username})
@@ -128,7 +141,7 @@ end
 
 def install_command_line_tools
   print "Installing Xcode Command Line Tools? [Ynq] "
-  case $stdin.gets.chomp
+  case prompt_input
   when "Y", "y", ""
     puts "Installing Xcode Command Line Tools..."
     system %(xcode-select --install)
@@ -144,7 +157,7 @@ def install_homebrew
     puts "Found /opt/homebrew"
   else
     print "Install Homebrew? [Ynq] "
-    case $stdin.gets.chomp
+    case prompt_input
     when "Y", "y", ""
       puts "Installing Homebrew..."
       system '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"'
@@ -159,7 +172,7 @@ end
 
 def install_homebrew_packages
   print "Install Homebrew packages from #{ENV["HOMEBREW_BUNDLE_FILE"]}? [Ynq] "
-  case $stdin.gets.chomp
+  case prompt_input
   when "Y", "y", ""
     system %(brew bundle --no-upgrade)
   when "q"
@@ -179,7 +192,7 @@ def install_fisher
 
   unless File.exist?(fisher_file)
     print "fisher not found. Bootstrap fisher? [Ynq] "
-    case $stdin.gets.chomp
+    case prompt_input
     when "Y", "y", ""
       puts "Bootstrapping fisher..."
       return false unless system("fish", "-c", "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher")
@@ -192,7 +205,7 @@ def install_fisher
   end
 
   print "Install or update fish plugins with fisher? [Ynq] "
-  case $stdin.gets.chomp
+  case prompt_input
   when "Y", "y", ""
     puts "Installing or updating fish plugins..."
     system("fish", "-c", "fisher update")
@@ -210,9 +223,9 @@ def link_dotfile(file)
 
     if /gitconfig/.match?(file)
       print "  git user.name: "
-      ENV["GIT_USER_NAME"] = $stdin.gets.chomp
+      ENV["GIT_USER_NAME"] = prompt_input
       print "  git user.email: "
-      ENV["GIT_USER_EMAIL"] = $stdin.gets.chomp
+      ENV["GIT_USER_EMAIL"] = prompt_input
     end
 
     File.write(File.join(ENV["HOME"], ".#{file.sub(".erb", "")}"), ERB.new(File.read(file)).result(binding))
@@ -235,7 +248,7 @@ def link_or_replace_dotfiles(files, force: false)
         replace_file(file)
       else
         print "Overwrite ~/.#{file.sub(".erb", "")}? [Ynaq] "
-        case $stdin.gets.chomp
+        case prompt_input
         when "a"
           force = true
           replace_file(file)
@@ -271,7 +284,7 @@ def switch_to_fish
     true
   else
     print "Switch to Fish? (recommended) [Ynq] "
-    case $stdin.gets.chomp
+    case prompt_input
     when "Y", "y", ""
       shells_file = "/etc/shells"
       unless File.exist?(shells_file) && File.readlines(shells_file, chomp: true).include?(fish_path)
@@ -306,7 +319,7 @@ def ensure_ssh_config
     end
 
     print "Add github.com entry to ~/.ssh/config? [Ynq] "
-    case $stdin.gets.chomp
+    case prompt_input
     when "Y", "y", ""
       content.sub!(/^Host \*/, "#{github_entry}\nHost *")
       File.write(config_path, content)
@@ -317,7 +330,7 @@ def ensure_ssh_config
     end
   else
     print "Create ~/.ssh/config with github.com entry? [Ynq] "
-    case $stdin.gets.chomp
+    case prompt_input
     when "Y", "y", ""
       File.write(config_path, github_entry)
     when "q"
@@ -336,7 +349,7 @@ def generate_ssh_key
 
   if File.exist?(key_path)
     print "SSH key #{key_path} already exists. Regenerate? [Ynq] "
-    case $stdin.gets.chomp
+    case prompt_input
     when "Y", "y", ""
       puts "Regenerating SSH key..."
       system %(rm "#{key_path}" "#{key_path}.pub")
@@ -360,7 +373,7 @@ def generate_ssh_key
   ensure_ssh_config
 
   print "Upload #{key_path} to GitHub? [Ynq] "
-  case $stdin.gets.chomp
+  case prompt_input
   when "Y", "y", ""
     upload_ssh_key_to_github(key_path)
   when "q"
@@ -373,7 +386,7 @@ end
 def upload_ssh_key_to_github(key_path)
   unless system("command -v gh >/dev/null 2>&1")
     print "GitHub CLI (gh) not found. Install via Homebrew? [Ynq] "
-    case $stdin.gets.chomp
+    case prompt_input
     when "Y", "y", ""
       puts "Installing GitHub CLI..."
       system("brew install gh")
@@ -390,7 +403,7 @@ def upload_ssh_key_to_github(key_path)
   title = `hostname`.strip
 
   print "Add key for? [A]uthentication, [S]igning, or [B]oth? "
-  key_type = $stdin.gets.chomp.downcase
+  key_type = prompt_input.downcase
 
   scopes = case key_type
   when "a" then ["admin:public_key"]
@@ -427,7 +440,7 @@ def ensure_gh_scopes(scopes)
 
   scope_list = missing_scopes.join(", ")
   print "GitHub CLI needs the #{scope_list} scope(s). Authorize them? [Ynq] "
-  case $stdin.gets.chomp
+  case prompt_input
   when "Y", "y", ""
     system("gh", "auth", "refresh", "-h", "github.com", "-s", missing_scopes.join(","))
   when "q"

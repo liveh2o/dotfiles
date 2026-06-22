@@ -41,6 +41,12 @@ end
 desc "Setup environment, install apps, and link dotfiles"
 task setup: [:env, :dotfiles]
 
+desc "Install Mac App Store apps via Homebrew"
+task "brew:apps" do
+  "Installing Mac App Store apps..."
+  system %(brew bundle --no-upgrade --file Brewfile.apps)
+end
+
 desc "Export settings and extensions from Nova"
 task "nova:export" do
   puts "Exporting Nova settings..."

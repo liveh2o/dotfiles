@@ -14,13 +14,13 @@ task :dotfiles do
   files.reject! { |file| file.start_with?("Brewfile") }
 
   files << "config/fish"
-  files << "config/gh/config.yml"
+  files << "config/gh"
   files << "config/ghostty"
   files << "config/mise"
-  files << "config/opencode/opencode.jsonc"
-  files << "config/opencode/tui.json"
+  files << "config/opencode"
   files << "config/starship.toml"
 
+  system %(mkdir -p #{File.join(ENV["HOME"], ".config")})
   link_or_replace_dotfiles(files)
 
   switch_to_fish
@@ -230,7 +230,7 @@ def link_dotfile(file)
 
     File.write(File.join(ENV["HOME"], ".#{file.sub(".erb", "")}"), ERB.new(File.read(file)).result(binding))
   else
-    puts "linking ~/.#{file}"
+    puts "Linking ~/.#{file}"
     link_file("$PWD/#{file}", file)
   end
 end

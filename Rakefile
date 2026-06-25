@@ -22,9 +22,6 @@ task :dotfiles do
 
   system %(mkdir -p #{File.join(ENV["HOME"], ".config")})
   link_or_replace_dotfiles(files)
-
-  switch_to_fish
-  install_fisher
 end
 
 desc "Setup the environment"
@@ -32,6 +29,8 @@ task :env do
   install_command_line_tools
   install_homebrew
   install_homebrew_packages
+  switch_to_fish
+  install_fisher
   create_postgresql_user
   import_divvy_shortcuts
   import_nova_settings_and_extensions
@@ -39,7 +38,7 @@ task :env do
 end
 
 desc "Setup environment, install apps, and link dotfiles"
-task setup: [:env, :dotfiles]
+task setup: [:dotfiles, :env]
 
 def abort_non_interactive_setup
   abort "Error: setup requires interactive input. Run `cd ~/.dotfiles && rake setup` in a terminal."

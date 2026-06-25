@@ -287,7 +287,7 @@ def switch_to_fish
     when "Y", "y", ""
       shells_file = "/etc/shells"
       unless File.exist?(shells_file) && File.readlines(shells_file, chomp: true).include?(fish_path)
-        puts "Skipping Fish, #{fish_path} is not listed in /etc/shells"
+        system "sudo sh -c 'echo #{fish_path.shellescape} >> /etc/shells'" or abort "Failed to add fish"
         return false
       end
 

@@ -56,7 +56,7 @@ end
 desc "Install Mac App Store apps via Homebrew"
 task "brew:apps" do
   "Installing Mac App Store apps..."
-  system %(brew bundle --no-upgrade --file Brewfile.apps)
+  system %(/opt/homebrew/bin/brew bundle --no-upgrade --file ~/.dotfiles/Brewfile.apps)
 end
 
 desc "Export settings and extensions from Nova"
@@ -173,7 +173,7 @@ def install_homebrew_packages
   print "Install Homebrew packages from #{ENV["HOMEBREW_BUNDLE_FILE"]}? [Ynq] "
   case prompt_input
   when "Y", "y", ""
-    system %(brew bundle --no-upgrade)
+    system %(/opt/homebrew/bin/brew bundle --no-upgrade --file ~/.dotfiles/Brewfile)
   when "q"
     exit
   else

@@ -2,8 +2,9 @@ require "rake"
 require "erb"
 require "shellwords"
 
-NOVA_EXTENSIONS_IMPORT_PATH = File.join(ENV["HOME"], "Library/Application Support/Nova/Extensions/").shellescape
+NOVA_EXTENSIONS_DIR = File.join(ENV["HOME"], "Library/Application Support/Nova/Extensions/").shellescape
 NOVA_EXTENSIONS_EXPORT_PATH = File.join(ENV["HOME"], ".dotfiles/config/nova/extensions.zip").shellescape
+NOVA_EXTENSIONS_IMPORT_PATH = File.join(ENV["HOME"], "Library/Application Support/Nova/").shellescape
 NOVA_SETTTINGS_PATH = File.join(ENV["HOME"], ".dotfiles/config/nova/settings.plist").shellescape
 
 desc "Install the dot files into user's home directory"
@@ -64,7 +65,12 @@ task "nova:export" do
   puts "Exporting Nova settings..."
   system %(defaults export com.panic.Nova #{NOVA_SETTTINGS_PATH})
   puts "Exporting Nova extensions..."
-  system %(ditto -c -k --sequesterRsrc --keepParent #{NOVA_EXTENSIONS_IMPORT_PATH} #{NOVA_EXTENSIONS_EXPORT_PATH})
+  system %(ditto -c -k --sequesterRsrc --keepParent #{NOVA_EXTENSIONS_DIR} #{NOVA_EXTENSIONS_EXPORT_PATH})
+end
+
+desc "Import settings and extensions into Nova"
+task "nova:import" do
+  import_nova_settings_and_extensions
 end
 
 desc "Export shortcuts from Divvy (https://mizage.com/help/divvy/export_import.html)"

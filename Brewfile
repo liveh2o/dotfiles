@@ -1,5 +1,7 @@
 # Run your GitHub Actions locally
 brew "act"
+# Static checker for GitHub Actions workflow files
+brew "actionlint"
 # User-friendly command-line shell for UNIX-like operating systems
 brew "fish"
 # GitHub command-line tool
@@ -8,8 +10,6 @@ brew "gh"
 brew "git"
 # Improved top (interactive process viewer)
 brew "htop"
-# Mac App Store command-line interface
-brew "mas"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
 # Open source relational database management system
@@ -23,18 +23,24 @@ brew "redis"
 # Cross-shell prompt for astronauts
 brew "starship"
 
+# Homebrew Cask is macOS-only (installs .app bundles and DMGs).
+#
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
 # Application launcher and productivity software
 cask "alfred"
 # Data backup and storage service
 cask "backblaze"
+# Scriptable scratchpad for developers
+cask "boop"
 # Terminal-based AI coding assistant
 cask "claude-code"
 # Disk space visualizer
 cask "daisydisk"
 # App to build and share containerized applications and microservices
 cask "docker-desktop"
+# Calendar software
+cask "fantastical"
 # JetBrainsMono Nerd Font families
 cask "font-jetbrains-mono-nerd-font"
 # MesloLG Nerd Font families (Meslo LG)
@@ -49,10 +55,14 @@ cask "hey-desktop"
 cask "hiddenbar"
 # Host-based application firewall
 cask "little-snitch"
+# Native app email client for Gmail
+cask "mimestream"
 # A Sophisticated CSV Editor/Viewer
 cask "modern-csv"
 # Native code editor
 cask "nova"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
 # WebKit based web browser
 cask "orion"
 # General-purpose text editor

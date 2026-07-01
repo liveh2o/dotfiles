@@ -1,5 +1,7 @@
 # Mac App Store command-line interface
-mas "Boop", id: 1518425043
+brew "mas"
+
+# Mac App Store command-line interface
 mas "ColorSlurp", id: 1287239339
 mas "Cooler", id: 677535539
 mas "Divvy", id: 413857545

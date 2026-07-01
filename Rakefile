@@ -59,6 +59,9 @@ namespace :setup do
     system("git config --global user.signingkey #{ENV["GITHUB_SSHKEY"]}")
     puts "Git configured to sign commits with SSH key"
   end
+
+  desc "Setup Nova settings, bindings, and extensions"
+  task nova: ["nova:settings", "nova:bindings", "nova:extensions"]
 end
 
 desc "Setup dotfiles, developer tools, Homebrew, and switch to fish"

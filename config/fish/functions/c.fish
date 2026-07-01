@@ -1,17 +1,17 @@
 function c -d "Change to project directory with completion"
-    if test -z "$PROJECT_PATH"
-        echo "PROJECT_PATH is not set."
+    if test -z "$CODE_PATH"
+        echo "CODE_PATH is not set."
         return 1
     end
 
-    if not test -d "$PROJECT_PATH"
-        echo "PROJECT_PATH does not exist: $PROJECT_PATH"
+    if not test -d "$CODE_PATH"
+        echo "CODE_PATH does not exist: $CODE_PATH"
         return 1
     end
 
-    set -l destination $PROJECT_PATH
+    set -l destination $CODE_PATH
     if test (count $argv) -gt 0
-        set destination (string join / -- $PROJECT_PATH $argv)
+        set destination (string join / -- $CODE_PATH $argv)
     end
 
     if not test -d "$destination"
@@ -23,11 +23,11 @@ function c -d "Change to project directory with completion"
 end
 
 function __c_complete
-    test -d "$PROJECT_PATH"; or return
+    test -d "$CODE_PATH"; or return
 
-    for dir in "$PROJECT_PATH"/*/
+    for dir in "$CODE_PATH"/*/
         test -d "$dir"; or continue
-        string replace -r '/$' '' -- (string replace "$PROJECT_PATH/" '' -- $dir)
+        string replace -r '/$' '' -- (string replace "$CODE_PATH/" '' -- $dir)
     end
 end
 

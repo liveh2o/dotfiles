@@ -8,8 +8,8 @@ function hunt
     set -l search_term $argv[2]
 
     if test -n "$search_term"
-        find $PROJECT_PATH -type f -name "$filename" -not -path "*vendor*" -print0 | xargs -0 ack -Q $search_term
+        find $CODE_PATH -type f -name "$filename" -not -path "*vendor*" -print0 | xargs -0 ack -Q $search_term
     else
-        find $PROJECT_PATH -type f -name "$filename" -not -path "*vendor*" -print0 | xargs -0 ls
+        find $CODE_PATH -type f -name "$filename" -not -path "*vendor*" -print0 | xargs -0 ls
     end
 end

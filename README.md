@@ -1,9 +1,7 @@
 # Adam Hutchison's Dot Files
 
-These are config files to set up a system the way I like it. They are heavily
+These are config files to set up macOS the way I like it. They are heavily
 inspired by Ryan Bates' Dot Files (http://github.com/ryanb/dotfiles)
-
-I am running on Mac OS X, but it will likely work on Linux as well.
 
 ## Installation
 
@@ -42,14 +40,14 @@ rake setup
 
 ## Features
 
-Many of the following features are provided by Fish shell functions. If you're using rbenv, it's automatically loaded via mise.
+Many of the following features are provided by Fish shell functions. If you're using Ruby, it's automatically loaded via mise.
 
 #### Project helpers
 
-I normally place all of my coding projects in the ~/Code directory, specified using `PROJECT_PATH`:
+I normally place all of my coding projects in the ~/Code directory, specified using `CODE_PATH`:
 
 ```terminal
-export PROJECT_PATH=$HOME/Code
+export CODE_PATH=$HOME/Code
 ```
 
 **c**

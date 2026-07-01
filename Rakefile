@@ -51,6 +51,16 @@ task :dotfiles do
   system %(source #{File.join(ENV["HOME"], ".zshrc")}) if ENV["SHELL"] == "/bin/zsh"
 end
 
+namespace :setup do
+  desc "Setup GitHub CLI and add a new SSH key to your account for authentication and signing"
+  task gh: ["gh:sshkey", "gh:sshkey:add"] do
+    system("git config --global commit.gpgsign true")
+    system("git config --global gpg.format ssh")
+    system("git config --global user.signingkey #{ENV["GITHUB_SSHKEY"]}")
+    puts "Git configured to sign commits with SSH key"
+  end
+end
+
 desc "Setup dotfiles, developer tools, Homebrew, and switch to fish"
 task setup: [:dotfiles, "brew:install"] do
   # Create ~/Code if it does not exist
@@ -68,6 +78,18 @@ task setup: [:dotfiles, "brew:install"] do
       system("sudo sh -c 'echo #{fish_path.shellescape} >> /etc/shells'") or abort "Failed to add fish"
     end
     system("chsh", "-s", fish_path)
+  end
+end
+
+def ask(prompt, &block)
+  print "#{prompt} [Ynq]"
+  case $stdin.gets.chomp
+  when "Y", "y", ""
+    yield
+  when "q"
+    exit
+  else
+    false
   end
 end
 

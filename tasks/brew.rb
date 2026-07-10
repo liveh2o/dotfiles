@@ -15,8 +15,8 @@ namespace :brew do
     system("/opt/homebrew/bin/brew bundle --no-upgrade --file #{ENV["DOTFILES"]}/Brewfile.apps")
   end
 
-  desc "Install Homebrew packages from HOMEBREW_BUNDLE_FILE"
+  desc "Install Homebrew packages from HOMEBREW_BUNDLE_FILE_GLOBAL"
   task bundle: [:install] do
-    system("/opt/homebrew/bin/brew bundle --no-upgrade --file #{ENV["HOMEBREW_BUNDLE_FILE"]}")
+    system("/opt/homebrew/bin/brew bundle --global --no-upgrade")
   end
 end

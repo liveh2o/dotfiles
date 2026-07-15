@@ -65,6 +65,8 @@ cask "nova"
 cask "obsidian"
 # WebKit based web browser
 cask "orion"
+# Tool that provides consistent, highly configurable symbols for apps
+cask "sf-symbols"
 # General-purpose text editor
 cask "textmate"
 # File transfer application

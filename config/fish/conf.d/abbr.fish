@@ -11,6 +11,7 @@ abbr --add --global bo "env EDITOR=nova bundle open"
 abbr --add --global bout "bundle outdated"
 abbr --add --global bp "bundle package"
 abbr --add --global bu "bundle update"
+abbr --add --global bua "bundle update --all"
 abbr --add --global bx "bundle exec"
 
 # Docker abbreviations
@@ -41,6 +42,7 @@ abbr --add --global t "turbo"
 # Misc abbreviations
 abbr --add --global cd.. "cd .."
 abbr --add --global cloud "cd ~/Library/Mobile\ Documents/com~apple~CloudDocs"
+abbr --add --global config "cd ~/.config"
 abbr --add --global dotfiles "cd ~/.dotfiles"
 abbr --add --global http "python -m http.server"
 abbr --add --global kp "ps auxwww"
